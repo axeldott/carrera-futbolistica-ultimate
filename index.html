@@ -520,7 +520,8 @@
       pichichisMundial: 0,
       listaPremiosIndiv: [],
       ultimoEstadoMental: 0,
-      ultimoEstadoFisico: 0
+      ultimoEstadoFisico: 0,
+      ultimaTemporadaBuena: false
     };
 
     function randomInt(min, max) {
@@ -607,7 +608,6 @@
       player.clausulaRescision = Math.round(val * 1.5);
     }
 
-    // Progresión más difícil a partir de los 30 años
     function aplicarDeltaMedia(delta) {
       if (delta > 0) {
         if (player.edad >= 33) {
@@ -650,7 +650,7 @@
       container.innerHTML = `
         <h1>⚽ FICHAS: CARRERA DE FÚTBOL</h1>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">De Promesa Juvenil a Leyenda del Deporte Rey</p>
-        <p>Vive una trayectoria profesional completa con tácticas de club y selección enfrentadas, contratos detallados, curva de edad realista y calendario internacional riguroso.</p>
+        <p>Vive una trayectoria profesional completa con títulos reales, interés temprano de colosos mundiales si despuntas joven, calendario FIFA riguroso y gestión técnica a tu medida.</p>
         <hr>
         <h3>Selecciona el Modo de Juego:</h3>
         <div class="lista-opciones">
@@ -830,7 +830,11 @@
 
       const numTemporadasEtapa = (player.modoJuego === 11) ? 2 : 1;
 
+      // Hitos individuales destacados
+      let htmlHitoIndividual = "";
+
       if (suerte >= 82) {
+        player.ultimaTemporadaBuena = true;
         if (player.edad >= 35) {
           subida = randomInt(0, 1);
         } else if (player.modoJuego === 22) {
@@ -842,6 +846,24 @@
         partidos = Math.round(randomInt(64, 76) * factorEscala);
         textoNivel = "🌟 TEMPORADA MAGISTRAL";
         claseCartel = "cartel-oro";
+
+        // Mensaje de Hito Individual
+        const azarHito = randomInt(1, 2);
+        if (azarHito === 1) {
+          aplicarDeltaMedia(1);
+          htmlHitoIndividual = `
+            <div style="background: rgba(234, 179, 8, 0.2); border-left: 4px solid #eab308; padding: 10px 14px; margin: 10px 0; border-radius: 6px; color: #fde047;">
+              ⭐ <strong>¡RECONOCIMIENTO INDIVIDUAL!</strong> Te nombran el <strong>MVP de muchos partidos de liga</strong> durante la campaña (+1 de media).
+            </div>
+          `;
+        } else {
+          aplicarDeltaMedia(1);
+          htmlHitoIndividual = `
+            <div style="background: rgba(56, 189, 248, 0.2); border-left: 4px solid #38bdf8; padding: 10px 14px; margin: 10px 0; border-radius: 6px; color: #bae6fd;">
+              📰 <strong>¡IMPACTO MEDIÁTICO!</strong> Das una <strong>master-class de fútbol de enero a marzo</strong>, llamando la atención de los principales periodistas internacionales (+1 de media).
+            </div>
+          `;
+        }
 
         if (esPortero) {
           porteriasCero = Math.round(randomInt(26, 36) * factorEscala);
@@ -886,21 +908,37 @@
           pasesClave = Math.round(randomInt(40, 70) * factorEscala);
         }
 
+        // Títulos en Temporada Magistral
         for (let t = 0; t < numTemporadasEtapa; t++) {
+          let ganoUclEstaTemp = false;
+          let ganoUelEstaTemp = false;
+
           if (esClubChampions) {
-            if (player.media >= 72 && randomInt(1, 100) <= 80) nuevosTitulos.push("Liga Nacional");
-            if (player.media >= 80 && randomInt(1, 100) <= 50) nuevosTitulos.push("UEFA Champions League");
+            if (player.media >= 72 && randomInt(1, 100) <= 82) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 80 && randomInt(1, 100) <= 52) {
+              nuevosTitulos.push("UEFA Champions League");
+              ganoUclEstaTemp = true;
+            }
           } else if (esClubEuropaLeague) {
-            if (player.media >= 75 && randomInt(1, 100) <= 55) nuevosTitulos.push("Liga Nacional");
-            if (player.media >= 76 && randomInt(1, 100) <= 52) nuevosTitulos.push("UEFA Europa League");
+            if (player.media >= 75 && randomInt(1, 100) <= 58) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 76 && randomInt(1, 100) <= 54) {
+              nuevosTitulos.push("UEFA Europa League");
+              ganoUelEstaTemp = true;
+            }
           } else {
-            if (player.media >= 79 && randomInt(1, 100) <= 30) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 79 && randomInt(1, 100) <= 32) nuevosTitulos.push("Liga Nacional");
           }
 
-          if (randomInt(1, 100) <= 40) nuevosTitulos.push("Copa Doméstica");
+          if (randomInt(1, 100) <= 55) nuevosTitulos.push("Copa Doméstica");
+
+          // Supercopa de la UEFA solo si se ganó Champions o Europa League
+          if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 65) {
+            nuevosTitulos.push("Supercopa de la UEFA");
+          }
         }
 
       } else if (suerte >= 52) {
+        player.ultimaTemporadaBuena = true;
         if (player.edad >= 35) {
           subida = 0;
         } else if (player.modoJuego === 22) {
@@ -912,6 +950,15 @@
         partidos = Math.round(randomInt(52, 64) * factorEscala);
         textoNivel = "📈 RENDIMIENTO SÓLIDO Y TITULARIDAD";
         claseCartel = "cartel-verde";
+
+        if (randomInt(1, 100) <= 25) {
+          aplicarDeltaMedia(1);
+          htmlHitoIndividual = `
+            <div style="background: rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 10px 14px; margin: 10px 0; border-radius: 6px; color: #bbf7d0;">
+              ⭐ <strong>¡REGULARIDAD PREMIADA!</strong> Te nombran el <strong>MVP de varios partidos decisivos de liga</strong> (+1 de media).
+            </div>
+          `;
+        }
 
         if (esPortero) {
           porteriasCero = Math.round(randomInt(16, 24) * factorEscala);
@@ -957,20 +1004,34 @@
         }
 
         for (let t = 0; t < numTemporadasEtapa; t++) {
+          let ganoUclEstaTemp = false;
+          let ganoUelEstaTemp = false;
+
           if (esClubChampions) {
-            if (player.media >= 74 && randomInt(1, 100) <= 60) nuevosTitulos.push("Liga Nacional");
-            if (player.media >= 82 && randomInt(1, 100) <= 32) nuevosTitulos.push("UEFA Champions League");
+            if (player.media >= 74 && randomInt(1, 100) <= 62) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 82 && randomInt(1, 100) <= 34) {
+              nuevosTitulos.push("UEFA Champions League");
+              ganoUclEstaTemp = true;
+            }
           } else if (esClubEuropaLeague) {
-            if (player.media >= 77 && randomInt(1, 100) <= 38) nuevosTitulos.push("Liga Nacional");
-            if (player.media >= 78 && randomInt(1, 100) <= 35) nuevosTitulos.push("UEFA Europa League");
+            if (player.media >= 77 && randomInt(1, 100) <= 40) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 78 && randomInt(1, 100) <= 36) {
+              nuevosTitulos.push("UEFA Europa League");
+              ganoUelEstaTemp = true;
+            }
           } else {
-            if (player.media >= 81 && randomInt(1, 100) <= 18) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 81 && randomInt(1, 100) <= 20) nuevosTitulos.push("Liga Nacional");
           }
 
-          if (randomInt(1, 100) <= 30) nuevosTitulos.push("Copa Doméstica");
+          if (randomInt(1, 100) <= 40) nuevosTitulos.push("Copa Doméstica");
+
+          if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 55) {
+            nuevosTitulos.push("Supercopa de la UEFA");
+          }
         }
 
       } else if (suerte >= 26) {
+        player.ultimaTemporadaBuena = false;
         if (player.edad >= 34) {
           subida = -1;
         } else if (player.modoJuego === 22) {
@@ -1026,14 +1087,34 @@
           pasesClave = Math.round(randomInt(15, 25) * factorEscala);
         }
 
+        // Títulos posibles incluso en rotación si el club es potente
         for (let t = 0; t < numTemporadasEtapa; t++) {
-          if (esClubChampions && player.media >= 75 && randomInt(1, 100) <= 35) {
-            nuevosTitulos.push("Liga Nacional");
+          let ganoUclEstaTemp = false;
+          let ganoUelEstaTemp = false;
+
+          if (esClubChampions) {
+            if (randomInt(1, 100) <= 40) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 18) {
+              nuevosTitulos.push("UEFA Champions League");
+              ganoUclEstaTemp = true;
+            }
+          } else if (esClubEuropaLeague) {
+            if (randomInt(1, 100) <= 22) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 15) {
+              nuevosTitulos.push("UEFA Europa League");
+              ganoUelEstaTemp = true;
+            }
           }
-          if (randomInt(1, 100) <= 22) nuevosTitulos.push("Copa Doméstica");
+
+          if (randomInt(1, 100) <= 30) nuevosTitulos.push("Copa Doméstica");
+
+          if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 50) {
+            nuevosTitulos.push("Supercopa de la UEFA");
+          }
         }
 
       } else {
+        player.ultimaTemporadaBuena = false;
         if (player.edad >= 34) {
           subida = -2;
         } else if (player.modoJuego === 22) {
@@ -1089,9 +1170,31 @@
           pasesClave = Math.round(randomInt(4, 10) * factorEscala);
         }
 
+        // Títulos posibles incluso en mala temporada por inercia de club grande
         for (let t = 0; t < numTemporadasEtapa; t++) {
-          if ((esClubChampions || esClubEuropaLeague) && randomInt(1, 100) <= 20) {
-            nuevosTitulos.push(pickRandom(["Copa Doméstica", "Supercopa Nacional"]));
+          let ganoUclEstaTemp = false;
+          let ganoUelEstaTemp = false;
+
+          if (esClubChampions) {
+            if (randomInt(1, 100) <= 26) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 10) {
+              nuevosTitulos.push("UEFA Champions League");
+              ganoUclEstaTemp = true;
+            }
+            if (randomInt(1, 100) <= 28) nuevosTitulos.push("Copa Doméstica");
+          } else if (esClubEuropaLeague) {
+            if (randomInt(1, 100) <= 12) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 8) {
+              nuevosTitulos.push("UEFA Europa League");
+              ganoUelEstaTemp = true;
+            }
+            if (randomInt(1, 100) <= 20) nuevosTitulos.push("Copa Doméstica");
+          } else {
+            if (randomInt(1, 100) <= 10) nuevosTitulos.push("Copa Doméstica");
+          }
+
+          if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 45) {
+            nuevosTitulos.push("Supercopa de la UEFA");
           }
         }
       }
@@ -1271,7 +1374,7 @@
         </div>
       `;
 
-      // Sistema de NOTICIAS VIRALES con filtros de posición
+      // Noticias virales
       let htmlNoticiaPrensa = "";
       const azarNoticia = randomInt(1, 100);
       if (azarNoticia <= 48) {
@@ -1296,12 +1399,6 @@
             opcionA: { txt: "Dedicarle los goles a los asistentes de la plantilla", delta: 1, msg: "Tu generosidad como líder te hace subir +1 de media." },
             opcionB: { txt: "Exigir a la directiva una mejora de contrato inmediata tras la exhibición", delta: 0, msg: "La directiva toma nota de tus exigencias con cautela." }
           });
-          catalogo.push({
-            titular: "🥊 ¡PELEA A PUÑETAZOS POR LANZAR UN PENALTI!",
-            bajada: "Le arrancaste el balón de las manos al capitán designado para tirar la pena máxima. Marcaste, pero nadie en el banquillo lo celebró contigo.",
-            opcionA: { txt: "Donar la prima del partido a una causa benéfica del club", delta: 0, msg: "El gesto aplaca las críticas en el vestuario." },
-            opcionB: { txt: "Declarar en rueda de prensa que el lanzador número 1 eres tú", delta: -1, msg: "La arrogancia quiebra tu relación con los capitanes (-1 de media)." }
-          });
         }
 
         if (esMedio) {
@@ -1316,12 +1413,6 @@
             bajada: "Intentaste una ruleta como último hombre en lugar de despejar; te robaron la cartera y regalaste el gol de la derrota en el 90'.",
             opcionA: { txt: "Dar la cara en zona mixta asumiendo el error táctico", delta: 0, msg: "La afición respeta tu valentía al no esconderte." },
             opcionB: { txt: "Discutir con el central alegando que no te gritó la marca", delta: -1, msg: "Creas una fractura en la zaga que te cuesta -1 de media." }
-          });
-          catalogo.push({
-            titular: "🪄 ¡RECITAL DE ASISTENCIAS: TRIPLETE DE PASES CLAVE!",
-            bajada: "Tres pases filtrados milimétricos entre líneas que desmontaron un bloque bajo en Champions. Nota perfecta en los diarios.",
-            opcionA: { txt: "Alabar el desmarque y la definición de los delanteros", delta: 1, msg: "Conexión mágica con el equipo: +1 de media." },
-            opcionB: { txt: "Exigir ser el eje absoluto del esquema la próxima temporada", delta: 0, msg: "El entrenador te concede galones pero te exige más trabajo defensivo." }
           });
         }
 
@@ -1338,12 +1429,6 @@
             opcionA: { txt: "Pedir disculpas a la afición por la desconcentración", delta: 0, msg: "El perdón calma a la grada tras el empate agónico." },
             opcionB: { txt: "Rajar del VAR y de los colegiados en zona mixta", delta: -1, msg: "Sanción económica y desconcentración deportiva (-1 de media)." }
           });
-          catalogo.push({
-            titular: "🏃‍♂️ ¡SUPERADO 5 VECES POR VELOCIDAD: SUSTITUIDO AL DESCANSO!",
-            bajada: "El extremo rival te desbordó en cada arrancada, obligando al míster a retirarte del campo en el intermedio.",
-            opcionA: { txt: "Aceptar un plan de reacondicionamiento físico con el preparador", delta: 0, msg: "Trabajas en silencio para recuperar tu mejor versión." },
-            opcionB: { txt: "Quejarte públicamente de la falta de ayudas del interior", delta: -1, msg: "Tus quejas generan malestar en la plantilla (-1 de media)." }
-          });
         }
 
         if (esPortero) {
@@ -1358,42 +1443,6 @@
             bajada: "Un disparo lejano y manso botó antes de llegar a tus guantes y se coló directo a la red en una semifinal.",
             opcionA: { txt: "Encerrarte a entrenar técnica de blocaje sin dar declaraciones", delta: 0, msg: "El silencio y el trabajo duro te devuelven la seguridad." },
             opcionB: { txt: "Culpar a la iluminación del estadio y a los focos", delta: -1, msg: "La excusa no convence a nadie y te cuesta -1 de media." }
-          });
-        }
-
-        if (player.seHaOperado) {
-          catalogo.push({
-            titular: "💉 ¡EL FÍSICO PASA FACTURA: MOLESTIAS EN LA ZONA OPERADA!",
-            bajada: "Forzaste la máquina tras la intervención médica y sentiste un pinchazo agudo en el primer sprint del encuentro.",
-            opcionA: { txt: "Parar inmediatamente y pactar descanso preventivo", delta: 0, msg: "Evitas una rotura grave y conservas el tono." },
-            opcionB: { txt: "Seguir jugando infiltrado bajo tu propia responsabilidad", delta: -1, msg: "La sobrecarga agrava la lesión: pierdes -1 de media." }
-          });
-        }
-
-        if (player.haDesobedecido) {
-          catalogo.push({
-            titular: "🥶 ¡CASTIGADO A LA GRADA POR TUS ROCES CON EL MÍSTER!",
-            bajada: "El entrenador te dejó fuera de la convocatoria del choque europeo; las cámaras te captaron en el palco con gesto serio.",
-            opcionA: { txt: "Aceptar el castigo y pedir una reunión privada con los capitanes", delta: 0, msg: "El vestuario media por ti y se restablece la paz." },
-            opcionB: { txt: "Subir un mensaje enigmático a redes cuestionando la alineación", delta: -1, msg: "La afición y el club censuran tu actitud (-1 de media)." }
-          });
-        }
-
-        if (player.haExigidoDinero) {
-          catalogo.push({
-            titular: "💵 ¡PANCARTAS Y LLUVIA DE BILLETES FALSOS DESDE EL FONDO SUR!",
-            bajada: "La afición te recibió en tu propio estadio con billetes con tu cara tras las filtraciones de tus exigencias salariales.",
-            opcionA: { txt: "Centrarte en el juego y aplaudir con respeto al público al terminar", delta: 0, msg: "Tu profesionalismo sobre el césped silencia las protestas." },
-            opcionB: { txt: "Hacer gestos desafiantes a la grada tras anotar un gol", delta: -1, msg: "Ruptura total con la hinchada propia (-1 de media)." }
-          });
-        }
-
-        if (player.retiradoSeleccion) {
-          catalogo.push({
-            titular: "🏖️ ¡DE VACACIONES EN DUBÁI MIENTRAS TU PAÍS QUEDA ELIMINADO!",
-            bajada: "Tu selección cayó en la fase de grupos del torneo continental mientras tú compartías fotos descansando en un yate.",
-            opcionA: { txt: "Emitir un mensaje público de ánimo y cariño al vestuario de tu país", delta: 0, msg: "El gesto mitiga la controversia en tu país natal." },
-            opcionB: { txt: "Ignorar las críticas y reivindicar tu derecho al descanso", delta: 0, msg: "Te centras exclusivamente en tu club sin prestar atención al ruido." }
           });
         }
 
@@ -1454,7 +1503,7 @@
             ¡Has levantado trofeos con <strong>${player.club}</strong> en esta etapa!<br>
             ${Object.keys(conteoTitulos).map(t => {
               const cantidad = conteoTitulos[t];
-              return `🥇 <strong>${t}</strong>${cantidad > 1 ? `<span style="color:#fde047; font-weight:800;">(x${cantidad} - ¡Bicampeón!)</span>` : ''}<br>`;
+              return `🥇 <strong>${t}</strong> ${cantidad > 1 ? `<span style="color:#fde047; font-weight:800;">(x${cantidad} - ¡Bicampeón!)</span>` : ''}<br>`;
             }).join('')}
           </div>
         `;
@@ -1465,10 +1514,8 @@
       const tInfo = obtenerTierPais(player.nacionalidad);
       let htmlSeleccion = "";
 
-      // CALENDARIO INTERNACIONAL: 2 AÑOS DE SEPARACIÓN REALISTA ENTRE MUNDIAL Y CONTINENTAL
-      // Se determina según el ciclo del año
-      const esAnioMundial = (player.edad % 4 === 1); // ej: 21, 25, 29, 33 años
-      const esAnioContinental = (player.edad % 4 === 3); // ej: 19, 23, 27, 31, 35 años
+      const esAnioMundial = (player.edad % 4 === 1);
+      const esAnioContinental = (player.edad % 4 === 3);
 
       const factorDificultadMundial = calcularFactorDificultadSeleccion(player.mundialesGanados);
       const factorDificultadContinental = calcularFactorDificultadSeleccion(player.continentalesGanados);
@@ -1533,7 +1580,6 @@
 
         let copasSel = "";
 
-        // Solo se disputa torneo continental si toca por año
         if (esAnioContinental && player.media >= tInfo.reqCont && randomInt(1, 100) <= probContAjustada) {
           player.titulosSeleccion += 1;
           player.continentalesGanados += 1;
@@ -1541,7 +1587,6 @@
           copasSel += `<div style="color: #facc15; margin-top: 6px; font-weight: bold;">⭐ ¡¡CAMPEÓN CONTINENTAL!! Levantaste el trofeo continental con ${player.nacionalidad}${player.continentalesGanados > 1 ? ` (Tu ${player.continentalesGanados}º título continental)` : ''}.</div>`;
         }
 
-        // Solo se disputa mundial si toca por año
         if (esAnioMundial && player.media >= tInfo.reqMun && randomInt(1, 100) <= probMunAjustada) {
           player.titulosSeleccion += 1;
           player.mundialesGanados += 1;
@@ -1659,6 +1704,7 @@
         </div>
 
         ${htmlRendimiento}
+        ${htmlHitoIndividual}
         ${htmlNoticiaPrensa}
         ${htmlSaludMental}
         ${htmlEstadoFisico}
@@ -1694,7 +1740,7 @@
     function renderDespacho() {
       let htmlOpciones = "";
 
-      // 1. EVENTO FORZOSO SIN DECISIÓN DEL JUGADOR (~6%)
+      // 1. EVENTO FORZOSO SIN DECISIÓN (~6%)
       const azarForzado = randomInt(1, 100);
       if (azarForzado <= 6 && player.numeroFicha > 1) {
         if (!player.retiradoSeleccion && player.edad >= 27 && azarForzado <= 3) {
@@ -1726,70 +1772,86 @@
         }
       }
 
-      // 2. INSTRUCCIONES TÁCTICAS ESPECÍFICAS DE CLUB VS SELECCIÓN (POR JERARQUÍA >= 76 DE MEDIA)
-      let htmlInstruccionesPizarra = "";
-      if (player.media >= 76 && randomInt(1, 100) <= 28) {
-        const catalogoTáctico = {
-          "Portero": {
-            club: "Jugar en corto y arriesgar con los pies para iniciar la salida lavolpiana",
-            sel: "Buscar balones largos y juego directo para evitar pérdidas en campo propio"
-          },
-          "Delantero Centro": {
-            club: "Bajar a recibir al mediocampo como falso 9 y arrastrar centrales",
-            sel: "Fijar a los centrales en el área y ser rematador puro de un solo toque"
-          },
-          "Extremo Izquierdo": {
-            club: "Jugar a pierna cambiada, recortar hacia adentro y disparar a puerta",
-            sel: "Pegarte a la línea de cal, ganar línea de fondo y colgar balones al área"
-          },
-          "Extremo Derecho": {
-            club: "Jugar a pierna cambiada, recortar hacia adentro y disparar a puerta",
-            sel: "Pegarte a la línea de cal, ganar línea de fondo y colgar balones al área"
-          },
-          "Centrocampista": {
-            club: "Llegar al área contraria como llegador y buscar el remate de segunda línea",
-            sel: "Temporizar, colgar balones aéreos y guardar la posición por delante de la zaga"
-          },
-          "Pivote Defensivo": {
-            club: "Incrustarte entre los centrales como tercer hombre defensivo",
-            sel: "Presionar arriba la salida del rival y vaciarte en campo contrario"
-          },
-          "Defensa Central": {
-            club: "Anticipar en campo rival y defender con la línea muy adelantada",
-            sel: "Hundir la línea al borde del área y defender en bloque bajo sin salir"
-          },
-          "Lateral Izquierdo": {
-            club: "Doblar por dentro como carrilero interior para generar superioridad",
-            sel: "Quedarte en repliegue cerrado como tercer central y no cruzar el mediocampo"
-          },
-          "Lateral Derecho": {
-            club: "Doblar por dentro como carrilero interior para generar superioridad",
-            sel: "Quedarte en repliegue cerrado como tercer central y no cruzar el mediocampo"
-          },
-          "Mediapunta": {
-            club: "Caer a banda para desbordar en 1 contra 1",
-            sel: "Flotar libre por el carril central y filtrar pases entre líneas"
-          }
-        };
+      // 2. OFERTAS DE CLUBES TOP SI ERES JOVEN Y VIENES DE BUENA TEMPORADA (17 a 22 años)
+      let htmlOfertasJovenEstrella = "";
+      if (player.edad <= 22 && player.ultimaTemporadaBuena && !clubesEuropaTop.includes(player.club)) {
+        const clubTopInteresado = pickRandom(clubesEuropaTop);
+        const contratoTop = generarDetalleContrato(clubTopInteresado);
+        htmlOfertasJovenEstrella = `
+          <div style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%); border-left: 5px solid #38bdf8; padding: 14px; margin: 15px 0;">
+            🌟 <strong>¡LA ÉLITE MUNDIAL LLAMA A TU PUERTA! (${player.edad} años)</strong><br>
+            Tu descomunal rendimiento juvenil no ha pasado desapercibido. El <strong>${clubTopInteresado}</strong> quiere convertirte en el nuevo pilar de su proyecto.
+          </div>
+          <div class="oferta-card">
+            <div class="oferta-header">🏛️ Oferta de Traspaso: ${clubTopInteresado}</div>
+            <div class="oferta-detalles">
+              • <strong>Duración:</strong> ${contratoTop.duracion} temporadas<br>
+              • <strong>Sueldo:</strong> €${contratoTop.sueldo}M/año | <strong>Prima:</strong> €${contratoTop.prima}M<br>
+              • <strong>Cláusula:</strong> €${contratoTop.clausula}M | <strong>Rol:</strong> ${contratoTop.rol}
+            </div>
+            <button class="btn-opcion" onclick="ejecutarDecision({club: '${clubTopInteresado}'})">Dar el salto y fichar por el <strong>${clubTopInteresado}</strong></button>
+          </div>
+          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Rechazar al gigante y seguir creciendo en el <strong>${player.club}</strong> (+1 de media)</button>
+        `;
+      }
 
-        const inst = catalogoTáctico[player.posicion];
-        if (inst && !player.retiradoSeleccion) {
-          htmlInstruccionesPizarra = `
+      // 3. DILEMAS TÁCTICOS Y DE ENTRENADOR: ESPECIALIZADOS PARA PORTEROS Y JUGADORES DE CAMPO
+      let htmlDilemaEntrenador = "";
+      if (randomInt(1, 100) <= 24 && player.numeroFicha > 1) {
+        if (player.posicion === "Portero") {
+          // Dilema exclusivo de porteros (pies vs manos)
+          const dilemasPortero = [
+            {
+              txt: "El entrenador te exige arriesgar más jugando con los pies como si fueras un líbero, iniciando el ataque desde el área pequeña.",
+              obedece: { txt: "Aceptar el reto y trabajar juego de pies", deltaMedia: 1, msg: "Mejoras tu precisión con el balón y te conviertes en un portero moderno (+1 de media)." },
+              desobedece: { txt: "Negarte y despejar en largo sin riesgos", deltaMedia: -1, msg: "El míster se frustra por tu falta de juego asociativo (-1 de media)." }
+            },
+            {
+              txt: "El cuerpo técnico te pide no salir tanto por bajo y priorizar los guantes: blocar todos los balones y no rifar el esférico.",
+              obedece: { txt: "Hacer caso y asegurar el balón con las manos", deltaMedia: 1, msg: "Transmites seguridad máxima bajo los palos y no concedes rechaces (+1 de media)." },
+              desobedece: { txt: "Seguir saliendo a cortar con los pies a tu estilo", deltaMedia: -1, msg: "Una salida en falso genera dudas en la zaga (-1 de media)." }
+            }
+          ];
+          const dp = pickRandom(dilemasPortero);
+          htmlDilemaEntrenador = `
             <div class="cartel-mister">
-              ⚔️ <strong>CONFLICTO DE PIZARRAS: CLUB VS SELECCIÓN</strong><br>
-              Tu estatus de estrella genera exigencias contrapuestas:<br>
-              • <strong>Tu entrenador en ${player.club} te exige:</strong> <em>"${inst.club}"</em>.<br>
-              • <strong>El seleccionador de ${player.nacionalidad} te ordena:</strong> <em>"${inst.sel}"</em>.<br><br>
-              ¿A qué libreto decides darle prioridad táctica?
+              🧤 <strong>INSTRUCCIÓN TÁCTICA PARA LA PORTERÍA</strong><br>
+              ${dp.txt}
               <div class="lista-opciones" style="margin-top: 10px;">
-                <button class="btn-opcion" onclick="resolverConflictoTáctico('club')">
-                  🏟️ <strong>Priorizar a tu Club:</strong> Cumplir al 100% las órdenes de ${player.club} (+1 media en club / tensión en selección)
+                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dp.obedece.deltaMedia}, '${dp.obedece.msg}', false)">
+                  🤝 <strong>Hacerle caso al entrenador:</strong> ${dp.obedece.txt}
                 </button>
-                <button class="btn-opcion" onclick="resolverConflictoTáctico('sel')">
-                  🌍 <strong>Priorizar a la Selección:</strong> Obedecer la pizarra de ${player.nacionalidad} (+1 media internacional / fricción en club)
+                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dp.desobedece.deltaMedia}, '${dp.desobedece.msg}', true)">
+                  ⚡ <strong>Desobedecer la orden:</strong> ${dp.desobedece.txt}
                 </button>
-                <button class="btn-opcion" onclick="resolverConflictoTáctico('libre')">
-                  🎨 <strong>Jugar por libre a tu aire:</strong> Ignorar a ambos técnicos (-1 media por desorganización táctica)
+              </div>
+            </div>
+          `;
+        } else {
+          // Dilemas para jugadores de campo
+          const dilemasCampo = [
+            {
+              txt: "El míster te exige jugar infiltrado con fuertes molestias para no desarmar el dibujo táctico.",
+              obedece: { txt: "Infiltrarte y vaciarte por el equipo", deltaMedia: 1, msg: "Cumples con pundonor heroico y el club te premia (+1 media)." },
+              desobedece: { txt: "Negarte a jugar con dolor y priorizar tu salud", deltaMedia: -1, msg: "Cuidas tu físico, pero el míster te aparta de las charlas tácticas (-1 media)." }
+            },
+            {
+              txt: "El entrenador te ordena cambiar tu estilo: quiere que dejes de regatear y juegues a un solo toque.",
+              obedece: { txt: "Disciplinarte y jugar al pie según su pizarra", deltaMedia: 1, msg: "Te conviertes en un peón táctico perfecto (+1 media)." },
+              desobedece: { txt: "Desobedecer y seguir jugando con tu magia individual", deltaMedia: -1, msg: "La grada aplaude tu rebeldía, pero el míster te sienta el próximo partido (-1 media)." }
+            }
+          ];
+          const dc = pickRandom(dilemasCampo);
+          htmlDilemaEntrenador = `
+            <div class="cartel-mister">
+              👔 <strong>ORDEN TÁCTICA DEL ENTRENADOR</strong><br>
+              ${dc.txt}
+              <div class="lista-opciones" style="margin-top: 10px;">
+                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dc.obedece.deltaMedia}, '${dc.obedece.msg}', false)">
+                  🤝 <strong>Hacerle caso al entrenador:</strong> ${dc.obedece.txt}
+                </button>
+                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dc.desobedece.deltaMedia}, '${dc.desobedece.msg}', true)">
+                  ⚡ <strong>Desobedecer la orden:</strong> ${dc.desobedece.txt}
                 </button>
               </div>
             </div>
@@ -1878,7 +1940,7 @@
         `;
       }
 
-      // Tratamiento Quirúrgico/Médico: ESPORÁDICO (~18%)
+      // Tratamiento Quirúrgico/Médico
       let htmlTratamientoMedico = "";
       if ((player.ultimoEstadoFisico < 0 || player.ultimoEstadoMental < 0) && randomInt(1, 100) <= 18) {
         htmlTratamientoMedico = `
@@ -1911,10 +1973,10 @@
         `;
       }
 
-      // Cambio de posición coherente y poco probable (~8%)
+      // Cambio de posición (solo para jugadores de campo)
       let htmlCambioPosicion = "";
       const posSugerida = obtenerPosicionReconversion(player.posicion);
-      if (posSugerida && player.edad >= 19 && player.edad <= 33 && randomInt(1, 100) <= 8) {
+      if (posSugerida && player.edad >= 19 && player.edad <= 33 && randomInt(1, 100) <= 8 && player.posicion !== "Portero") {
         htmlCambioPosicion = `
           <div class="cartel-tactica">
             ♟️ <strong>PIZARRA TÁCTICA: RECONVERSIÓN DE POSICIÓN</strong><br>
@@ -1932,207 +1994,15 @@
         `;
       }
 
-      // Dilema de obediencia con el entrenador (~15%)
-      let htmlDilemaEntrenador = "";
-      if (randomInt(1, 100) <= 15 && player.numeroFicha > 1) {
-        const dilemasMister = [
-          {
-            txt: "El míster te exige jugar infiltrado con fuertes dolores en el partido de vuelta de semifinales para no romper el esquema.",
-            obedece: { txt: "Infiltrarte y sacrificarte por el equipo", deltaFisico: -1, deltaMedia: 1, mensaje: "Cumpliste con heroísmo y el club te adora, pero tu rodilla queda resentida (-1 físico, +1 media)." },
-            desobedece: { txt: "Negarte a jugar con dolor y priorizar tu salud", deltaFisico: 0, deltaMedia: -1, mensaje: "Cuidaste tu físico, pero el míster te acusa de falta de compromiso ante la plantilla (-1 media)." }
-          },
-          {
-            txt: "El entrenador te ordena cambiar tu estilo: quiere que dejes de regatear y juegues a un solo toque en defensa.",
-            obedece: { txt: "Disciplinarte y jugar al pie según su pizarra", deltaFisico: 0, deltaMedia: 1, mensaje: "Te conviertes en un peón táctico perfecto; el míster elogia tu madurez (+1 media)." },
-            desobedece: { txt: "Desobedecer y seguir jugando con tu magia individual", deltaFisico: 0, deltaMedia: -1, mensaje: "La grada aplaude tu rebeldía, pero el entrenador te manda al banquillo el siguiente partido (-1 media)." }
-          },
-          {
-            txt: "En un partido bronco, el míster te ordena cederle el lanzamiento de un penalti decisivo al delantero fichaje estrella.",
-            obedece: { txt: "Cederle el balón y evitar un conflicto", deltaFisico: 0, deltaMedia: 0, mensaje: "Demuestras compañerismo y mantienes la paz en el vestuario." },
-            desobedece: { txt: "Agarrar el balón y chutarlo tú con autoridad", deltaFisico: 0, deltaMedia: 1, mensaje: "Marcaste el gol y mostraste jerarquía de líder, aunque el míster te miró torcido (+1 media)." }
-          }
-        ];
-        const dm = pickRandom(dilemasMister);
-        htmlDilemaEntrenador = `
-          <div class="cartel-mister">
-            👔 <strong>ORDEN TÁCTICA DEL ENTRENADOR</strong><br>
-            ${dm.txt}
-            <div class="lista-opciones" style="margin-top: 10px;">
-              <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dm.obedece.deltaMedia}, '${dm.obedece.mensaje}', false)">
-                🤝 <strong>Hacerle caso al entrenador:</strong> ${dm.obedece.txt}
-              </button>
-              <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dm.desobedece.deltaMedia}, '${dm.desobedece.mensaje}', true)">
-                ⚡ <strong>Desobedecer la orden:</strong> ${dm.desobedece.txt}
-              </button>
-            </div>
-          </div>
-        `;
-      }
-
-      // Salseo y prensa
-      const eventosSalseo = [
-        {
-          id: 1,
-          titulo: "🗣️ GUERRA ABIERTA CON EL ENTRENADOR",
-          texto: "El míster te cambia en el minuto 60 en un partido clave y le niegas el saludo en directo ante las cámaras. El vestuario arde.",
-          opcionA: { txt: "Exigir una reunión con la directiva y forzar tu traspaso", club: pickRandomExcept(clubesEuropaMedios, player.club), delta: 0 },
-          opcionB: { txt: "Tragarte el orgullo, pedir perdón público y aceptar suplencias", delta: -1 }
-        },
-        {
-          id: 2,
-          titulo: "👨‍👩‍👦 DILEMA FAMILIAR Y ENTORNO PERSONAL",
-          texto: "Tu familia no se adapta a la ciudad y tu entorno te presiona para buscar un destino más acogedor o regresar cerca de casa.",
-          opcionA: { txt: "Hacer caso a tu familia y forzar una salida a un nuevo club", club: pickRandomExcept(clubesEuropaBajos, player.club), delta: 1 },
-          opcionB: { txt: "Priorizar tu ambición profesional y quedarte en tu club actual", delta: -1 }
-        },
-        {
-          id: 3,
-          titulo: "💼 PULSO SALARIAL: RENOVACIÓN CASI IMPOSIBLE",
-          texto: "Tu agente exige triplicar tu sueldo o romper negociaciones. La directiva te tacha de pesetero en rueda de prensa.",
-          opcionA: { txt: "Mantenerte firme: exigir cada euro de la prima o marcharte", club: pickRandomExcept(clubesEuropaTop, player.club), delta: 0, pideDinero: true },
-          opcionB: { txt: "Rebajar tus pretensiones, firmar a la baja y ganarte el cariño de la grada", delta: 1 }
-        },
-        {
-          id: 4,
-          titulo: "📸 ESCÁNDALO CON LA PRENSA Y VIDA NOCTURNA",
-          texto: "Un medio sensacionalista filtra fotos tuyas de fiesta 48 horas antes de un partido crucial. La crítica es despiadada.",
-          opcionA: { txt: "Contratar a un asesor de imagen de élite y blindarte en redes", delta: 1 },
-          opcionB: { txt: "Enfrentarte a los periodistas en zona mixta y pagar la multa del club", delta: -1 }
-        }
-      ];
-
-      let htmlDrama = "";
-      if (randomInt(1, 100) <= 22 && player.numeroFicha > 1) {
-        const drama = pickRandom(eventosSalseo);
-        htmlDrama = `
-          <div class="cartel-drama">
-            <strong>${drama.titulo}</strong><br>
-            ${drama.texto}
-          </div>
-          <div class="lista-opciones">
-            <button class="btn-opcion" onclick="ejecutarDecision(${drama.opcionA.club ? `{club: '${drama.opcionA.club}', mediaDelta:${drama.opcionA.delta}}` : `{mediaDelta: ${drama.opcionA.delta}}`}); ${drama.opcionA.pideDinero ? 'player.haExigidoDinero=true;' : ''}">
-              ${drama.opcionA.txt}
-            </button>
-            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: ${drama.opcionB.delta}})">
-              ${drama.opcionB.txt}
-            </button>
-          </div>
-        `;
-      }
-
-      let htmlGiroMercado = "";
-      const azarMercado = randomInt(1, 100);
-
-      if (player.edad <= 22 && clubesEuropaTop.includes(player.club) && player.media <= 78 && azarMercado <= 30) {
-        const destinoCesion = pickRandomExcept(clubesEuropaMedios.concat(clubesEuropaBajos), player.club);
-        const contratoCesion = generarDetalleContrato(destinoCesion);
-        htmlGiroMercado = `
-          <div class="cartel-mercado">
-            🔄 <strong>¡CESIÓN DEPORTIVA DE ÚLTIMA HORA!</strong><br>
-            La directiva de <strong>${player.club}</strong> considera que a tus ${player.edad} años necesitas 90 minutos semanales garantizados para no estancar tu valor de €${player.valorMercado}M. Han acordado una cesión con el <strong>${destinoCesion}</strong>.
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">📋 Condiciones de la Cesión en ${destinoCesion}</div>
-            <div class="oferta-detalles">
-              • <strong>Período:</strong> 1 temporada completa<br>
-              • <strong>Sueldo cubierto:</strong> €${contratoCesion.sueldo}M/año<br>
-              • <strong>Rol garantizado:</strong> Titular indiscutible<br>
-              • <strong>Opción de compra:</strong> Sin opción (regreso garantizado)
-            </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${destinoCesion}', mediaDelta: 1})">Aceptar la cesión al <strong>${destinoCesion}</strong> (+1 de media)</button>
-          </div>
-          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: -1})">Negarte a salir y quedarte a pelear el puesto en <strong>${player.club}</strong> (-1 de media)</button>
-        `;
-      } else if (player.edad >= 21 && player.edad <= 31 && player.valorMercado >= 35 && !clubesEuropaTop.includes(player.club) && azarMercado <= 25) {
-        const compradorTop = pickRandomExcept(clubesEuropaTop, player.club);
-        const contratoBomba = generarDetalleContrato(compradorTop);
-        htmlGiroMercado = `
-          <div class="cartel-mercado">
-            🚨 <strong>¡BOMBAZO EN EL DEADLINE DAY (CIERRE DE MERCADO)!</strong><br>
-            Faltan 2 horas para el cierre del mercado. El <strong>${compradorTop}</strong> ha depositado una oferta irrechazable de <strong>€${Math.round(player.valorMercado * 1.2)}M</strong>.
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">🏛️ Oferta Formal de ${compradorTop}</div>
-            <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${contratoBomba.duracion} temporadas<br>
-              • <strong>Sueldo estelar:</strong> €${contratoBomba.sueldo}M/año<br>
-              • <strong>Prima de fichaje:</strong> €${contratoBomba.prima}M<br>
-              • <strong>Cláusula:</strong> €${contratoBomba.clausula}M<br>
-              • <strong>Rol:</strong> ${contratoBomba.rol}
-            </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${compradorTop}'})">Hacer las maletas y firmar con el <strong>${compradorTop}</strong></button>
-          </div>
-          <button class="btn-opcion" onclick="ejecutarDecision({})">Bloquear el traspaso por amor al club y cumplir contrato</button>
-        `;
-      }
-
-      let htmlCondicionEspecial = "";
-      const m = player.ultimoEstadoMental;
-      const f = player.ultimoEstadoFisico;
-
-      if (m < 0 && f < 0) {
-        const clubEscape = pickRandomExcept(clubesEuropaBajos, player.club);
-        htmlCondicionEspecial = `
-          <div style="background: rgba(239, 68, 68, 0.2); border-left: 4px solid #ef4444; padding: 12px 14px; margin: 14px 0; border-radius: 6px;">
-            ⚠️ <strong>CRISIS INTEGRAL: AGOTAMIENTO FÍSICO Y PSICOLÓGICO</strong><br>
-            El ambiente en <strong>${player.club}</strong> se ha vuelto irrespirable y tu cotización se resiente.
-          </div>
-          <div class="lista-opciones">
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${clubEscape}', mediaDelta: 1})">Pedir el traspaso inmediato al <strong>${clubEscape}</strong> (Recuperar la paz: +1 de media)</button>
-            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: -1})">Forzar tu continuidad en <strong>${player.club}</strong> (-1 de media por desgaste)</button>
-          </div>
-        `;
-      } else if (m < 0 && f >= 0) {
-        const clubNuevo = pickRandomExcept(clubesEuropaMedios, player.club);
-        htmlCondicionEspecial = `
-          <div style="background: rgba(168, 85, 247, 0.2); border-left: 4px solid #a855f7; padding: 12px 14px; margin: 14px 0; border-radius: 6px;">
-            🧠 <strong>RUPTURA ANÍMICA CON EL CLUB</strong><br>
-            Físicamente estás entero, pero las críticas o la suplencia han roto tu relación con el cuerpo técnico de <strong>${player.club}</strong>.
-          </div>
-          <div class="lista-opciones">
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${clubNuevo}'})">Solicitar el transfer request y mudarte al <strong>${clubNuevo}</strong></button>
-            <button class="btn-opcion" onclick="ejecutarDecision({})">Hacer terapia deportiva y pelear el puesto en <strong>${player.club}</strong></button>
-          </div>
-        `;
-      } else if (m >= 0 && f < 0) {
-        const clubSuave = pickRandomExcept(clubesEuropaBajos, player.club);
-        htmlCondicionEspecial = `
-          <div style="background: rgba(14, 165, 233, 0.2); border-left: 4px solid #0ea5e9; padding: 12px 14px; margin: 14px 0; border-radius: 6px;">
-            ⚡ <strong>ALARMA MÉDICA Y EXIGENCIA COMPETITIVA</strong><br>
-            Amas estar en <strong>${player.club}</strong>, pero el cuerpo médico advierte sobrecargas crónicas.
-          </div>
-          <div class="lista-opciones">
-            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Pactar un plan de descansos con el club y renovar (+1 de media)</button>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${clubSuave}'})">Buscar una liga menos exigente físicamente en el <strong>${clubSuave}</strong></button>
-          </div>
-        `;
-      } else if (m > 0 && f > 0 && player.numeroFicha > 2) {
-        htmlCondicionEspecial = `
-          <div style="background: rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 12px 14px; margin: 14px 0; border-radius: 6px;">
-            ✨ <strong>ESTADO DE GRACIA: ARMONÍA MENTAL Y FÍSICA</strong><br>
-            Tu valor de mercado se sitúa en €${player.valorMercado}M. En <strong>${player.club}</strong> te ofrecen un contrato blindado.
-          </div>
-          <div class="lista-opciones">
-            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Firmar la renovación dorada en <strong>${player.club}</strong> (+1 de media)</button>
-          </div>
-        `;
-      }
-
       const etapaJuvenilMax = (player.modoJuego === 22) ? 10 : 5;
       const etapaPrimeMax = (player.modoJuego === 22) ? 15 : 7;
 
-      if (htmlInstruccionesPizarra !== "") {
-        htmlOpciones = htmlInstruccionesPizarra;
+      if (htmlOfertasJovenEstrella !== "") {
+        htmlOpciones = htmlOfertasJovenEstrella;
       } else if (htmlDilemaEntrenador !== "") {
         htmlOpciones = htmlDilemaEntrenador;
       } else if (htmlCambioPosicion !== "") {
         htmlOpciones = htmlCambioPosicion;
-      } else if (htmlDrama !== "") {
-        htmlOpciones = htmlDrama;
-      } else if (htmlGiroMercado !== "") {
-        htmlOpciones = htmlGiroMercado;
-      } else if (htmlCondicionEspecial !== "" && randomInt(1, 100) <= 60) {
-        htmlOpciones = htmlCondicionEspecial;
       } else if (player.numeroFicha === 1) {
         const offA = pickRandomExcept(clubesEuropaMedios, player.club);
         const offB = pickRandomExcept(clubesEuropaBajos, player.club);
@@ -2165,11 +2035,11 @@
           </div>
         `;
       } else if (player.numeroFicha <= etapaJuvenilMax && player.edad < 25) {
-        const azarDilema = randomInt(1, 4);
+        const azarDilema = randomInt(1, 3);
         if (azarDilema === 1 && guerrasValidas.length > 0) {
           const guerra = pickRandom(guerrasValidas);
           htmlOpciones = generarHtmlGuerra(guerra);
-        } else if (azarDilema === 2) {
+        } else if (azarDilema === 2 && player.posicion !== "Portero") {
           htmlOpciones = `
             <div style="background: rgba(14, 165, 233, 0.15); border-left: 4px solid #0ea5e9; padding: 14px; margin: 15px 0;">
               🏃‍♂️ <strong>EXIGENCIA TÁCTICA: PRESIÓN ASFIXIANTE Y REPLIEGUE JOVEN</strong><br>
@@ -2179,18 +2049,6 @@
             <div class="lista-opciones">
               <button class="btn-opcion" onclick="ejecutarPresionJoven()">Aceptar el sacrificio: vaciarte en defensa y presión</button>
               <button class="btn-opcion" onclick="ejecutarDecision({})">Dosificar esfuerzos para cuidar el físico</button>
-            </div>
-          `;
-        } else if (azarDilema === 3) {
-          htmlOpciones = `
-            <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
-              🥗 <strong>PLAN DE NUTRICIÓN Y METABOLISMO DE ÉLITE</strong><br>
-              Un nutricionista de prestigio te propone una dieta metabólica estricta y chef personal.<br>
-              <small style="color: #94a3b8;">(Riesgo: 70% éxito de +1 de media / 30% fatiga y perder -1)</small>
-            </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarDieta()">Aceptar el plan nutricional estricto</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Mantener tu alimentación habitual sin riesgos</button>
             </div>
           `;
         } else {
@@ -2213,25 +2071,9 @@
           `;
         }
       } else if (player.numeroFicha <= etapaPrimeMax && player.edad < 32) {
-        const azarPrime = randomInt(1, 4);
-        if (azarPrime === 1 && player.media >= 83 && guerrasValidas.length > 0) {
+        if (guerrasValidas.length > 0 && randomInt(1, 100) <= 60) {
           const guerra = pickRandom(guerrasValidas);
           htmlOpciones = generarHtmlGuerra(guerra);
-        } else if (azarPrime === 2 && guerrasValidas.length > 0) {
-          const guerra = pickRandom(guerrasValidas);
-          htmlOpciones = generarHtmlGuerra(guerra);
-        } else if (azarPrime === 3) {
-          htmlOpciones = `
-            <div style="background: rgba(245, 158, 11, 0.15); border-left: 4px solid #f59e0b; padding: 14px; margin: 15px 0;">
-              ⚔️ <strong>EL JUGADOR TOTAL: PRESIÓN EN PLENO PRIME</strong><br>
-              El míster te pide liderar la presión arriba sin perder pólvora en ataque.<br>
-              <small style="color: #94a3b8;">(Prime: 65% consagrarte como jugador total +1 / 35% fatiga a final de curso -1)</small>
-            </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarPresionPrime()">Comprometerte al 100% en tareas defensivas</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Priorizar tu frescura ofensiva y desentenderte del repliegue</button>
-            </div>
-          `;
         } else {
           htmlOpciones = `
             <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
@@ -2246,7 +2088,7 @@
           `;
         }
       } else {
-        const azarVet = randomInt(1, 4);
+        const azarVet = randomInt(1, 3);
         if (azarVet === 1) {
           htmlOpciones = `
             <div style="background: rgba(245, 158, 11, 0.15); border-left: 4px solid #f59e0b; padding: 14px; margin: 15px 0;">
@@ -2260,18 +2102,6 @@
             </div>
           `;
         } else if (azarVet === 2) {
-          htmlOpciones = `
-            <div style="background: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; padding: 14px; margin: 15px 0;">
-              🛑 <strong>EL DESGASTE DE LOS AÑOS: ¿DEFENDER A TUS ${player.edad} AÑOS?</strong><br>
-              El míster pide presión alta constante. A tu edad, forzar sprints castiga rodillas e isquios.<br>
-              <small style="color: #94a3b8;">(Veteranía: 40% admiración +1 / 60% rotura muscular y perder -2 de media)</small>
-            </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarPresionVeterano()">Forzar la máquina y presionar como un canterano más</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Dosificar inteligentemente y jugar con la cabeza</button>
-            </div>
-          `;
-        } else if (azarVet === 3) {
           const exotico = pickRandom(clubesExoticos);
           const modesto = pickRandomExcept(clubesEuropaBajos, player.club);
           const detEx = generarDetalleContrato(exotico);
@@ -2329,23 +2159,6 @@
         ${htmlRetiroSeleccion}
         ${htmlOpciones}
       `;
-    }
-
-    function resolverConflictoTáctico(eleccion) {
-      if (eleccion === 'club') {
-        aplicarDeltaMedia(1);
-        player.ultimoEstadoMental = 1;
-        alert(`Te comprometes con la pizarra de ${player.club}: el entrenador te elogia públicamente y ganas +1 de media, aunque el seleccionador te avisa de que tu rol internacional se resentirá.`);
-      } else if (eleccion === 'sel') {
-        aplicarDeltaMedia(1);
-        player.ultimoEstadoMental = 1;
-        alert(`Priorizas tu liderazgo con ${player.nacionalidad}: brillas en el parón internacional (+1 de media), pero el míster de tu club te recrimina falta de sincronía táctica.`);
-      } else {
-        aplicarDeltaMedia(-1);
-        player.ultimoEstadoMental = -1;
-        alert(`Decides jugar a tu aire sin obedecer a nadie: ambos entrenadores se enfurecen por tu indisciplina táctica y pierdes -1 de media.`);
-      }
-      renderDespacho();
     }
 
     function resolverDilemaEntrenador(deltaMedia, msg, desobedecio) {
@@ -2429,16 +2242,6 @@
       ejecutarDecision({mediaDelta: delta});
     }
 
-    function ejecutarPresionPrime() {
-      const delta = (randomInt(1, 100) <= 65) ? 1 : -1;
-      ejecutarDecision({mediaDelta: delta});
-    }
-
-    function ejecutarPresionVeterano() {
-      const delta = (randomInt(1, 100) <= 40) ? 1 : -2;
-      ejecutarDecision({mediaDelta: delta});
-    }
-
     function ejecutarDieta() {
       const delta = (randomInt(1, 100) <= 70) ? 1 : -1;
       ejecutarDecision({mediaDelta: delta});
@@ -2518,12 +2321,12 @@
           <p>• <strong>Partidos oficiales en clubes:</strong> ${player.partidosTotales}</p>
           <p>• <strong>Producción ofensiva de club:</strong> ⚽ ${player.golesTotales} goles | 🅰️ ${player.asistenciasTotales} asistencias</p>
           ${esPortero ? `<p>• <strong>Muro bajo palos:</strong> 🧤 ${player.porteriasCeroTotales} porterías a cero | 🧱 ${player.paradasTotales} paradas totales</p>` : ''}
-          ${esDefensa ? `<p>• <strong>Rendimiento defensivo:</strong> 🛡️ ${player.recuperacionesTotales} recuperaciones/entradas \vert{} 🧤 ${player.porteriasCeroTotales} porterías a cero</p>` : ''}
-          ${(!esPortero && !esDefensa) ? `<p>• <strong>Creación y desborde:</strong> 🔑 ${player.pasesClaveTotales} pases clave | ⚡ ${player.regatesTotales} regates \vert{} 🎯 ${player.pasesCompletadosTotales} pases completados</p>` : ''}
+          ${esDefensa ? `<p>• <strong>Rendimiento defensivo:</strong> 🛡️ ${player.recuperacionesTotales} recuperaciones/entradas | 🧤 ${player.porteriasCeroTotales} porterías a cero</p>` : ''}
+          ${(!esPortero && !esDefensa) ? `<p>• <strong>Creación y desborde:</strong> 🔑 ${player.pasesClaveTotales} pases clave | ⚡ ${player.regatesTotales} regates | 🎯 ${player.pasesCompletadosTotales} pases completados</p>` : ''}
           <p>• <strong>Internacional con ${player.nacionalidad}:</strong> ${player.partidosSeleccion} partidos (${player.golesSeleccion} goles, ${player.asistenciasSeleccion} asistencias)${player.retiradoSeleccion ? ' <em>(Retirado de selección a los 30+ años)</em>' : ''}</p>
           <p>• <strong>Total de Títulos Colectivos:</strong> ${totTitulos} (Club: ${player.titulosClub} | Selección: ${player.titulosSeleccion} [${player.mundialesGanados} Copas del Mundo, ${player.continentalesGanados} Torneos Continentales])</p>
           <p>• <strong>Distinciones individuales:</strong> 🟡 ${player.balonesDeOro} Balones de Oro | 👟 ${player.botasDeOro} Botas de Oro | 🧤 ${player.guantesDeOro} Guantes de Oro | ⭐ ${player.vecesOnceIdeal} Once Ideal FIFPRO</p>
-          ${esAtacante ? `<p>• <strong>Trofeos de Máximo Goleador:</strong> ⚽ ${player.pichichisLiga} Pichichis de Liga | ⚽ ${player.pichichisChampions} Goleador de Champions \vert{} ⚽${player.pichichisMundial} Botas de Oro en Mundiales</p>` : ''}
+          ${esAtacante ? `<p>• <strong>Trofeos de Máximo Goleador:</strong> ⚽ ${player.pichichisLiga} Pichichis de Liga | ⚽ ${player.pichichisChampions} Goleador de Champions | ⚽ ${player.pichichisMundial} Botas de Oro en Mundiales</p>` : ''}
         </div>
 
         <h3>🏅 Vitrina de Títulos Colectivos:</h3>
