@@ -251,6 +251,16 @@
       line-height: 1.5;
     }
 
+    .cartel-fifa {
+      background: linear-gradient(135deg, #0284c7 0%, #1e1b4b 100%);
+      border-left: 5px solid #38bdf8;
+      color: #e0f2fe;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 15px 0;
+      line-height: 1.5;
+    }
+
     .cartel-noticia {
       background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
       border: 2px solid #e11d48;
@@ -624,13 +634,30 @@
       calcularValorMercado();
     }
 
+    // Sistema de contratos realistas (FIFA) con política de edad estricta
     function generarDetalleContrato(clubDestino) {
       const esTop = clubesEuropaTop.includes(clubDestino);
       const esExotico = clubesExoticos.includes(clubDestino);
-      const duracion = player.edad >= 33 ? randomInt(1, 2) : randomInt(3, 5);
+      
+      // A partir de los 32 años los clubes solo ofrecen 1 año renovable
+      let duracion = 1;
+      if (player.edad < 28) {
+        duracion = randomInt(4, 5);
+      } else if (player.edad < 32) {
+        duracion = randomInt(2, 3);
+      } else {
+        duracion = 1;
+      }
+
       const multiplicador = esExotico ? 2.5 : (esTop ? 1.4 : 0.9);
-      const sueldoPropuesto = Math.max(0.8, Math.round((player.sueldoAnual * multiplicador) * 10) / 10);
-      const primaFichaje = Math.round(sueldoPropuesto * 0.4 * 10) / 10;
+      let sueldoPropuesto = Math.max(0.8, Math.round((player.sueldoAnual * multiplicador) * 10) / 10);
+      
+      // Rebaja salarial obligatoria por veteranía
+      if (player.edad >= 33) {
+        sueldoPropuesto = Math.round(sueldoPropuesto * 0.75 * 10) / 10;
+      }
+
+      const primaFichaje = Math.round(sueldoPropuesto * 0.35 * 10) / 10;
       const clausula = Math.round(player.valorMercado * 1.6);
       const rol = player.media >= 84 ? "Estrella indiscutible" : (player.media >= 78 ? "Titular clave" : "Rotación de plantilla");
 
@@ -650,7 +677,7 @@
       container.innerHTML = `
         <h1>⚽ FICHAS: CARRERA DE FÚTBOL</h1>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">De Promesa Juvenil a Leyenda del Deporte Rey</p>
-        <p>Vive una trayectoria profesional completa con títulos reales, interés temprano de colosos mundiales si despuntas joven, calendario FIFA riguroso y gestión técnica a tu medida.</p>
+        <p>Vive una experiencia integral con contratos realistas, decisiones personales, transferencias exigentes para titanes europeos y control táctico individual.</p>
         <hr>
         <h3>Selecciona el Modo de Juego:</h3>
         <div class="lista-opciones">
@@ -829,8 +856,6 @@
       let claseCartel = "";
 
       const numTemporadasEtapa = (player.modoJuego === 11) ? 2 : 1;
-
-      // Hitos individuales destacados
       let htmlHitoIndividual = "";
 
       if (suerte >= 82) {
@@ -847,7 +872,6 @@
         textoNivel = "🌟 TEMPORADA MAGISTRAL";
         claseCartel = "cartel-oro";
 
-        // Mensaje de Hito Individual
         const azarHito = randomInt(1, 2);
         if (azarHito === 1) {
           aplicarDeltaMedia(1);
@@ -908,7 +932,6 @@
           pasesClave = Math.round(randomInt(40, 70) * factorEscala);
         }
 
-        // Títulos en Temporada Magistral
         for (let t = 0; t < numTemporadasEtapa; t++) {
           let ganoUclEstaTemp = false;
           let ganoUelEstaTemp = false;
@@ -931,7 +954,6 @@
 
           if (randomInt(1, 100) <= 55) nuevosTitulos.push("Copa Doméstica");
 
-          // Supercopa de la UEFA solo si se ganó Champions o Europa League
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 65) {
             nuevosTitulos.push("Supercopa de la UEFA");
           }
@@ -1087,7 +1109,6 @@
           pasesClave = Math.round(randomInt(15, 25) * factorEscala);
         }
 
-        // Títulos posibles incluso en rotación si el club es potente
         for (let t = 0; t < numTemporadasEtapa; t++) {
           let ganoUclEstaTemp = false;
           let ganoUelEstaTemp = false;
@@ -1170,7 +1191,6 @@
           pasesClave = Math.round(randomInt(4, 10) * factorEscala);
         }
 
-        // Títulos posibles incluso en mala temporada por inercia de club grande
         for (let t = 0; t < numTemporadasEtapa; t++) {
           let ganoUclEstaTemp = false;
           let ganoUelEstaTemp = false;
@@ -1772,91 +1792,86 @@
         }
       }
 
-      // 2. OFERTAS DE CLUBES TOP SI ERES JOVEN Y VIENES DE BUENA TEMPORADA (17 a 22 años)
-      let htmlOfertasJovenEstrella = "";
-      if (player.edad <= 22 && player.ultimaTemporadaBuena && !clubesEuropaTop.includes(player.club)) {
-        const clubTopInteresado = pickRandom(clubesEuropaTop);
-        const contratoTop = generarDetalleContrato(clubTopInteresado);
-        htmlOfertasJovenEstrella = `
-          <div style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%); border-left: 5px solid #38bdf8; padding: 14px; margin: 15px 0;">
-            🌟 <strong>¡LA ÉLITE MUNDIAL LLAMA A TU PUERTA! (${player.edad} años)</strong><br>
-            Tu descomunal rendimiento juvenil no ha pasado desapercibido. El <strong>${clubTopInteresado}</strong> quiere convertirte en el nuevo pilar de su proyecto.
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">🏛️ Oferta de Traspaso: ${clubTopInteresado}</div>
-            <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${contratoTop.duracion} temporadas<br>
-              • <strong>Sueldo:</strong> €${contratoTop.sueldo}M/año | <strong>Prima:</strong> €${contratoTop.prima}M<br>
-              • <strong>Cláusula:</strong> €${contratoTop.clausula}M | <strong>Rol:</strong> ${contratoTop.rol}
+      // 2. PROBLEMA CONTRACTUAL O DECISIÓN PERSONAL ESTILO FIFA (~22%)
+      let htmlProblemaFIFA = "";
+      if (randomInt(1, 100) <= 22 && player.numeroFicha > 1) {
+        const eventosFIFA = [
+          {
+            titulo: "📑 DESAVENENCIA CONTRACTUAL: PRIMAS IMPAGADAS",
+            desc: `La directiva de ${player.club} se niega a abonarte las primas por objetivos pactadas a inicio de curso alegando problemas de Fair Play Financiero.`,
+            opc1: { txt: "Llevar al club a juicio deportivo y forzar el Transfer Request", delta: -1, msg: "El vestuario se divide y la afición te pita. Quedas transferible (-1 de media)." },
+            opc2: { txt: "Pactar el cobro diferido y centrarte únicamente en competir", delta: 1, msg: "Tu profesionalidad calma las aguas y te ganas el respeto del presidente (+1 de media)." }
+          },
+          {
+            titulo: "🏡 DECISIÓN PERSONAL: INVERSIÓN EMPRESARIAL FUERA DEL CÉSPED",
+            desc: "Un grupo inversor te propone liderar una marca de moda y abrir restaurantes exclusivos en tu ciudad natal.",
+            opc1: { txt: "Invertir tu capital y dedicar tiempo a promocionar la marca", delta: 0, msg: "Creas un imperio comercial exitoso sin alterar tu rendimiento deportivo." },
+            opc2: { txt: "Rechazar distracciones extradeportivas y contratar un preparador personal privado", delta: 1, msg: "Tu enfoque monacal en el fútbol eleva tu rendimiento (+1 de media)." }
+          },
+          {
+            titulo: "⏳ POLÍTICA DE RENOVACIÓN DE VETERANOS",
+            desc: player.edad >= 32 ? `En ${player.club} te ofrecen solo 1 año de contrato con una rebaja del 30% en tu salario.` : `En ${player.club} congelan las negociaciones de renovación hasta final de temporada.`,
+            opc1: { txt: "Aceptar la oferta a la baja para retirarte en este club", delta: 0, msg: "Aceptas tu nuevo rol con tranquilidad institucional." },
+            opc2: { txt: "Romper negociaciones y pedir a tu agente que busque ofertas fuera", delta: 0, msg: "Tu agente empieza a sondear el mercado europeo." }
+          }
+        ];
+        const ef = pickRandom(eventosFIFA);
+        htmlProblemaFIFA = `
+          <div class="cartel-fifa">
+            <strong>${ef.titulo}</strong><br>
+            ${ef.desc}
+            <div class="lista-opciones" style="margin-top: 10px;">
+              <button class="btn-opcion" onclick="resolverEventoFIFA(${ef.opc1.delta}, '${ef.opc1.msg}')">
+                📌 ${ef.opc1.txt}
+              </button>
+              <button class="btn-opcion" onclick="resolverEventoFIFA(${ef.opc2.delta}, '${ef.opc2.msg}')">
+                📌 ${ef.opc2.txt}
+              </button>
             </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${clubTopInteresado}'})">Dar el salto y fichar por el <strong>${clubTopInteresado}</strong></button>
           </div>
-          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Rechazar al gigante y seguir creciendo en el <strong>${player.club}</strong> (+1 de media)</button>
         `;
       }
 
-      // 3. DILEMAS TÁCTICOS Y DE ENTRENADOR: ESPECIALIZADOS PARA PORTEROS Y JUGADORES DE CAMPO
-      let htmlDilemaEntrenador = "";
-      if (randomInt(1, 100) <= 24 && player.numeroFicha > 1) {
-        if (player.posicion === "Portero") {
-          // Dilema exclusivo de porteros (pies vs manos)
-          const dilemasPortero = [
-            {
-              txt: "El entrenador te exige arriesgar más jugando con los pies como si fueras un líbero, iniciando el ataque desde el área pequeña.",
-              obedece: { txt: "Aceptar el reto y trabajar juego de pies", deltaMedia: 1, msg: "Mejoras tu precisión con el balón y te conviertes en un portero moderno (+1 de media)." },
-              desobedece: { txt: "Negarte y despejar en largo sin riesgos", deltaMedia: -1, msg: "El míster se frustra por tu falta de juego asociativo (-1 de media)." }
-            },
-            {
-              txt: "El cuerpo técnico te pide no salir tanto por bajo y priorizar los guantes: blocar todos los balones y no rifar el esférico.",
-              obedece: { txt: "Hacer caso y asegurar el balón con las manos", deltaMedia: 1, msg: "Transmites seguridad máxima bajo los palos y no concedes rechaces (+1 de media)." },
-              desobedece: { txt: "Seguir saliendo a cortar con los pies a tu estilo", deltaMedia: -1, msg: "Una salida en falso genera dudas en la zaga (-1 de media)." }
-            }
-          ];
-          const dp = pickRandom(dilemasPortero);
-          htmlDilemaEntrenador = `
-            <div class="cartel-mister">
-              🧤 <strong>INSTRUCCIÓN TÁCTICA PARA LA PORTERÍA</strong><br>
-              ${dp.txt}
-              <div class="lista-opciones" style="margin-top: 10px;">
-                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dp.obedece.deltaMedia}, '${dp.obedece.msg}', false)">
-                  🤝 <strong>Hacerle caso al entrenador:</strong> ${dp.obedece.txt}
-                </button>
-                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dp.desobedece.deltaMedia}, '${dp.desobedece.msg}', true)">
-                  ⚡ <strong>Desobedecer la orden:</strong> ${dp.desobedece.txt}
-                </button>
-              </div>
+      // 3. SOLICITUD PROACTIVA DEL JUGADOR PARA CAMBIAR DE POSICIÓN (INTERACTIVO)
+      const posSugeridaProactiva = obtenerPosicionReconversion(player.posicion);
+      let htmlPeticionPosicion = "";
+      if (posSugeridaProactiva && player.posicion !== "Portero" && player.edad <= 34) {
+        htmlPeticionPosicion = `
+          <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 12px 14px; margin: 12px 0; border-radius: 6px;">
+            🙋‍♂️ <strong>GESTIÓN DE ROL (MODO CARRERA):</strong><br>
+            ¿Quieres solicitarle formalmente al entrenador jugar en una nueva demarcación táctica?<br>
+            <div class="lista-opciones" style="margin-top: 8px;">
+              <button class="btn-opcion" onclick="pedirCambioPosicion('${posSugeridaProactiva}')">
+                🔄 Pedir al míster pasar a jugar de <strong>${posSugeridaProactiva}</strong> (Posición actual: ${player.posicion})
+              </button>
             </div>
-          `;
-        } else {
-          // Dilemas para jugadores de campo
-          const dilemasCampo = [
-            {
-              txt: "El míster te exige jugar infiltrado con fuertes molestias para no desarmar el dibujo táctico.",
-              obedece: { txt: "Infiltrarte y vaciarte por el equipo", deltaMedia: 1, msg: "Cumples con pundonor heroico y el club te premia (+1 media)." },
-              desobedece: { txt: "Negarte a jugar con dolor y priorizar tu salud", deltaMedia: -1, msg: "Cuidas tu físico, pero el míster te aparta de las charlas tácticas (-1 media)." }
-            },
-            {
-              txt: "El entrenador te ordena cambiar tu estilo: quiere que dejes de regatear y juegues a un solo toque.",
-              obedece: { txt: "Disciplinarte y jugar al pie según su pizarra", deltaMedia: 1, msg: "Te conviertes en un peón táctico perfecto (+1 media)." },
-              desobedece: { txt: "Desobedecer y seguir jugando con tu magia individual", deltaMedia: -1, msg: "La grada aplaude tu rebeldía, pero el míster te sienta el próximo partido (-1 media)." }
-            }
-          ];
-          const dc = pickRandom(dilemasCampo);
-          htmlDilemaEntrenador = `
-            <div class="cartel-mister">
-              👔 <strong>ORDEN TÁCTICA DEL ENTRENADOR</strong><br>
-              ${dc.txt}
-              <div class="lista-opciones" style="margin-top: 10px;">
-                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dc.obedece.deltaMedia}, '${dc.obedece.msg}', false)">
-                  🤝 <strong>Hacerle caso al entrenador:</strong> ${dc.obedece.txt}
-                </button>
-                <button class="btn-opcion" onclick="resolverDilemaEntrenador(${dc.desobedece.deltaMedia}, '${dc.desobedece.msg}', true)">
-                  ⚡ <strong>Desobedecer la orden:</strong> ${dc.desobedece.txt}
-                </button>
-              </div>
+          </div>
+        `;
+      }
+
+      // 4. OFERTAS DE TITANES EUROPEOS: EXIGENTES (Media >= 81 de joven o >= 85 consagrado)
+      let htmlOfertaTitan = "";
+      const cumpleNivelTitan = (player.edad <= 23 && player.media >= 81 && player.ultimaTemporadaBuena) || (player.media >= 85 && player.ultimaTemporadaBuena);
+      if (cumpleNivelTitan && !clubesEuropaTop.includes(player.club) && randomInt(1, 100) <= 40) {
+        const titan = pickRandom(clubesEuropaTop);
+        const contratoTitan = generarDetalleContrato(titan);
+        htmlOfertaTitan = `
+          <div style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%); border-left: 5px solid #38bdf8; padding: 14px; margin: 15px 0;">
+            👑 <strong>¡UN TITÁN DE EUROPA PRESENTA OFERTA FORMAL!</strong><br>
+            El <strong>${titan}</strong> ha seguido tus hazañas y considera que tu media de <strong>${player.media}</strong> te hace apto para luchar por la Champions League.
+          </div>
+          <div class="oferta-card">
+            <div class="oferta-header">🏛️ Oferta de Traspaso: ${titan}</div>
+            <div class="oferta-detalles">
+              • <strong>Duración del contrato:</strong> ${contratoTitan.duracion} temporada(s)${player.edad >= 32 ? ' (Política estricta de 1 año)' : ''}<br>
+              • <strong>Sueldo anual:</strong> €${contratoTitan.sueldo}M/año | <strong>Prima de fichaje:</strong> €${contratoTitan.prima}M<br>
+              • <strong>Cláusula de rescisión:</strong> €${contratoTitan.clausula}M<br>
+              • <strong>Estatus de plantilla:</strong> ${contratoTitan.rol}
             </div>
-          `;
-        }
+            <button class="btn-opcion" onclick="ejecutarDecision({club: '${titan}'})">Dar el salto histórico y fichar por el <strong>${titan}</strong></button>
+          </div>
+          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Rechazar al titán y seguir siendo el ídolo de <strong>${player.club}</strong> (+1 de media)</button>
+        `;
       }
 
       const todasLasGuerras = [
@@ -1878,13 +1893,13 @@
         return `
           <div style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%); border-left: 5px solid #ef4444; padding: 14px; margin: 15px 0;">
             <strong>${guerra.titulo}</strong><br>
-            Dos colosos depositan ofertas formales con todos sus términos sobre la mesa:
+            Dos proyectos internacionales depositan ofertas con sus términos contractuales:
           </div>
           
           <div class="oferta-card">
             <div class="oferta-header">🏛️ Propuesta de ${ofertaA.club}</div>
             <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${ofertaA.duracion} temporadas<br>
+              • <strong>Duración:</strong> ${ofertaA.duracion} temporada(s)${player.edad >= 32 ? ' (Política de 1 año)' : ''}<br>
               • <strong>Sueldo anual:</strong> €${ofertaA.sueldo}M/año<br>
               • <strong>Prima de fichaje:</strong> €${ofertaA.prima}M en mano<br>
               • <strong>Cláusula de rescisión:</strong> €${ofertaA.clausula}M<br>
@@ -1896,7 +1911,7 @@
           <div class="oferta-card">
             <div class="oferta-header">🏛️ Propuesta de ${ofertaB.club}</div>
             <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${ofertaB.duracion} temporadas<br>
+              • <strong>Duración:</strong> ${ofertaB.duracion} temporada(s)${player.edad >= 32 ? ' (Política de 1 año)' : ''}<br>
               • <strong>Sueldo anual:</strong> €${ofertaB.sueldo}M/año<br>
               • <strong>Prima de fichaje:</strong> €${ofertaB.prima}M en mano<br>
               • <strong>Cláusula de rescisión:</strong> €${ofertaB.clausula}M<br>
@@ -1940,23 +1955,6 @@
         `;
       }
 
-      // Tratamiento Quirúrgico/Médico
-      let htmlTratamientoMedico = "";
-      if ((player.ultimoEstadoFisico < 0 || player.ultimoEstadoMental < 0) && randomInt(1, 100) <= 18) {
-        htmlTratamientoMedico = `
-          <div class="cartel-clinica">
-            🏥 <strong>CONSULTA MÉDICA EXTRAORDINARIA Y REHABILITACIÓN</strong><br>
-            De forma excepcional, un prestigioso cirujano deportivo te ofrece una intervención avanzada de vanguardia para sanar tus problemas crónicos.<br>
-            <small style="color: #a5f3fc;">(Riesgo: 60% regeneración completa +2 de media / 40% secuelas y pérdida de -2 de media)</small>
-            <div class="lista-opciones" style="margin-top: 10px;">
-              <button class="btn-opcion" onclick="ejecutarTratamientoMedico()">
-                💉 <strong>Someterte a la intervención:</strong> Arriesgar en el quirófano
-              </button>
-            </div>
-          </div>
-        `;
-      }
-
       // Retirada voluntaria de selección
       let htmlRetiroSeleccion = "";
       if (player.edad >= 30 && !player.retiradoSeleccion) {
@@ -1973,36 +1971,13 @@
         `;
       }
 
-      // Cambio de posición (solo para jugadores de campo)
-      let htmlCambioPosicion = "";
-      const posSugerida = obtenerPosicionReconversion(player.posicion);
-      if (posSugerida && player.edad >= 19 && player.edad <= 33 && randomInt(1, 100) <= 8 && player.posicion !== "Portero") {
-        htmlCambioPosicion = `
-          <div class="cartel-tactica">
-            ♟️ <strong>PIZARRA TÁCTICA: RECONVERSIÓN DE POSICIÓN</strong><br>
-            El entrenador considera que por tus características tácticas deberías pasar de <strong>${player.posicion}</strong> a <strong>${posSugerida}</strong>.<br>
-            <small style="color: #6ee7b7;">(Aceptar: 65% adaptación +1 / 35% desubicación -1. Rechazar: 70% conservar rol / 30% roce con el míster -1)</small>
-            <div class="lista-opciones" style="margin-top: 10px;">
-              <button class="btn-opcion" onclick="ejecutarCambioPosicion('${posSugerida}', true)">
-                ✅ <strong>Aceptar la reconversión:</strong> Jugar de <strong>${posSugerida}</strong>
-              </button>
-              <button class="btn-opcion" onclick="ejecutarCambioPosicion('${posSugerida}', false)">
-                ❌ <strong>Rechazar la propuesta:</strong> Seguir en tu rol de ${player.posicion}
-              </button>
-            </div>
-          </div>
-        `;
-      }
-
       const etapaJuvenilMax = (player.modoJuego === 22) ? 10 : 5;
       const etapaPrimeMax = (player.modoJuego === 22) ? 15 : 7;
 
-      if (htmlOfertasJovenEstrella !== "") {
-        htmlOpciones = htmlOfertasJovenEstrella;
-      } else if (htmlDilemaEntrenador !== "") {
-        htmlOpciones = htmlDilemaEntrenador;
-      } else if (htmlCambioPosicion !== "") {
-        htmlOpciones = htmlCambioPosicion;
+      if (htmlProblemaFIFA !== "") {
+        htmlOpciones = htmlProblemaFIFA;
+      } else if (htmlOfertaTitan !== "") {
+        htmlOpciones = htmlOfertaTitan;
       } else if (player.numeroFicha === 1) {
         const offA = pickRandomExcept(clubesEuropaMedios, player.club);
         const offB = pickRandomExcept(clubesEuropaBajos, player.club);
@@ -2035,41 +2010,23 @@
           </div>
         `;
       } else if (player.numeroFicha <= etapaJuvenilMax && player.edad < 25) {
-        const azarDilema = randomInt(1, 3);
-        if (azarDilema === 1 && guerrasValidas.length > 0) {
-          const guerra = pickRandom(guerrasValidas);
-          htmlOpciones = generarHtmlGuerra(guerra);
-        } else if (azarDilema === 2 && player.posicion !== "Portero") {
-          htmlOpciones = `
-            <div style="background: rgba(14, 165, 233, 0.15); border-left: 4px solid #0ea5e9; padding: 14px; margin: 15px 0;">
-              🏃‍♂️ <strong>EXIGENCIA TÁCTICA: PRESIÓN ASFIXIANTE Y REPLIEGUE JOVEN</strong><br>
-              El míster te exige presionar la salida y vaciarte en defensa en cada jugada.<br>
-              <small style="color: #94a3b8;">(Juventud: 75% éxito +1 o +2 de media / 25% sobrecarga muscular y -1)</small>
+        const interesado = pickRandomExcept(clubesEuropaMedios, player.club);
+        const detInt = generarDetalleContrato(interesado);
+        htmlOpciones = `
+          <div style="background: rgba(59, 130, 246, 0.15); border-left: 4px solid #38bdf8; padding: 14px; margin: 15px 0;">
+            📰 <strong>PROPUESTA FORMAL DE MERCADO</strong>
+          </div>
+          <div class="oferta-card">
+            <div class="oferta-header">🏛️ Contrato ofrecido por ${detInt.club}</div>
+            <div class="oferta-detalles">
+              • <strong>Duración:</strong> ${detInt.duracion} temporadas<br>
+              • <strong>Sueldo:</strong> €${detInt.sueldo}M/año | <strong>Prima:</strong> €${detInt.prima}M<br>
+              • <strong>Cláusula:</strong> €${detInt.clausula}M | <strong>Rol:</strong> ${detInt.rol}
             </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarPresionJoven()">Aceptar el sacrificio: vaciarte en defensa y presión</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Dosificar esfuerzos para cuidar el físico</button>
-            </div>
-          `;
-        } else {
-          const interesado = pickRandomExcept(clubesEuropaMedios, player.club);
-          const detInt = generarDetalleContrato(interesado);
-          htmlOpciones = `
-            <div style="background: rgba(59, 130, 246, 0.15); border-left: 4px solid #38bdf8; padding: 14px; margin: 15px 0;">
-              📰 <strong>PROPUESTA FORMAL DE MERCADO</strong>
-            </div>
-            <div class="oferta-card">
-              <div class="oferta-header">🏛️ Contrato ofrecido por ${detInt.club}</div>
-              <div class="oferta-detalles">
-                • <strong>Duración:</strong> ${detInt.duracion} temporadas<br>
-                • <strong>Sueldo:</strong> €${detInt.sueldo}M/año | <strong>Prima:</strong> €${detInt.prima}M<br>
-                • <strong>Cláusula:</strong> €${detInt.clausula}M | <strong>Rol:</strong> ${detInt.rol}
-              </div>
-              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detInt.club}'})">Aceptar traspaso y mudarte al <strong>${detInt.club}</strong></button>
-            </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Renovar contrato y seguir en el <strong>${player.club}</strong> (+1 de media)</button>
-          `;
-        }
+            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detInt.club}'})">Aceptar traspaso y mudarte al <strong>${detInt.club}</strong></button>
+          </div>
+          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Renovar contrato y seguir en el <strong>${player.club}</strong> (+1 de media)</button>
+        `;
       } else if (player.numeroFicha <= etapaPrimeMax && player.edad < 32) {
         if (guerrasValidas.length > 0 && randomInt(1, 100) <= 60) {
           const guerra = pickRandom(guerrasValidas);
@@ -2088,62 +2045,35 @@
           `;
         }
       } else {
-        const azarVet = randomInt(1, 3);
-        if (azarVet === 1) {
-          htmlOpciones = `
-            <div style="background: rgba(245, 158, 11, 0.15); border-left: 4px solid #f59e0b; padding: 14px; margin: 15px 0;">
-              🌟 <strong>CAPITÁN Y MENTOR DE LA CANTERA (${player.edad} años)</strong><br>
-              Ha irrumpido una joya juvenil al primer equipo. El club te pide ser su tutor en el vestuario.<br>
-              <small style="color: #94a3b8;">(Riesgo: 75% éxito de liderazgo +1 / 25% fricción y perder -1)</small>
-            </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarMentor()">Aceptar ser su mentor (Transmitir tus galones)</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Rechazarlo: en el fútbol profesional cada uno debe ganarse su puesto</button>
-            </div>
-          `;
-        } else if (azarVet === 2) {
-          const exotico = pickRandom(clubesExoticos);
-          const modesto = pickRandomExcept(clubesEuropaBajos, player.club);
-          const detEx = generarDetalleContrato(exotico);
-          const detMod = generarDetalleContrato(modesto);
+        const exotico = pickRandom(clubesExoticos);
+        const modesto = pickRandomExcept(clubesEuropaBajos, player.club);
+        const detEx = generarDetalleContrato(exotico);
+        const detMod = generarDetalleContrato(modesto);
 
-          htmlOpciones = `
-            <div style="background: rgba(148, 163, 184, 0.15); border-left: 4px solid #94a3b8; padding: 14px; margin: 15px 0;">
-              ⌛ <strong>RECTA FINAL DE CARRERA: OFERTAS DE VETERANÍA</strong>
+        htmlOpciones = `
+          <div style="background: rgba(148, 163, 184, 0.15); border-left: 4px solid #94a3b8; padding: 14px; margin: 15px 0;">
+            ⌛ <strong>RECTA FINAL DE CARRERA: CONTRATOS DE VETERANÍA</strong>
+          </div>
+          <div class="oferta-card">
+            <div class="oferta-header">🌴 Retiro Dorado en ${detEx.club}</div>
+            <div class="oferta-detalles">
+              • <strong>Duración:</strong> 1 temporada (renovable)<br>
+              • <strong>Sueldo estratosférico:</strong> €${detEx.sueldo}M/año | <strong>Prima:</strong> €${detEx.prima}M<br>
+              • <strong>Rol:</strong> Franquicia internacional
             </div>
-            <div class="oferta-card">
-              <div class="oferta-header">🌴 Retiro Dorado en ${detEx.club}</div>
-              <div class="oferta-detalles">
-                • <strong>Duración:</strong> ${detEx.duracion} temporadas<br>
-                • <strong>Sueldo estratosférico:</strong> €${detEx.sueldo}M/año | <strong>Prima:</strong> €${detEx.prima}M<br>
-                • <strong>Rol:</strong> Franquicia internacional
-              </div>
-              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detEx.club}'})">Fichar por el <strong>${detEx.club}</strong></button>
+            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detEx.club}'})">Fichar por el <strong>${detEx.club}</strong></button>
+          </div>
+          <div class="oferta-card">
+            <div class="oferta-header">🛡️ Jerarquía en ${detMod.club}</div>
+            <div class="oferta-detalles">
+              • <strong>Duración:</strong> 1 temporada<br>
+              • <strong>Sueldo:</strong> €${detMod.sueldo}M/año<br>
+              • <strong>Rol:</strong> Líder de vestuario
             </div>
-            <div class="oferta-card">
-              <div class="oferta-header">🛡️ Jerarquía en ${detMod.club}</div>
-              <div class="oferta-detalles">
-                • <strong>Duración:</strong> ${detMod.duracion} temporadas<br>
-                • <strong>Sueldo:</strong> €${detMod.sueldo}M/año<br>
-                • <strong>Rol:</strong> Líder de vestuario
-              </div>
-              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detMod.club}'})">Fichar por el <strong>${detMod.club}</strong></button>
-            </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({})">Pelear por tu puesto y quedarte en el <strong>${player.club}</strong></button>
-          `;
-        } else {
-          htmlOpciones = `
-            <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
-              🥗 <strong>PLAN DE REGENERACIÓN FÍSICA PARA VETERANOS</strong><br>
-              A tus ${player.edad} años, te ofrecen un protocolo biológico para cuidar las articulaciones.<br>
-              <small style="color: #94a3b8;">(Riesgo: 70% éxito +1 / 30% bajón físico -1)</small>
-            </div>
-            <div class="lista-opciones">
-              <button class="btn-opcion" onclick="ejecutarRegeneracion()">Someterte al plan regenerativo</button>
-              <button class="btn-opcion" onclick="ejecutarDecision({})">Confiar en tus rutinas de siempre</button>
-            </div>
-          `;
-        }
+            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detMod.club}'})">Fichar por el <strong>${detMod.club}</strong></button>
+          </div>
+          <button class="btn-opcion" onclick="ejecutarDecision({})">Pelear por tu puesto y quedarte en el <strong>${player.club}</strong></button>
+        `;
       }
 
       container.innerHTML = `
@@ -2152,60 +2082,36 @@
         <div style="background: rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.9rem;">
           🏷️ <strong>Valoración de Mercado:</strong> €${player.valorMercado}M | 💵 <strong>Sueldo:</strong> €${player.sueldoAnual}M/año | 🏆 <strong>Valor Récord:</strong> €${player.valorMercadoRecord}M
         </div>
-        <p>Tu agente te presenta las opciones antes de saltar a disputar la siguiente etapa:</p>
+        <p>Tu agente te presenta las opciones antes de disputar la siguiente etapa:</p>
         <hr>
-        ${htmlTratamientoMedico}
+        ${htmlPeticionPosicion}
         ${htmlOpcionRetiroFutbol}
         ${htmlRetiroSeleccion}
         ${htmlOpciones}
       `;
     }
 
-    function resolverDilemaEntrenador(deltaMedia, msg, desobedecio) {
+    function resolverEventoFIFA(deltaMedia, msg) {
       if (deltaMedia !== 0) aplicarDeltaMedia(deltaMedia);
-      if (desobedecio) player.haDesobedecido = true;
       alert(msg);
       renderDespacho();
     }
 
-    function ejecutarCambioPosicion(nuevaPos, acepto) {
-      if (acepto) {
+    function pedirCambioPosicion(nuevaPos) {
+      const tieneJerarquia = player.media >= 80;
+      if (tieneJerarquia) {
         player.posicion = nuevaPos;
-        const exito = (randomInt(1, 100) <= 65);
-        if (exito) {
-          aplicarDeltaMedia(1);
-          player.ultimoEstadoMental = 1;
-          alert(`¡RECONVERSIÓN EXITOSA! Te adaptas a la perfección a tu nueva demarcación de ${nuevaPos}: ganas +1 de media.`);
+        aplicarDeltaMedia(1);
+        alert(`¡PETICIÓN ACEPTADA! El entrenador respeta tu estatus de estrella y adapta el dibujo táctico para que juegues de ${nuevaPos} (+1 de media).`);
+      } else {
+        const acepta = (randomInt(1, 100) <= 45);
+        if (acepta) {
+          player.posicion = nuevaPos;
+          alert(`El míster accede a probarte de ${nuevaPos} en los entrenamientos.`);
         } else {
           aplicarDeltaMedia(-1);
-          player.ultimoEstadoMental = -1;
-          alert(`DIFICULTADES DE ADAPTACIÓN. Tu rendimiento se resiente jugando de ${nuevaPos}: pierdes -1 de media.`);
+          alert(`PETICIÓN RECHAZADA. El entrenador considera tu petición una falta de humildad táctica: "Aquí juegas donde yo decida" (-1 de media).`);
         }
-      } else {
-        const conflicto = (randomInt(1, 100) <= 30);
-        if (conflicto) {
-          aplicarDeltaMedia(-1);
-          player.ultimoEstadoMental = -1;
-          alert(`TENSIÓN TÁCTICA. Tu negativa a cambiar de rol incomoda al míster: pierdes -1 de media.`);
-        } else {
-          alert(`POSTURA RESPETADA. Continúas defendiendo tu rol natural de ${player.posicion}.`);
-        }
-      }
-      renderDespacho();
-    }
-
-    function ejecutarTratamientoMedico() {
-      player.seHaOperado = true;
-      const exito = (randomInt(1, 100) <= 60);
-      if (exito) {
-        aplicarDeltaMedia(2);
-        player.ultimoEstadoFisico = 1;
-        player.ultimoEstadoMental = 1;
-        alert("¡ÉXITO MÉDICO TOTAL! La intervención de vanguardia ha sido un triunfo: regeneras tus tejidos y ganas +2 de media.");
-      } else {
-        aplicarDeltaMedia(-2);
-        player.ultimoEstadoFisico = -1;
-        alert("COMPLICACIÓN QUIRÚRGICA. Surgen secuelas musculares inesperadas: pierdes -2 de media.");
       }
       renderDespacho();
     }
