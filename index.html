@@ -108,6 +108,170 @@
       background: #ffffff;
     }
 
+    /* ESTILOS DE CARTA ULTIMATE TEAM */
+    .fut-card-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 24px 0;
+    }
+
+    .fut-card {
+      width: 290px;
+      background: linear-gradient(160deg, #f3e08f 0%, #d4af37 45%, #aa8218 100%);
+      color: #2b2105;
+      border-radius: 22px 22px 45px 45px;
+      border: 4px solid #fef08a;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(255, 255, 255, 0.5);
+      padding: 18px 20px 22px 20px;
+      position: relative;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .fut-card.fut-icon {
+      background: linear-gradient(160deg, #ffffff 0%, #f5ebd6 40%, #d8c088 100%);
+      border-color: #eab308;
+      color: #3b2d0b;
+    }
+
+    .fut-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(43, 33, 5, 0.25);
+      padding-bottom: 12px;
+      margin-bottom: 10px;
+    }
+
+    .fut-left-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 85px;
+      border-right: 1px solid rgba(43, 33, 5, 0.2);
+      padding-right: 10px;
+    }
+
+    .fut-rating {
+      font-size: 3.1rem;
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .fut-pos {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-top: 2px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(43, 33, 5, 0.25);
+      width: 100%;
+      text-align: center;
+    }
+
+    .fut-nation {
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-top: 6px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .fut-club-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 4px;
+      background: rgba(43, 33, 5, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .fut-right-avatar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 10px;
+    }
+
+    .fut-silhouette {
+      font-size: 4.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    }
+
+    .fut-prime-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: #2b2105;
+      color: #facc15;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 6px;
+    }
+
+    .fut-name {
+      text-align: center;
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      border-bottom: 2px solid rgba(43, 33, 5, 0.25);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fut-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+      position: relative;
+      padding: 0 6px;
+    }
+
+    .fut-stats-grid::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 4%;
+      bottom: 4%;
+      width: 1px;
+      background: rgba(43, 33, 5, 0.3);
+    }
+
+    .fut-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 1px 4px;
+    }
+
+    .fut-stat-val {
+      font-weight: 900;
+    }
+
+    .fut-stat-lbl {
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .fut-footer-line {
+      width: 45px;
+      height: 3px;
+      background: rgba(43, 33, 5, 0.35);
+      margin: 12px auto 0 auto;
+      border-radius: 2px;
+    }
+
     .cartel {
       border-radius: 8px;
       padding: 14px 18px;
@@ -179,6 +343,17 @@
       margin: 10px 0;
       line-height: 1.5;
       font-size: 0.95rem;
+    }
+
+    .cartel-torneo-sel {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid #38bdf8;
+      border-left: 6px solid #facc15;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      line-height: 1.6;
+      color: #f8fafc;
     }
 
     .cartel-mercado {
@@ -441,11 +616,85 @@
       return { tier: 5, minMediaSel: 68, probCont: 8, probMun: 3, probRes: 3, reqCont: 84, reqMun: 88 };
     }
 
+    function obtenerNombreTorneoContinental(pais) {
+      const europa = ["España", "Francia", "Alemania", "Inglaterra", "Italia", "Portugal", "Países Bajos", "Croacia", "Bélgica", "Polonia", "Turquía", "Grecia", "Noruega", "Islandia"];
+      const sudamerica = ["Argentina", "Brasil", "Uruguay", "Colombia", "Chile", "Ecuador", "Paraguay", "Perú", "Bolivia", "Venezuela"];
+      const africa = ["Marruecos", "Senegal", "Nigeria", "Costa de Marfil", "Camerún", "Egipto", "Ghana", "Argelia", "Mali"];
+      const asia = ["Japón", "Corea del Sur", "Australia", "Irán", "Catar"];
+      const concacaf = ["México", "Estados Unidos", "Costa Rica", "Jamaica", "Honduras", "Panamá"];
+
+      if (europa.includes(pais)) return "Eurocopa";
+      if (sudamerica.includes(pais)) return "Copa América";
+      if (africa.includes(pais)) return "Copa Africana de Naciones";
+      if (asia.includes(pais)) return "Copa Asiática";
+      if (concacaf.includes(pais)) return "Copa Oro de la Concacaf";
+      return "Copa de las Naciones de la OFC";
+    }
+
+    function obtenerTitulosRealesClub(club) {
+      const c = club.toLowerCase();
+      if (c.includes("madrid") || c.includes("barcelona") || c.includes("athletic") || c.includes("sociedad") || c.includes("valencia") || c.includes("betis") || c.includes("villarreal") || c.includes("girona") || c.includes("celta") || c.includes("sevilla")) {
+        return { liga: "LaLiga EA Sports", copa: "Copa del Rey", supercopa: "Supercopa de España" };
+      }
+      if (c.includes("manchester") || c.includes("liverpool") || c.includes("arsenal") || c.includes("chelsea") || c.includes("tottenham") || c.includes("aston villa") || c.includes("newcastle") || c.includes("west ham") || c.includes("brighton") || c.includes("everton") || c.includes("wolverhampton")) {
+        return { liga: "Premier League", copa: "FA Cup", supercopa: "Community Shield" };
+      }
+      if (c.includes("milan") || c.includes("inter") || c.includes("juventus") || c.includes("atalanta") || c.includes("roma") || c.includes("napoli") || c.includes("fiorentina") || c.includes("lazio")) {
+        return { liga: "Serie A (Scudetto)", copa: "Coppa Italia", supercopa: "Supercoppa Italiana" };
+      }
+      if (c.includes("bayern") || c.includes("dortmund") || c.includes("leverkusen") || c.includes("frankfurt") || c.includes("stuttgart") || c.includes("leipzig")) {
+        return { liga: "Bundesliga", copa: "DFB-Pokal", supercopa: "DFL-Supercup" };
+      }
+      if (c.includes("paris") || c.includes("lyon") || c.includes("mónaco") || c.includes("lille")) {
+        return { liga: "Ligue 1", copa: "Coupe de France", supercopa: "Trophée des Champions" };
+      }
+      if (c.includes("benfica") || c.includes("sporting") || c.includes("porto")) {
+        return { liga: "Liga Portugal", copa: "Taça de Portugal", supercopa: "Supertaça Cândido de Oliveira" };
+      }
+      if (c.includes("ajax") || c.includes("psv") || c.includes("feyenoord")) {
+        return { liga: "Eredivisie", copa: "KNVB Beker", supercopa: "Johan Cruyff Shield" };
+      }
+      if (c.includes("river") || c.includes("boca")) {
+        return { liga: "Liga Profesional Argentina", copa: "Copa Argentina", supercopa: "Supercopa Argentina" };
+      }
+      if (c.includes("santos") || c.includes("flamengo")) {
+        return { liga: "Brasileirão", copa: "Copa do Brasil", supercopa: "Supercopa do Brasil" };
+      }
+      if (c.includes("al-hilal") || c.includes("al-nassr")) {
+        return { liga: "Saudi Pro League", copa: "Copa del Rey de Campeones", supercopa: "Supercopa Saudí" };
+      }
+      if (c.includes("miami") || c.includes("galaxy")) {
+        return { liga: "MLS Cup", copa: "US Open Cup", supercopa: "Supporters' Shield" };
+      }
+      return { liga: "J1 League", copa: "Copa del Emperador", supercopa: "Supercopa de Japón" };
+    }
+
+    // Catálogo ampliado de posiciones
     const listaPosiciones = [
-      "Delantero Centro", "Extremo Izquierdo", "Extremo Derecho",
+      "Delantero Centro", "Segundo Delantero", "Extremo Izquierdo", "Extremo Derecho",
       "Mediapunta", "Centrocampista", "Pivote Defensivo",
+      "Carrilero Izquierdo", "Carrilero Derecho",
       "Lateral Izquierdo", "Lateral Derecho", "Defensa Central", "Portero"
     ];
+
+    function obtenerSiglasPosicion(pos) {
+      const siglas = {
+        "Delantero Centro": "DC",
+        "Segundo Delantero": "SD",
+        "Extremo Izquierdo": "EI",
+        "Extremo Derecho": "ED",
+        "Mediapunta": "MCO",
+        "Centrocampista": "MC",
+        "Pivote Defensivo": "MCD",
+        "Carrilero Izquierdo": "CAI",
+        "Carrilero Derecho": "CAD",
+        "Lateral Izquierdo": "LI",
+        "Lateral Derecho": "LD",
+        "Defensa Central": "DFC",
+        "Portero": "POR"
+      };
+      return siglas[pos] || "MC";
+    }
 
     const listaCanteras = [
       "Real Madrid (La Fábrica)", "FC Barcelona (La Masia)", "Atlético de Madrid", 
@@ -495,10 +744,17 @@
       retiradoSeleccion: false,
       retiradoFutbol: false,
       seHaOperado: false,
+      tieneDietaEstricta: false,
       haDesobedecido: false,
       haExigidoDinero: false,
+      desgasteFisicoAcumulado: 0,
+      historialLesiones: 0,
       motivoRetirada: "",
       media: 67,
+      mediaPrime: 67,
+      posicionPrime: "",
+      clubPrime: "",
+      edadPrime: 17,
       valorMercado: 2.5,
       valorMercadoRecord: 2.5,
       sueldoAnual: 0.5,
@@ -567,14 +823,17 @@
     function obtenerPosicionReconversion(posActual) {
       const mapaEstricto = {
         "Defensa Central": ["Pivote Defensivo", "Lateral Derecho", "Lateral Izquierdo"],
-        "Lateral Izquierdo": ["Extremo Izquierdo", "Defensa Central"],
-        "Lateral Derecho": ["Extremo Derecho", "Defensa Central"],
+        "Lateral Izquierdo": ["Carrilero Izquierdo", "Extremo Izquierdo", "Defensa Central"],
+        "Lateral Derecho": ["Carrilero Derecho", "Extremo Derecho", "Defensa Central"],
+        "Carrilero Izquierdo": ["Lateral Izquierdo", "Extremo Izquierdo"],
+        "Carrilero Derecho": ["Lateral Derecho", "Extremo Derecho"],
         "Pivote Defensivo": ["Defensa Central", "Centrocampista"],
         "Centrocampista": ["Mediapunta", "Pivote Defensivo"],
-        "Mediapunta": ["Centrocampista", "Extremo Izquierdo", "Extremo Derecho", "Delantero Centro"],
-        "Extremo Izquierdo": ["Delantero Centro", "Mediapunta", "Lateral Izquierdo"],
-        "Extremo Derecho": ["Delantero Centro", "Mediapunta", "Lateral Derecho"],
-        "Delantero Centro": ["Mediapunta", "Extremo Izquierdo", "Extremo Derecho"]
+        "Mediapunta": ["Segundo Delantero", "Centrocampista", "Extremo Izquierdo", "Extremo Derecho"],
+        "Extremo Izquierdo": ["Segundo Delantero", "Delantero Centro", "Mediapunta", "Carrilero Izquierdo"],
+        "Extremo Derecho": ["Segundo Delantero", "Delantero Centro", "Mediapunta", "Carrilero Derecho"],
+        "Segundo Delantero": ["Delantero Centro", "Mediapunta", "Extremo Izquierdo", "Extremo Derecho"],
+        "Delantero Centro": ["Segundo Delantero", "Mediapunta", "Extremo Izquierdo", "Extremo Derecho"]
       };
       const opciones = mapaEstricto[posActual];
       if (!opciones || !opciones.length) return null;
@@ -618,6 +877,15 @@
       player.clausulaRescision = Math.round(val * 1.5);
     }
 
+    function actualizarPrimeSiProcede() {
+      if (player.media >= player.mediaPrime) {
+        player.mediaPrime = player.media;
+        player.posicionPrime = player.posicion;
+        player.clubPrime = player.club;
+        player.edadPrime = player.edad;
+      }
+    }
+
     function aplicarDeltaMedia(delta) {
       if (delta > 0) {
         if (player.edad >= 33) {
@@ -631,15 +899,14 @@
         }
       }
       player.media = Math.min(99, Math.max(40, player.media + delta));
+      actualizarPrimeSiProcede();
       calcularValorMercado();
     }
 
-    // Sistema de contratos realistas (FIFA) con política de edad estricta
     function generarDetalleContrato(clubDestino) {
       const esTop = clubesEuropaTop.includes(clubDestino);
       const esExotico = clubesExoticos.includes(clubDestino);
       
-      // A partir de los 32 años los clubes solo ofrecen 1 año renovable
       let duracion = 1;
       if (player.edad < 28) {
         duracion = randomInt(4, 5);
@@ -652,7 +919,6 @@
       const multiplicador = esExotico ? 2.5 : (esTop ? 1.4 : 0.9);
       let sueldoPropuesto = Math.max(0.8, Math.round((player.sueldoAnual * multiplicador) * 10) / 10);
       
-      // Rebaja salarial obligatoria por veteranía
       if (player.edad >= 33) {
         sueldoPropuesto = Math.round(sueldoPropuesto * 0.75 * 10) / 10;
       }
@@ -671,13 +937,225 @@
       };
     }
 
+    function generarCronicaTorneoSeleccion(nombreTorneo, ganoTorneo, esAtacante, esMedio, esDefensa, esPortero) {
+      const tInfo = obtenerTierPais(player.nacionalidad);
+      let faseAlcanzada = "";
+      let partidosTorneo = 3;
+      let relato = "";
+
+      if (ganoTorneo) {
+        faseAlcanzada = "🏆 CAMPEÓN ABSOLUTO";
+        partidosTorneo = nombreTorneo.includes("Mundial") ? 7 : 6;
+      } else {
+        const poderGlobal = player.media + (6 - tInfo.tier) * 3 + randomInt(-8, 12);
+        if (poderGlobal >= 102) {
+          faseAlcanzada = "🥈 Subcampeón (Eliminados en la Gran Final)";
+          partidosTorneo = nombreTorneo.includes("Mundial") ? 7 : 6;
+        } else if (poderGlobal >= 95) {
+          faseAlcanzada = "🥉 Semifinalistas (Caída honrosa a un paso de la final)";
+          partidosTorneo = nombreTorneo.includes("Mundial") ? 6 : 5;
+        } else if (poderGlobal >= 88) {
+          faseAlcanzada = "📊 Cuartos de Final";
+          partidosTorneo = nombreTorneo.includes("Mundial") ? 5 : 4;
+        } else if (poderGlobal >= 81) {
+          faseAlcanzada = "⚔️ Octavos de Final";
+          partidosTorneo = 4;
+        } else {
+          faseAlcanzada = "❌ Fase de Grupos (Eliminación temprana)";
+          partidosTorneo = 3;
+        }
+      }
+
+      const nivelAlto = player.media >= 84;
+      let statsTorneo = "";
+
+      if (esAtacante) {
+        const g = nivelAlto ? randomInt(Math.max(1, partidosTorneo - 3), partidosTorneo) : randomInt(0, 2);
+        const a = nivelAlto ? randomInt(1, 3) : randomInt(0, 1);
+        player.golesSeleccion += g;
+        player.asistenciasSeleccion += a;
+        statsTorneo = `${g} goles y ${a} asistencias`;
+
+        if (ganoTorneo) {
+          relato = `Disputaste los ${partidosTorneo} encuentros liderando el frente ofensivo de <strong>${player.nacionalidad}</strong> con ${statsTorneo}. Tus goles en las eliminatorias fueron decisivos para levantar el trofeo de <strong>${nombreTorneo}</strong>.`;
+        } else if (nivelAlto) {
+          relato = `Juegas ${partidosTorneo} partidos, suficientes para dar una master-class ofensiva de ${statsTorneo} que pasará a la historia de tu país. Sin embargo, el colectivo no acompañó y tu selección se quedó en: <strong>${faseAlcanzada}</strong>.`;
+        } else {
+          relato = `Participas en ${partidosTorneo} partidos aportando ${statsTorneo}, pero te costó superar a las defensas rivales. Tu selección finaliza el torneo en: <strong>${faseAlcanzada}</strong>.`;
+        }
+      } else if (esMedio) {
+        const g = nivelAlto ? randomInt(1, 2) : randomInt(0, 1);
+        const a = nivelAlto ? randomInt(2, 4) : randomInt(0, 2);
+        const prec = nivelAlto ? randomInt(89, 94) : randomInt(81, 86);
+        player.golesSeleccion += g;
+        player.asistenciasSeleccion += a;
+        statsTorneo = `${a} asistencias, ${g} goles y un ${prec}% de precisión de pase`;
+
+        if (ganoTorneo) {
+          relato = `Fuiste la brújula total en los ${partidosTorneo} partidos de <strong>${nombreTorneo}</strong> (${statsTorneo}), manejando los tiempos de cada partido hasta coronaros campeones.`;
+        } else if (nivelAlto) {
+          relato = `Distribuiste juego magistralmente durante ${partidosTorneo} partidos firmando ${statsTorneo}. Pese a tu exhibición en la sala de máquinas, el camino terminó en: <strong>${faseAlcanzada}</strong>.`;
+        } else {
+          relato = `Cumpliste con trabajo de desgaste en ${partidosTorneo} encuentros (${statsTorneo}), aunque el equipo sufrió para dominar la posesión. Resultado final: <strong>${faseAlcanzada}</strong>.`;
+        }
+      } else if (esDefensa) {
+        const rec = partidosTorneo * (nivelAlto ? randomInt(6, 9) : randomInt(3, 5));
+        const pc = Math.max(0, partidosTorneo - randomInt(2, 4));
+        statsTorneo = `${rec} recuperaciones clave y ${pc} porterías a cero`;
+
+        if (ganoTorneo) {
+          relato = `Erigiste un muro infranqueable durante los ${partidosTorneo} encuentros de <strong>${nombreTorneo}</strong> (${statsTorneo}), secando a los mejores delanteros del torneo hasta levantar la copa.`;
+        } else if (nivelAlto) {
+          relato = `Firmaste un torneo imperial en defensa con ${statsTorneo} en ${partidosTorneo} partidos, pero errores puntuales en ataque condenaron a ${player.nacionalidad} en: <strong>${faseAlcanzada}</strong>.`;
+        } else {
+          relato = `Disputaste ${partidosTorneo} encuentros sumando ${statsTorneo}, sufriendo ante la velocidad de los extremos rivales. Eliminación en: <strong>${faseAlcanzada}</strong>.`;
+        }
+      } else {
+        const par = partidosTorneo * (nivelAlto ? randomInt(4, 6) : randomInt(2, 4));
+        const pc = Math.max(0, partidosTorneo - randomInt(2, 4));
+        statsTorneo = `${par} paradas salvadoras y ${pc} porterías a cero`;
+
+        if (ganoTorneo) {
+          relato = `Fuiste el ángel de la guarda de <strong>${player.nacionalidad}</strong> en los ${partidosTorneo} partidos con ${statsTorneo}, incluyendo manos milagrosas en las eliminatorias para conquistar <strong>${nombreTorneo}</strong>.`;
+        } else if (nivelAlto) {
+          relato = `Sostuviste a tu país bajo palos durante ${partidosTorneo} encuentros con ${statsTorneo}. Tu actuación fue heroica, pero no bastó para evitar caer en: <strong>${faseAlcanzada}</strong>.`;
+        } else {
+          relato = `Defendiste la portería en ${partidosTorneo} encuentros logrando ${statsTorneo}, encajando goles difíciles de detener. El torneo concluyó en: <strong>${faseAlcanzada}</strong>.`;
+        }
+      }
+
+      player.partidosSeleccion += partidosTorneo;
+
+      return `
+        <div class="cartel-torneo-sel">
+          <div style="font-weight: 800; font-size: 1.05rem; color: #facc15; margin-bottom: 6px;">
+            🌍 CRÓNICA DEL TORNEO: ${nombreTorneo.toUpperCase()} (${player.nacionalidad})
+          </div>
+          <div style="font-size: 0.94rem; margin-bottom: 8px;">${relato}</div>
+          <div style="font-size: 0.85rem; background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 5px; color: #bae6fd;">
+            📌 <strong>Balance del torneo:</strong> ${partidosTorneo} partidos · ${statsTorneo} · Resultado: <strong>${faseAlcanzada}</strong>
+          </div>
+        </div>
+      `;
+    }
+
+    // Generador de Carta FIFA Ultimate Team en tu Prime
+    function generarCartaUltimateTeam() {
+      const ovr = player.mediaPrime;
+      const pos = player.posicionPrime || player.posicion;
+      const siglasPos = obtenerSiglasPosicion(pos);
+      const club = player.clubPrime || player.club;
+      const apellido = player.nombre.split(" ").pop().toUpperCase();
+      const esIcono = ovr >= 90;
+
+      const clamp = (val) => Math.min(99, Math.max(35, Math.round(val)));
+
+      let s1, s2, s3, s4, s5, s6;
+
+      if (pos === "Portero") {
+        s1 = { lbl: "EST", val: clamp(ovr + randomInt(-2, 3)) };
+        s2 = { lbl: "PAR", val: clamp(ovr + randomInt(-2, 2)) };
+        s3 = { lbl: "SAQ", val: clamp(ovr + randomInt(-6, 1)) };
+        s4 = { lbl: "REF", val: clamp(ovr + randomInt(0, 4)) };
+        s5 = { lbl: "VEL", val: clamp(ovr - randomInt(25, 38)) };
+        s6 = { lbl: "POS", val: clamp(ovr + randomInt(-1, 3)) };
+      } else if (pos === "Delantero Centro") {
+        s1 = { lbl: "RIT", val: clamp(ovr + randomInt(-4, 3)) };
+        s2 = { lbl: "TIR", val: clamp(ovr + randomInt(0, 4)) };
+        s3 = { lbl: "PAS", val: clamp(ovr - randomInt(8, 16)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(-4, 2)) };
+        s5 = { lbl: "DEF", val: clamp(ovr - randomInt(40, 52)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(-3, 4)) };
+      } else if (pos === "Segundo Delantero") {
+        s1 = { lbl: "RIT", val: clamp(ovr + randomInt(-2, 4)) };
+        s2 = { lbl: "TIR", val: clamp(ovr + randomInt(-1, 3)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(-3, 2)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(0, 4)) };
+        s5 = { lbl: "DEF", val: clamp(ovr - randomInt(38, 48)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr - randomInt(8, 16)) };
+      } else if (pos.includes("Extremo")) {
+        s1 = { lbl: "RIT", val: clamp(ovr + randomInt(1, 5)) };
+        s2 = { lbl: "TIR", val: clamp(ovr + randomInt(-3, 2)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(-3, 2)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(1, 5)) };
+        s5 = { lbl: "DEF", val: clamp(ovr - randomInt(42, 54)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr - randomInt(14, 24)) };
+      } else if (pos === "Mediapunta") {
+        s1 = { lbl: "RIT", val: clamp(ovr + randomInt(-4, 2)) };
+        s2 = { lbl: "TIR", val: clamp(ovr + randomInt(-2, 2)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(1, 5)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(1, 4)) };
+        s5 = { lbl: "DEF", val: clamp(ovr - randomInt(30, 42)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr - randomInt(14, 22)) };
+      } else if (pos === "Centrocampista") {
+        s1 = { lbl: "RIT", val: clamp(ovr - randomInt(5, 12)) };
+        s2 = { lbl: "TIR", val: clamp(ovr - randomInt(4, 10)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(1, 5)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(-1, 3)) };
+        s5 = { lbl: "DEF", val: clamp(ovr - randomInt(4, 12)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr - randomInt(2, 8)) };
+      } else if (pos === "Pivote Defensivo") {
+        s1 = { lbl: "RIT", val: clamp(ovr - randomInt(10, 18)) };
+        s2 = { lbl: "TIR", val: clamp(ovr - randomInt(12, 22)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(-2, 3)) };
+        s4 = { lbl: "REG", val: clamp(ovr - randomInt(5, 12)) };
+        s5 = { lbl: "DEF", val: clamp(ovr + randomInt(1, 4)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(1, 5)) };
+      } else if (pos.includes("Carrilero") || pos.includes("Lateral")) {
+        s1 = { lbl: "RIT", val: clamp(ovr + randomInt(0, 5)) };
+        s2 = { lbl: "TIR", val: clamp(ovr - randomInt(16, 26)) };
+        s3 = { lbl: "PAS", val: clamp(ovr + randomInt(-3, 2)) };
+        s4 = { lbl: "REG", val: clamp(ovr + randomInt(-2, 3)) };
+        s5 = { lbl: "DEF", val: clamp(ovr + randomInt(-2, 3)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(-2, 3)) };
+      } else { // Defensa Central
+        s1 = { lbl: "RIT", val: clamp(ovr - randomInt(8, 16)) };
+        s2 = { lbl: "TIR", val: clamp(ovr - randomInt(28, 38)) };
+        s3 = { lbl: "PAS", val: clamp(ovr - randomInt(12, 20)) };
+        s4 = { lbl: "REG", val: clamp(ovr - randomInt(14, 24)) };
+        s5 = { lbl: "DEF", val: clamp(ovr + randomInt(1, 5)) };
+        s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(1, 5)) };
+      }
+
+      const iconoAvatar = pos === "Portero" ? "🧤" : "⚽";
+
+      return `
+        <div class="fut-card-wrapper">
+          <div class="fut-card ${esIcono ? 'fut-icon' : ''}">
+            <div class="fut-top">
+              <div class="fut-left-col">
+                <div class="fut-rating">${ovr}</div>
+                <div class="fut-pos">${siglasPos}</div>
+                <div class="fut-nation">${player.nacionalidad}</div>
+                <div class="fut-club-badge">${club}</div>
+              </div>
+              <div class="fut-right-avatar">
+                <div class="fut-silhouette">${iconoAvatar}</div>
+                <div class="fut-prime-tag">PRIME · ${player.edadPrime} AÑOS</div>
+              </div>
+            </div>
+            <div class="fut-name">${apellido}</div>
+            <div class="fut-stats-grid">
+              <div class="fut-stat-row"><span class="fut-stat-val">${s1.val}</span><span class="fut-stat-lbl">${s1.lbl}</span></div>
+              <div class="fut-stat-row"><span class="fut-stat-val">${s4.val}</span><span class="fut-stat-lbl">${s4.lbl}</span></div>
+              <div class="fut-stat-row"><span class="fut-stat-val">${s2.val}</span><span class="fut-stat-lbl">${s2.lbl}</span></div>
+              <div class="fut-stat-row"><span class="fut-stat-val">${s5.val}</span><span class="fut-stat-lbl">${s5.lbl}</span></div>
+              <div class="fut-stat-row"><span class="fut-stat-val">${s3.val}</span><span class="fut-stat-lbl">${s3.lbl}</span></div>
+              <div class="fut-stat-row"><span class="fut-stat-val">${s6.val}</span><span class="fut-stat-lbl">${s6.lbl}</span></div>
+            </div>
+            <div class="fut-footer-line"></div>
+          </div>
+        </div>
+      `;
+    }
+
     const container = document.getElementById("game-container");
 
     function renderStart() {
       container.innerHTML = `
         <h1>⚽ FICHAS: CARRERA DE FÚTBOL</h1>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">De Promesa Juvenil a Leyenda del Deporte Rey</p>
-        <p>Vive una experiencia integral con contratos realistas, decisiones personales, transferencias exigentes para titanes europeos y control táctico individual.</p>
+        <p>Vive una trayectoria completa con posiciones especializadas, nombres oficiales de cada trofeo, desgaste acumulado realista y tu propia carta Ultimate Team en tu Prime al retirarte.</p>
         <hr>
         <h3>Selecciona el Modo de Juego:</h3>
         <div class="lista-opciones">
@@ -726,7 +1204,7 @@
         <p><strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
         <p>¿Cuál es tu rol natural sobre el terreno de juego?</p>
         <div class="lista-opciones">
-          ${opciones.map(pos => `<button class="btn-opcion" onclick="elegirPosicion('${pos}')">Jugar de <strong>${pos}</strong></button>`).join('')}
+          ${opciones.map(pos => `<button class="btn-opcion" onclick="elegirPosicion('${pos}')">Jugar de <strong>${pos}</strong> (${obtenerSiglasPosicion(pos)})</button>`).join('')}
         </div>
       `;
     }
@@ -739,7 +1217,7 @@
     function renderPie() {
       container.innerHTML = `
         <h3>👟 Paso 3: Perfil y Pierna Hábil</h3>
-        <p><strong>Nacionalidad:</strong> ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion}</p>
+        <p><strong>Nacionalidad:</strong> ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)})</p>
         <div class="lista-opciones">
           <button class="btn-opcion" onclick="elegirPie('Diestro')">Pierna derecha (Diestro)</button>
           <button class="btn-opcion" onclick="elegirPie('Zurdo')">Pierna izquierda (Zurdo)</button>
@@ -791,6 +1269,10 @@
       player.edad = 17;
       player.numeroFicha = 1;
       player.media = randomInt(63, 69);
+      player.mediaPrime = player.media;
+      player.posicionPrime = player.posicion;
+      player.clubPrime = player.club;
+      player.edadPrime = player.edad;
       calcularValorMercado();
       renderFichaInicial();
     }
@@ -801,7 +1283,7 @@
         <div style="background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; margin: 15px 0; line-height: 1.8;">
           <p><strong>Nombre:</strong> ${player.nombre} (#${player.dorsal})</p>
           <p><strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
-          <p><strong>Posición:</strong> ${player.posicion} | <strong>Pierna:</strong> ${player.pieHabil}</p>
+          <p><strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)}) | <strong>Pierna:</strong> ${player.pieHabil}</p>
           <p><strong>Club inicial:</strong> ${player.club}</p>
           <p><strong>Edad inicial:</strong> 17 años</p>
           <p><strong>Media de salida:</strong> ${player.media} / 99</p>
@@ -831,11 +1313,12 @@
       let nuevosTitulos = [];
       const esAtacante = (player.posicion.includes("Delantero") || player.posicion.includes("Extremo") || player.posicion.includes("Mediapunta"));
       const esMedio = (player.posicion === "Centrocampista" || player.posicion === "Mediapunta" || player.posicion === "Pivote Defensivo");
-      const esDefensa = (player.posicion.includes("Defensa") || player.posicion.includes("Lateral"));
+      const esDefensa = (player.posicion.includes("Defensa") || player.posicion.includes("Lateral") || player.posicion.includes("Carrilero"));
       const esPortero = (player.posicion === "Portero");
 
       const esClubChampions = clubesEuropaTop.includes(player.club);
       const esClubEuropaLeague = clubesEuropaMedios.includes(player.club);
+      const nombresTrofeosClub = obtenerTitulosRealesClub(player.club);
 
       let subida = 0;
       let partidos = 0;
@@ -872,12 +1355,14 @@
         textoNivel = "🌟 TEMPORADA MAGISTRAL";
         claseCartel = "cartel-oro";
 
+        player.desgasteFisicoAcumulado += (player.modoJuego === 11) ? 3 : 2;
+
         const azarHito = randomInt(1, 2);
         if (azarHito === 1) {
           aplicarDeltaMedia(1);
           htmlHitoIndividual = `
             <div style="background: rgba(234, 179, 8, 0.2); border-left: 4px solid #eab308; padding: 10px 14px; margin: 10px 0; border-radius: 6px; color: #fde047;">
-              ⭐ <strong>¡RECONOCIMIENTO INDIVIDUAL!</strong> Te nombran el <strong>MVP de muchos partidos de liga</strong> durante la campaña (+1 de media).
+              ⭐ <strong>¡RECONOCIMIENTO INDIVIDUAL!</strong> Te nombran el <strong>MVP de muchos partidos de ${nombresTrofeosClub.liga}</strong> durante la campaña (+1 de media).
             </div>
           `;
         } else {
@@ -895,8 +1380,8 @@
           pctParadas = randomInt(80, 88);
           golesEncajados = Math.round(randomInt(35, 50) * factorEscala);
         } else if (esDefensa) {
-          goles = Math.round(randomInt(2, 5) * factorEscala);
-          asistencias = Math.round((player.posicion.includes("Lateral") ? randomInt(8, 16) : randomInt(2, 6)) * factorEscala);
+          goles = Math.round(randomInt(2, 6) * factorEscala);
+          asistencias = Math.round(((player.posicion.includes("Lateral") || player.posicion.includes("Carrilero")) ? randomInt(10, 18) : randomInt(2, 6)) * factorEscala);
           porteriasCero = Math.round(randomInt(22, 32) * factorEscala);
           recuperaciones = Math.round(randomInt(180, 260) * factorEscala);
           pasesComp = Math.round(randomInt(1600, 2400) * factorEscala);
@@ -914,8 +1399,8 @@
           pasesComp = Math.round(randomInt(2500, 3400) * factorEscala);
           pasesClave = Math.round(randomInt(80, 130) * factorEscala);
           precPase = randomInt(88, 93);
-        } else if (player.posicion === "Mediapunta") {
-          goles = Math.round(randomInt(14, 22) * factorEscala);
+        } else if (player.posicion === "Mediapunta" || player.posicion === "Segundo Delantero") {
+          goles = Math.round(randomInt(16, 26) * factorEscala);
           asistencias = Math.round(randomInt(18, 30) * factorEscala);
           pasesClave = Math.round(randomInt(110, 160) * factorEscala);
           regates = Math.round(randomInt(90, 150) * factorEscala);
@@ -937,22 +1422,22 @@
           let ganoUelEstaTemp = false;
 
           if (esClubChampions) {
-            if (player.media >= 72 && randomInt(1, 100) <= 82) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 72 && randomInt(1, 100) <= 82) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (player.media >= 80 && randomInt(1, 100) <= 52) {
               nuevosTitulos.push("UEFA Champions League");
               ganoUclEstaTemp = true;
             }
           } else if (esClubEuropaLeague) {
-            if (player.media >= 75 && randomInt(1, 100) <= 58) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 75 && randomInt(1, 100) <= 58) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (player.media >= 76 && randomInt(1, 100) <= 54) {
               nuevosTitulos.push("UEFA Europa League");
               ganoUelEstaTemp = true;
             }
           } else {
-            if (player.media >= 79 && randomInt(1, 100) <= 32) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 79 && randomInt(1, 100) <= 32) nuevosTitulos.push(nombresTrofeosClub.liga);
           }
 
-          if (randomInt(1, 100) <= 55) nuevosTitulos.push("Copa Doméstica");
+          if (randomInt(1, 100) <= 55) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 65) {
             nuevosTitulos.push("Supercopa de la UEFA");
@@ -973,11 +1458,13 @@
         textoNivel = "📈 RENDIMIENTO SÓLIDO Y TITULARIDAD";
         claseCartel = "cartel-verde";
 
+        player.desgasteFisicoAcumulado += (player.modoJuego === 11) ? 2 : 1;
+
         if (randomInt(1, 100) <= 25) {
           aplicarDeltaMedia(1);
           htmlHitoIndividual = `
             <div style="background: rgba(34, 197, 94, 0.2); border-left: 4px solid #22c55e; padding: 10px 14px; margin: 10px 0; border-radius: 6px; color: #bbf7d0;">
-              ⭐ <strong>¡REGULARIDAD PREMIADA!</strong> Te nombran el <strong>MVP de varios partidos decisivos de liga</strong> (+1 de media).
+              ⭐ <strong>¡REGULARIDAD PREMIADA!</strong> Te nombran el <strong>MVP de varios partidos decisivos de ${nombresTrofeosClub.liga}</strong> (+1 de media).
             </div>
           `;
         }
@@ -989,7 +1476,7 @@
           golesEncajados = Math.round(randomInt(45, 65) * factorEscala);
         } else if (esDefensa) {
           goles = Math.round(randomInt(1, 3) * factorEscala);
-          asistencias = Math.round((player.posicion.includes("Lateral") ? randomInt(4, 10) : randomInt(1, 3)) * factorEscala);
+          asistencias = Math.round(((player.posicion.includes("Lateral") || player.posicion.includes("Carrilero")) ? randomInt(5, 11) : randomInt(1, 3)) * factorEscala);
           porteriasCero = Math.round(randomInt(14, 22) * factorEscala);
           recuperaciones = Math.round(randomInt(130, 190) * factorEscala);
           pasesComp = Math.round(randomInt(1200, 1800) * factorEscala);
@@ -1007,8 +1494,8 @@
           pasesComp = Math.round(randomInt(1900, 2600) * factorEscala);
           pasesClave = Math.round(randomInt(50, 85) * factorEscala);
           precPase = randomInt(85, 90);
-        } else if (player.posicion === "Mediapunta") {
-          goles = Math.round(randomInt(8, 14) * factorEscala);
+        } else if (player.posicion === "Mediapunta" || player.posicion === "Segundo Delantero") {
+          goles = Math.round(randomInt(10, 16) * factorEscala);
           asistencias = Math.round(randomInt(10, 18) * factorEscala);
           pasesClave = Math.round(randomInt(65, 105) * factorEscala);
           regates = Math.round(randomInt(60, 100) * factorEscala);
@@ -1030,22 +1517,22 @@
           let ganoUelEstaTemp = false;
 
           if (esClubChampions) {
-            if (player.media >= 74 && randomInt(1, 100) <= 62) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 74 && randomInt(1, 100) <= 62) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (player.media >= 82 && randomInt(1, 100) <= 34) {
               nuevosTitulos.push("UEFA Champions League");
               ganoUclEstaTemp = true;
             }
           } else if (esClubEuropaLeague) {
-            if (player.media >= 77 && randomInt(1, 100) <= 40) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 77 && randomInt(1, 100) <= 40) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (player.media >= 78 && randomInt(1, 100) <= 36) {
               nuevosTitulos.push("UEFA Europa League");
               ganoUelEstaTemp = true;
             }
           } else {
-            if (player.media >= 81 && randomInt(1, 100) <= 20) nuevosTitulos.push("Liga Nacional");
+            if (player.media >= 81 && randomInt(1, 100) <= 20) nuevosTitulos.push(nombresTrofeosClub.liga);
           }
 
-          if (randomInt(1, 100) <= 40) nuevosTitulos.push("Copa Doméstica");
+          if (randomInt(1, 100) <= 40) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 55) {
             nuevosTitulos.push("Supercopa de la UEFA");
@@ -1066,6 +1553,8 @@
         textoNivel = "📋 ROTACIÓN Y TRABAJO GREMIAL";
         claseCartel = "cartel-azul";
 
+        player.desgasteFisicoAcumulado = Math.max(0, player.desgasteFisicoAcumulado - 1);
+
         if (esPortero) {
           porteriasCero = Math.round(randomInt(9, 15) * factorEscala);
           paradas = Math.round(randomInt(80, 120) * factorEscala);
@@ -1073,7 +1562,7 @@
           golesEncajados = Math.round(randomInt(45, 60) * factorEscala);
         } else if (esDefensa) {
           goles = Math.round(randomInt(0, 2) * factorEscala);
-          asistencias = Math.round((player.posicion.includes("Lateral") ? randomInt(2, 5) : randomInt(0, 2)) * factorEscala);
+          asistencias = Math.round(((player.posicion.includes("Lateral") || player.posicion.includes("Carrilero")) ? randomInt(2, 5) : randomInt(0, 2)) * factorEscala);
           porteriasCero = Math.round(randomInt(8, 14) * factorEscala);
           recuperaciones = Math.round(randomInt(80, 130) * factorEscala);
           pasesComp = Math.round(randomInt(800, 1300) * factorEscala);
@@ -1091,8 +1580,8 @@
           pasesComp = Math.round(randomInt(1200, 1700) * factorEscala);
           pasesClave = Math.round(randomInt(30, 50) * factorEscala);
           precPase = randomInt(81, 86);
-        } else if (player.posicion === "Mediapunta") {
-          goles = Math.round(randomInt(4, 8) * factorEscala);
+        } else if (player.posicion === "Mediapunta" || player.posicion === "Segundo Delantero") {
+          goles = Math.round(randomInt(5, 9) * factorEscala);
           asistencias = Math.round(randomInt(5, 9) * factorEscala);
           pasesClave = Math.round(randomInt(35, 60) * factorEscala);
           regates = Math.round(randomInt(35, 65) * factorEscala);
@@ -1114,20 +1603,20 @@
           let ganoUelEstaTemp = false;
 
           if (esClubChampions) {
-            if (randomInt(1, 100) <= 40) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 40) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (randomInt(1, 100) <= 18) {
               nuevosTitulos.push("UEFA Champions League");
               ganoUclEstaTemp = true;
             }
           } else if (esClubEuropaLeague) {
-            if (randomInt(1, 100) <= 22) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 22) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (randomInt(1, 100) <= 15) {
               nuevosTitulos.push("UEFA Europa League");
               ganoUelEstaTemp = true;
             }
           }
 
-          if (randomInt(1, 100) <= 30) nuevosTitulos.push("Copa Doméstica");
+          if (randomInt(1, 100) <= 30) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 50) {
             nuevosTitulos.push("Supercopa de la UEFA");
@@ -1173,7 +1662,7 @@
           pasesComp = Math.round(randomInt(350, 700) * factorEscala);
           pasesClave = Math.round(randomInt(8, 18) * factorEscala);
           precPase = randomInt(77, 82);
-        } else if (player.posicion === "Mediapunta") {
+        } else if (player.posicion === "Mediapunta" || player.posicion === "Segundo Delantero") {
           goles = Math.round(randomInt(1, 3) * factorEscala);
           asistencias = Math.round(randomInt(1, 4) * factorEscala);
           pasesClave = Math.round(randomInt(10, 22) * factorEscala);
@@ -1196,21 +1685,21 @@
           let ganoUelEstaTemp = false;
 
           if (esClubChampions) {
-            if (randomInt(1, 100) <= 26) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 26) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (randomInt(1, 100) <= 10) {
               nuevosTitulos.push("UEFA Champions League");
               ganoUclEstaTemp = true;
             }
-            if (randomInt(1, 100) <= 28) nuevosTitulos.push("Copa Doméstica");
+            if (randomInt(1, 100) <= 28) nuevosTitulos.push(nombresTrofeosClub.copa);
           } else if (esClubEuropaLeague) {
-            if (randomInt(1, 100) <= 12) nuevosTitulos.push("Liga Nacional");
+            if (randomInt(1, 100) <= 12) nuevosTitulos.push(nombresTrofeosClub.liga);
             if (randomInt(1, 100) <= 8) {
               nuevosTitulos.push("UEFA Europa League");
               ganoUelEstaTemp = true;
             }
-            if (randomInt(1, 100) <= 20) nuevosTitulos.push("Copa Doméstica");
+            if (randomInt(1, 100) <= 20) nuevosTitulos.push(nombresTrofeosClub.copa);
           } else {
-            if (randomInt(1, 100) <= 10) nuevosTitulos.push("Copa Doméstica");
+            if (randomInt(1, 100) <= 10) nuevosTitulos.push(nombresTrofeosClub.copa);
           }
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 45) {
@@ -1279,63 +1768,35 @@
       if (deltaMoral !== 0) aplicarDeltaMedia(deltaMoral);
       player.ultimoEstadoMental = deltaMoral;
 
-      // Estado Físico
+      // Estado Físico y Precio Invisible
       let deltaFisico = 0;
       let motivoFisico = "";
-      const eventosFisicosPositivos = [
-        { txt: "Tu tren inferior responde con una potencia y elasticidad envidiable; ganas todos los choques.", delta: 1 },
-        { txt: "Régimen biomecánico impecable: encadenas meses sin molestias musculares y recuperas energías rápidamente.", delta: 1 },
-        { txt: "Pico de velocidad punta y resistencia cardiovascular; devoras kilómetros sin bajar la intensidad.", delta: 1 }
-      ];
 
-      const eventosFisicosNegativos = [
-        { txt: "Una sobrecarga recurrente en el isquiotibial y molestias articulares te obligan a jugar infiltrado.", delta: -1 },
-        { txt: "El calendario asfixiante te pasa factura; sufres fatiga crónica y pesadez en las piernas.", delta: -1 },
-        { txt: "Un esguince mal curado frena tu arrancada explosiva y te resta confianza al disputar balones divididos.", delta: -1 }
-      ];
+      let riesgoLesion = 15 + (player.desgasteFisicoAcumulado * 6) + (player.historialLesiones * 7);
+      if (player.tieneDietaEstricta) riesgoLesion -= 15;
+      if (player.retiradoSeleccion) riesgoLesion -= 10;
+      if (player.edad >= 32) riesgoLesion += 12;
 
-      const azarFisico = randomInt(1, 100);
-      if (suerte >= 82) {
-        if (azarFisico <= 75) {
-          const ef = pickRandom(eventosFisicosPositivos);
-          deltaFisico = ef.delta;
-          motivoFisico = ef.txt;
+      const azarLesion = randomInt(1, 100);
+      if (azarLesion <= riesgoLesion && player.numeroFicha > 1) {
+        player.historialLesiones += 1;
+        player.desgasteFisicoAcumulado = Math.max(0, player.desgasteFisicoAcumulado - 3);
+
+        const esGrave = (player.seHaOperado || player.historialLesiones >= 3) && !player.tieneDietaEstricta && randomInt(1, 100) <= 45;
+        if (esGrave) {
+          deltaFisico = -2;
+          motivoFisico = `🚨 <strong>LESIÓN ARTICULAR / MUSCULAR GRAVE:</strong> El peaje invisible de acumular temporadas al máximo nivel pasa factura. Sufriste una rotura de gravedad agravada por tu historial médico (-2 de media).`;
         } else {
-          motivoFisico = "Tu organismo asimila la alta carga de partidos con tono muscular óptimo.";
+          deltaFisico = -1;
+          motivoFisico = `🩹 <strong>SOBRECARGA Y ROTURA FIBRILAR:</strong> La acumulación de minutos a máxima intensidad provoca una lesión muscular que te deja varias semanas en el dique seco (-1 de media).`;
         }
-      } else if (suerte >= 52) {
-        if (azarFisico <= 40) {
-          const ef = pickRandom(eventosFisicosPositivos);
-          deltaFisico = ef.delta;
-          motivoFisico = ef.txt;
-        } else if (azarFisico >= 78) {
-          const ef = pickRandom(eventosFisicosNegativos);
-          deltaFisico = ef.delta;
-          motivoFisico = ef.txt;
-        } else {
-          motivoFisico = "Respuesta física estándar y controlada sin lesiones de consideración.";
-        }
-      } else if (suerte >= 26) {
-        if (azarFisico <= 50) {
-          const ef = pickRandom(eventosFisicosNegativos);
-          deltaFisico = ef.delta;
-          motivoFisico = ef.txt;
-        } else {
-          motivoFisico = "Ritmo físico algo intermitente debido a la falta de continuidad en el campo.";
-        }
+      } else if (suerte >= 65 && randomInt(1, 100) <= 55) {
+        deltaFisico = 1;
+        motivoFisico = player.tieneDietaEstricta 
+          ? "🥗 <strong>BIOMECÁNICA DE ÉLITE:</strong> Tu dieta estricta y preparación te permiten encadenar partidos sin desgaste alguno (+1 de media)."
+          : "⚡ <strong>PLETÓRICO FÍSICAMENTE:</strong> Tu tren inferior responde con potencia y elasticidad envidiable; ganas todos los duelos (+1 de media).";
       } else {
-        if (azarFisico <= 75) {
-          const ef = pickRandom(eventosFisicosNegativos);
-          deltaFisico = ef.delta;
-          motivoFisico = ef.txt;
-        } else {
-          motivoFisico = "Logras evitar lesiones graves a pesar del evidente bajón de ritmo de juego.";
-        }
-      }
-
-      if (player.retiradoSeleccion && azarFisico <= 35) {
-        motivoFisico += " El descanso durante los parones internacionales te permite oxigenar el cuerpo y esquivar lesiones.";
-        if (deltaFisico < 1) deltaFisico += 1;
+        motivoFisico = "Respuesta física equilibrada, dosificando la fatiga acumulada de las últimas temporadas sin lesiones de gravedad.";
       }
 
       if (deltaFisico !== 0) aplicarDeltaMedia(deltaFisico);
@@ -1356,7 +1817,7 @@
           <strong>⚡ INFORME BIOMÉDICO Y ESTADO FÍSICO:</strong><br>
           ${motivoFisico}
           <div style="margin-top: 6px; font-weight: bold; font-size: 0.9rem;">
-            Impacto físico: ${deltaFisico > 0 ? `<span style="color: #4ade80;">+${deltaFisico} de media (Pletórico físicamente)</span>` : (deltaFisico < 0 ? `<span style="color: #f87171;">${deltaFisico} de media (Merma física)</span>` : `<span style="color: #94a3b8;">Físico equilibrado</span>`)} | Media resultante: <strong>${player.media}</strong>
+            Impacto físico: ${deltaFisico > 0 ? `<span style="color: #4ade80;">+${deltaFisico} de media</span>` : (deltaFisico < 0 ? `<span style="color: #f87171;">${deltaFisico} de media</span>` : `<span style="color: #94a3b8;">Sin cambios</span>`)} | Media resultante: <strong>${player.media}</strong>
           </div>
         </div>
       `;
@@ -1394,7 +1855,6 @@
         </div>
       `;
 
-      // Noticias virales
       let htmlNoticiaPrensa = "";
       const azarNoticia = randomInt(1, 100);
       if (azarNoticia <= 48) {
@@ -1406,12 +1866,6 @@
             bajada: "Remataste alto con la portería descubierta tras un rebote milagroso. El empate condena al equipo y el vídeo se vuelve meme mundial.",
             opcionA: { txt: "Pedir disculpas al cuerpo técnico y prometer entrenar definición extra", delta: 0, msg: "El vestuario valora tu madurez para asumir el error." },
             opcionB: { txt: "Culpar al bote irregular del césped ante los micrófonos", delta: -1, msg: "La prensa te tacha de victimista y pierdes -1 de media." }
-          });
-          catalogo.push({
-            titular: "🤿 ¡ESCÁNDALO: EXPULSIÓN POR PISCINAZO VERGONZOSO!",
-            bajada: "Te tiraste en el área en el minuto 88 buscando un penalti inexistente. El árbitro te mostró la segunda amarilla por simulación.",
-            opcionA: { txt: "Aceptar la sanción federativa y agachar la cabeza", delta: 0, msg: "El castigo se cumple sin mayor revuelo interno." },
-            opcionB: { txt: "Publicar en redes que hubo contacto claro con el defensor", delta: -1, msg: "Tus quejas enfurecen al comité de competición (-1 de media)." }
           });
           catalogo.push({
             titular: "⚡ ¡PÓKER ANTHOLÓGICO: 4 GOLES EN 20 MINUTOS!",
@@ -1428,12 +1882,6 @@
             opcionA: { txt: "Mantener la compostura y destacar la visión colectiva", delta: 1, msg: "Elogios unánimes de la prensa mundial: +1 de media." },
             opcionB: { txt: "Reclamar el premio Puskás de la FIFA en redes sociales", delta: 0, msg: "El gol da la vuelta al mundo sin alterar tu estatus." }
           });
-          catalogo.push({
-            titular: "🛑 ¡PÉRDIDA IMPERDONABLE AL BORDE DEL ÁREA EN EL CLÁSICO!",
-            bajada: "Intentaste una ruleta como último hombre en lugar de despejar; te robaron la cartera y regalaste el gol de la derrota en el 90'.",
-            opcionA: { txt: "Dar la cara en zona mixta asumiendo el error táctico", delta: 0, msg: "La afición respeta tu valentía al no esconderte." },
-            opcionB: { txt: "Discutir con el central alegando que no te gritó la marca", delta: -1, msg: "Creas una fractura en la zaga que te cuesta -1 de media." }
-          });
         }
 
         if (esDefensa) {
@@ -1443,12 +1891,6 @@
             opcionA: { txt: "Felicitar la solidez y el esfuerzo de toda la línea defensiva", delta: 1, msg: "Reconocimiento como baluarte defensivo: +1 de media." },
             opcionB: { txt: "Exigir la titularidad indiscutible al entrenador", delta: 0, msg: "El míster valora tu salvada pero te pide constancia." }
           });
-          catalogo.push({
-            titular: "🤦‍♂️ ¡PENALTI ABSURDO POR MANO DESPEGADA TRAS REVISIÓN VAR!",
-            bajada: "Saltaste a disputar un córner con los brazos abiertos de forma negligente y el VAR castigó tu imprudencia en el minuto 94.",
-            opcionA: { txt: "Pedir disculpas a la afición por la desconcentración", delta: 0, msg: "El perdón calma a la grada tras el empate agónico." },
-            opcionB: { txt: "Rajar del VAR y de los colegiados en zona mixta", delta: -1, msg: "Sanción económica y desconcentración deportiva (-1 de media)." }
-          });
         }
 
         if (esPortero) {
@@ -1457,12 +1899,6 @@
             bajada: "Mano a mano sacado con la cara y tapón felino al rechazo. El estadio entero se puso en pie para ovacionarte.",
             opcionA: { txt: "Destacar la casta defensiva de los centrales", delta: 1, msg: "Consagrado como un muro infranqueable: +1 de media." },
             opcionB: { txt: "Reclamar el premio The Best al mejor guardameta", delta: 0, msg: "Tus paradas copan las portadas mundiales." }
-          });
-          catalogo.push({
-            titular: "🧈 ¡CANTE HISTÓRICO: BALÓN ESCAPADO POR DEBAJO DE LAS PIERNAS!",
-            bajada: "Un disparo lejano y manso botó antes de llegar a tus guantes y se coló directo a la red en una semifinal.",
-            opcionA: { txt: "Encerrarte a entrenar técnica de blocaje sin dar declaraciones", delta: 0, msg: "El silencio y el trabajo duro te devuelven la seguridad." },
-            opcionB: { txt: "Culpar a la iluminación del estadio y a los focos", delta: -1, msg: "La excusa no convence a nadie y te cuesta -1 de media." }
           });
         }
 
@@ -1532,6 +1968,7 @@
       }
 
       const tInfo = obtenerTierPais(player.nacionalidad);
+      const nombreContinental = obtenerNombreTorneoContinental(player.nacionalidad);
       let htmlSeleccion = "";
 
       const esAnioMundial = (player.edad % 4 === 1);
@@ -1540,91 +1977,46 @@
       const factorDificultadMundial = calcularFactorDificultadSeleccion(player.mundialesGanados);
       const factorDificultadContinental = calcularFactorDificultadSeleccion(player.continentalesGanados);
 
-      const probResurreccionAjustada = Math.max(1, Math.round(tInfo.probRes * factorDificultadMundial));
       const probMunAjustada = Math.max(1, Math.round(tInfo.probMun * factorDificultadMundial));
       const probContAjustada = Math.max(1, Math.round(tInfo.probCont * factorDificultadContinental));
 
       if (player.retiradoSeleccion) {
         htmlSeleccion = `<p style="color: #94a3b8;"><em>Te encuentras retirado de la Selección de ${player.nacionalidad} para concentrar tu físico exclusivamente en tu club.</em></p>`;
-      } else if (suerte < 26 && player.edad >= 21 && player.edad <= 34 && esAnioMundial && randomInt(1, 100) <= probResurreccionAjustada) {
-        aplicarDeltaMedia(3);
-        player.titulosSeleccion += 1;
-        player.mundialesGanados += 1;
-        player.listaTitulos.push(`🌍 Copa del Mundo / Mundial (${player.nacionalidad})`);
-        player.partidosSeleccion += 7;
-        const golesRes = esAtacante ? randomInt(5, 7) : randomInt(1, 2);
-        const asisRes = esAtacante ? randomInt(2, 4) : randomInt(0, 2);
-        player.golesSeleccion += golesRes;
-        player.asistenciasSeleccion += asisRes;
-
-        let botaMundialHtml = "";
-        if (esAtacante && golesRes >= 6) {
-          player.pichichisMundial += 1;
-          player.listaPremiosIndiv.push(`⚽ Bota de Oro del Mundial (Máximo goleador con ${player.nacionalidad})`);
-          botaMundialHtml = `<div style="color: #fde047; font-weight: bold; margin-top: 6px;">👟 ¡¡BOTA DE ORO DEL MUNDIAL!! Máximo artillero absoluto del torneo con ${golesRes} goles.</div>`;
-        }
-
-        htmlSeleccion = `
-          <div class="resurreccion-box">
-            <div style="color: #a5b4fc; font-weight: 800; font-size: 1.1rem; margin-bottom: 6px;">⚡ ¡¡LA MAYOR GESTA DE LA HISTORIA: HÉROE CON ${player.nacionalidad.toUpperCase()}!!</div>
-            <div style="font-size: 0.95rem; line-height: 1.6;">
-              <strong>Parecía que estabas acabado en tu club</strong> y la crítica pedía tu exclusión. En un giro dramático, el seleccionador confió en ti para el Mundial.<br><br>
-              ¡Y lideraste la mayor gesta conocida! Conquistaste la <strong>Copa del Mundo</strong> para tu país sumando ${golesRes} goles y ${asisRes} asistencias cruciales.
-            </div>
-            <div style="margin-top: 10px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 6px; color: #facc15; font-weight: bold;">
-              🚀 ¡REVALORIZACIÓN ÉPICA! +3 de media por tu papel legendario (Media actual: ${player.media} | Valor: €${player.valorMercado}M).
-            </div>
-            ${botaMundialHtml}
-          </div>
-        `;
       } else if (player.media >= tInfo.minMediaSel && suerte >= 28) {
-        const partSel = Math.round(randomInt(4, 10) * factorEscala) || 2;
-        let golSel = 0;
-        let asisSel = 0;
-        if (esPortero) {
-          golSel = 0; asisSel = 0;
-        } else if (esDefensa) {
-          golSel = pickRandom([0, 0, 1]);
-          asisSel = randomInt(0, 1);
-        } else if (esMedio) {
-          golSel = randomInt(0, 2);
-          asisSel = randomInt(1, 2);
-        } else {
-          golSel = randomInt(1, 4);
-          asisSel = randomInt(0, 2);
-        }
+        let htmlCronicaTorneo = "";
 
-        player.partidosSeleccion += partSel;
-        player.golesSeleccion += golSel;
-        player.asistenciasSeleccion += asisSel;
-
-        let copasSel = "";
-
-        if (esAnioContinental && player.media >= tInfo.reqCont && randomInt(1, 100) <= probContAjustada) {
-          player.titulosSeleccion += 1;
-          player.continentalesGanados += 1;
-          player.listaTitulos.push(`🏆 Torneo Continental de Selecciones (${player.nacionalidad})`);
-          copasSel += `<div style="color: #facc15; margin-top: 6px; font-weight: bold;">⭐ ¡¡CAMPEÓN CONTINENTAL!! Levantaste el trofeo continental con ${player.nacionalidad}${player.continentalesGanados > 1 ? ` (Tu ${player.continentalesGanados}º título continental)` : ''}.</div>`;
-        }
-
-        if (esAnioMundial && player.media >= tInfo.reqMun && randomInt(1, 100) <= probMunAjustada) {
-          player.titulosSeleccion += 1;
-          player.mundialesGanados += 1;
-          player.listaTitulos.push(`🌍 Copa del Mundo / Mundial (${player.nacionalidad})`);
-          copasSel += `<div style="color: #facc15; margin-top: 6px; font-weight: bold;">🌍 ¡¡CAMPEÓN DEL MUNDO!! Conquistaste la Copa del Mundo con ${player.nacionalidad}${player.mundialesGanados > 1 ? ` (¡Tu ${player.mundialesGanados}º Copa del Mundo!)` : ''}.</div>`;
-          if (esAtacante && golSel >= 3 && randomInt(1, 100) <= 45) {
-            player.pichichisMundial += 1;
-            player.listaPremiosIndiv.push(`⚽ Bota de Oro del Mundial (${player.nacionalidad})`);
-            copasSel += `<div style="color: #fde047; font-weight: bold; margin-top: 4px;">👟 ¡Bota de Oro del Mundial con tu selección!</div>`;
+        if (esAnioContinental) {
+          const ganoContinental = (player.media >= tInfo.reqCont && randomInt(1, 100) <= probContAjustada);
+          if (ganoContinental) {
+            player.titulosSeleccion += 1;
+            player.continentalesGanados += 1;
+            player.listaTitulos.push(`🏆 ${nombreContinental} (${player.nacionalidad})`);
           }
+          htmlCronicaTorneo = generarCronicaTorneoSeleccion(nombreContinental, ganoContinental, esAtacante, esMedio, esDefensa, esPortero);
+        } else if (esAnioMundial) {
+          const ganoMundial = (player.media >= tInfo.reqMun && randomInt(1, 100) <= probMunAjustada);
+          if (ganoMundial) {
+            player.titulosSeleccion += 1;
+            player.mundialesGanados += 1;
+            player.listaTitulos.push(`🌍 Copa Mundial de la FIFA (${player.nacionalidad})`);
+          }
+          htmlCronicaTorneo = generarCronicaTorneoSeleccion("Copa Mundial de la FIFA", ganoMundial, esAtacante, esMedio, esDefensa, esPortero);
+        } else {
+          const partSel = Math.round(randomInt(4, 8) * factorEscala) || 2;
+          const golSel = esAtacante ? randomInt(1, 3) : (esMedio ? randomInt(0, 1) : 0);
+          const asisSel = (esAtacante || esMedio) ? randomInt(0, 2) : 0;
+          player.partidosSeleccion += partSel;
+          player.golesSeleccion += golSel;
+          player.asistenciasSeleccion += asisSel;
+
+          htmlCronicaTorneo = `
+            <div class="seleccion-box">
+              🔵 <strong>Fase Clasificatoria con ${player.nacionalidad}:</strong> Disputaste ${partSel} encuentros internacionales (${golSel} goles, ${asisSel} asistencias).
+            </div>
+          `;
         }
 
-        htmlSeleccion = `
-          <div class="seleccion-box">
-            🔵 <strong>Convocado con la Selección de ${player.nacionalidad}:</strong> Sumaste ${partSel} partidos, ${golSel} goles y ${asisSel} asistencias internacionales.
-            ${copasSel}
-          </div>
-        `;
+        htmlSeleccion = htmlCronicaTorneo;
       } else {
         htmlSeleccion = `<p><em>No fuiste convocado con ${player.nacionalidad} durante este período.</em></p>`;
       }
@@ -1642,10 +2034,10 @@
       if (esAtacante) {
         if (goles >= reqPichichi && randomInt(1, 100) <= 50) {
           player.pichichisLiga += 1;
-          player.listaPremiosIndiv.push(`⚽ Trofeo Pichichi de la Liga (Club: ${player.club})`);
+          player.listaPremiosIndiv.push(`⚽ Máximo Goleador de ${nombresTrofeosClub.liga} (Club: ${player.club})`);
           htmlPichichis += `
             <div style="background: rgba(234, 179, 8, 0.2); border-left: 4px solid #eab308; padding: 8px 12px; margin: 8px 0; font-weight: bold; color: #fde047;">
-              ⚽ ¡¡MÁXIMO GOLEADOR DE LA LIGA!! Te llevas el Trofeo Pichichi con ${player.club}.
+              ⚽ ¡¡MÁXIMO GOLEADOR DE ${nombresTrofeosClub.liga.toUpperCase()}!! Te llevas el trofeo de máximo artillero con ${player.club}.
             </div>
           `;
         }
@@ -1711,7 +2103,7 @@
           <div class="badge-etapa">${nombreEtapa}</div>
           <h2>Ficha ${player.numeroFicha} · ${player.nombre} (#${player.dorsal})</h2>
           <div style="font-size: 0.95rem; opacity: 0.95; margin-bottom: 6px;">
-            <strong>Edad:</strong> ${player.edad} años | <strong>Posición:</strong> ${player.posicion} | <strong>Club:</strong> ${player.club} | <strong>Media:</strong> ${player.media} / 99
+            <strong>Edad:</strong> ${player.edad} años | <strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)}) | <strong>Club:</strong> ${player.club} | <strong>Media:</strong> ${player.media} / 99
           </div>
           <div class="finanzas-bar">
             <span>🏷️ <strong>Valor de Mercado:</strong> €${player.valorMercado}M</span>
@@ -1739,7 +2131,7 @@
         ${htmlSeleccion}
 
         <hr>
-        <h3>🎖 Premios Individuales y Pichichis</h3>
+        <h3>🎖 Premios Individuales y Goleadores</h3>
         ${htmlPichichis}
         ${htmlPremios}
 
@@ -1760,7 +2152,6 @@
     function renderDespacho() {
       let htmlOpciones = "";
 
-      // 1. EVENTO FORZOSO SIN DECISIÓN (~6%)
       const azarForzado = randomInt(1, 100);
       if (azarForzado <= 6 && player.numeroFicha > 1) {
         if (!player.retiradoSeleccion && player.edad >= 27 && azarForzado <= 3) {
@@ -1792,7 +2183,6 @@
         }
       }
 
-      // 2. PROBLEMA CONTRACTUAL O DECISIÓN PERSONAL ESTILO FIFA (~22%)
       let htmlProblemaFIFA = "";
       if (randomInt(1, 100) <= 22 && player.numeroFicha > 1) {
         const eventosFIFA = [
@@ -1832,7 +2222,6 @@
         `;
       }
 
-      // 3. SOLICITUD PROACTIVA DEL JUGADOR PARA CAMBIAR DE POSICIÓN (INTERACTIVO)
       const posSugeridaProactiva = obtenerPosicionReconversion(player.posicion);
       let htmlPeticionPosicion = "";
       if (posSugeridaProactiva && player.posicion !== "Portero" && player.edad <= 34) {
@@ -1842,14 +2231,13 @@
             ¿Quieres solicitarle formalmente al entrenador jugar en una nueva demarcación táctica?<br>
             <div class="lista-opciones" style="margin-top: 8px;">
               <button class="btn-opcion" onclick="pedirCambioPosicion('${posSugeridaProactiva}')">
-                🔄 Pedir al míster pasar a jugar de <strong>${posSugeridaProactiva}</strong> (Posición actual: ${player.posicion})
+                🔄 Pedir al míster pasar a jugar de <strong>${posSugeridaProactiva} (${obtenerSiglasPosicion(posSugeridaProactiva)})</strong> (Actual: ${player.posicion})
               </button>
             </div>
           </div>
         `;
       }
 
-      // 4. OFERTAS DE TITANES EUROPEOS: EXIGENTES (Media >= 81 de joven o >= 85 consagrado)
       let htmlOfertaTitan = "";
       const cumpleNivelTitan = (player.edad <= 23 && player.media >= 81 && player.ultimaTemporadaBuena) || (player.media >= 85 && player.ultimaTemporadaBuena);
       if (cumpleNivelTitan && !clubesEuropaTop.includes(player.club) && randomInt(1, 100) <= 40) {
@@ -2010,23 +2398,38 @@
           </div>
         `;
       } else if (player.numeroFicha <= etapaJuvenilMax && player.edad < 25) {
-        const interesado = pickRandomExcept(clubesEuropaMedios, player.club);
-        const detInt = generarDetalleContrato(interesado);
-        htmlOpciones = `
-          <div style="background: rgba(59, 130, 246, 0.15); border-left: 4px solid #38bdf8; padding: 14px; margin: 15px 0;">
-            📰 <strong>PROPUESTA FORMAL DE MERCADO</strong>
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">🏛️ Contrato ofrecido por ${detInt.club}</div>
-            <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${detInt.duracion} temporadas<br>
-              • <strong>Sueldo:</strong> €${detInt.sueldo}M/año | <strong>Prima:</strong> €${detInt.prima}M<br>
-              • <strong>Cláusula:</strong> €${detInt.clausula}M | <strong>Rol:</strong> ${detInt.rol}
+        const azarDilema = randomInt(1, 3);
+        if (azarDilema === 1) {
+          const interesado = pickRandomExcept(clubesEuropaMedios, player.club);
+          const detInt = generarDetalleContrato(interesado);
+          htmlOpciones = `
+            <div style="background: rgba(59, 130, 246, 0.15); border-left: 4px solid #38bdf8; padding: 14px; margin: 15px 0;">
+              📰 <strong>PROPUESTA FORMAL DE MERCADO</strong>
             </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detInt.club}'})">Aceptar traspaso y mudarte al <strong>${detInt.club}</strong></button>
-          </div>
-          <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Renovar contrato y seguir en el <strong>${player.club}</strong> (+1 de media)</button>
-        `;
+            <div class="oferta-card">
+              <div class="oferta-header">🏛️ Contrato ofrecido por ${detInt.club}</div>
+              <div class="oferta-detalles">
+                • <strong>Duración:</strong> ${detInt.duracion} temporadas<br>
+                • <strong>Sueldo:</strong> €${detInt.sueldo}M/año | <strong>Prima:</strong> €${detInt.prima}M<br>
+                • <strong>Cláusula:</strong> €${detInt.clausula}M | <strong>Rol:</strong> ${detInt.rol}
+              </div>
+              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detInt.club}'})">Aceptar traspaso y mudarte al <strong>${detInt.club}</strong></button>
+            </div>
+            <button class="btn-opcion" onclick="ejecutarDecision({mediaDelta: 1})">Renovar contrato y seguir en el <strong>${player.club}</strong> (+1 de media)</button>
+          `;
+        } else {
+          htmlOpciones = `
+            <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
+              🥗 <strong>PLAN DE NUTRICIÓN Y METABOLISMO DE ÉLITE</strong><br>
+              Un nutricionista de prestigio te propone una dieta metabólica estricta. Ayuda a prevenir lesiones en el futuro.<br>
+              <small style="color: #94a3b8;">(Riesgo: 70% éxito de +1 de media y blindaje físico / 30% fatiga y perder -1)</small>
+            </div>
+            <div class="lista-opciones">
+              <button class="btn-opcion" onclick="ejecutarDieta()">Aceptar el plan nutricional estricto</button>
+              <button class="btn-opcion" onclick="ejecutarDecision({})">Mantener tu alimentación habitual sin riesgos</button>
+            </div>
+          `;
+        }
       } else if (player.numeroFicha <= etapaPrimeMax && player.edad < 32) {
         if (guerrasValidas.length > 0 && randomInt(1, 100) <= 60) {
           const guerra = pickRandom(guerrasValidas);
@@ -2035,7 +2438,7 @@
           htmlOpciones = `
             <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
               🥩 <strong>PLAN DE NUTRICIÓN MOLECULAR Y LONGEVIDAD</strong><br>
-              Afinar tu porcentaje graso al milímetro para prolongar tu pico de rendimiento.<br>
+              Afinar tu porcentaje graso al milímetro para prolongar tu pico de rendimiento y reducir el riesgo de lesión.<br>
               <small style="color: #94a3b8;">(Riesgo: 70% éxito +1 / 30% bajón energético -1)</small>
             </div>
             <div class="lista-opciones">
@@ -2045,44 +2448,71 @@
           `;
         }
       } else {
-        const exotico = pickRandom(clubesExoticos);
-        const modesto = pickRandomExcept(clubesEuropaBajos, player.club);
-        const detEx = generarDetalleContrato(exotico);
-        const detMod = generarDetalleContrato(modesto);
+        const azarVet = randomInt(1, 3);
+        if (azarVet === 1) {
+          htmlOpciones = `
+            <div style="background: rgba(245, 158, 11, 0.15); border-left: 4px solid #f59e0b; padding: 14px; margin: 15px 0;">
+              🌟 <strong>CAPITÁN Y MENTOR DE LA CANTERA (${player.edad} años)</strong><br>
+              Ha irrumpido una joya juvenil al primer equipo. El club te pide ser su tutor en el vestuario.<br>
+              <small style="color: #94a3b8;">(Riesgo: 75% éxito de liderazgo +1 / 25% fricción y perder -1)</small>
+            </div>
+            <div class="lista-opciones">
+              <button class="btn-opcion" onclick="ejecutarMentor()">Aceptar ser su mentor (Transmitir tus galones)</button>
+              <button class="btn-opcion" onclick="ejecutarDecision({})">Rechazarlo: en el fútbol profesional cada uno debe ganarse su puesto</button>
+            </div>
+          `;
+        } else if (azarVet === 2) {
+          const exotico = pickRandom(clubesExoticos);
+          const modesto = pickRandomExcept(clubesEuropaBajos, player.club);
+          const detEx = generarDetalleContrato(exotico);
+          const detMod = generarDetalleContrato(modesto);
 
-        htmlOpciones = `
-          <div style="background: rgba(148, 163, 184, 0.15); border-left: 4px solid #94a3b8; padding: 14px; margin: 15px 0;">
-            ⌛ <strong>RECTA FINAL DE CARRERA: CONTRATOS DE VETERANÍA</strong>
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">🌴 Retiro Dorado en ${detEx.club}</div>
-            <div class="oferta-detalles">
-              • <strong>Duración:</strong> 1 temporada (renovable)<br>
-              • <strong>Sueldo estratosférico:</strong> €${detEx.sueldo}M/año | <strong>Prima:</strong> €${detEx.prima}M<br>
-              • <strong>Rol:</strong> Franquicia internacional
+          htmlOpciones = `
+            <div style="background: rgba(148, 163, 184, 0.15); border-left: 4px solid #94a3b8; padding: 14px; margin: 15px 0;">
+              ⌛ <strong>RECTA FINAL DE CARRERA: CONTRATOS DE VETERANÍA</strong>
             </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detEx.club}'})">Fichar por el <strong>${detEx.club}</strong></button>
-          </div>
-          <div class="oferta-card">
-            <div class="oferta-header">🛡️ Jerarquía en ${detMod.club}</div>
-            <div class="oferta-detalles">
-              • <strong>Duración:</strong> 1 temporada<br>
-              • <strong>Sueldo:</strong> €${detMod.sueldo}M/año<br>
-              • <strong>Rol:</strong> Líder de vestuario
+            <div class="oferta-card">
+              <div class="oferta-header">🌴 Retiro Dorado en ${detEx.club}</div>
+              <div class="oferta-detalles">
+                • <strong>Duración:</strong> 1 temporada (renovable)<br>
+                • <strong>Sueldo estratosférico:</strong> €${detEx.sueldo}M/año | <strong>Prima:</strong> €${detEx.prima}M<br>
+                • <strong>Rol:</strong> Franquicia internacional
+              </div>
+              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detEx.club}'})">Fichar por el <strong>${detEx.club}</strong></button>
             </div>
-            <button class="btn-opcion" onclick="ejecutarDecision({club: '${detMod.club}'})">Fichar por el <strong>${detMod.club}</strong></button>
-          </div>
-          <button class="btn-opcion" onclick="ejecutarDecision({})">Pelear por tu puesto y quedarte en el <strong>${player.club}</strong></button>
-        `;
+            <div class="oferta-card">
+              <div class="oferta-header">🛡️ Jerarquía en ${detMod.club}</div>
+              <div class="oferta-detalles">
+                • <strong>Duración:</strong> 1 temporada<br>
+                • <strong>Sueldo:</strong> €${detMod.sueldo}M/año<br>
+                • <strong>Rol:</strong> Líder de vestuario
+              </div>
+              <button class="btn-opcion" onclick="ejecutarDecision({club: '${detMod.club}'})">Fichar por el <strong>${detMod.club}</strong></button>
+            </div>
+            <button class="btn-opcion" onclick="ejecutarDecision({})">Pelear por tu puesto y quedarte en el <strong>${player.club}</strong></button>
+          `;
+        } else {
+          htmlOpciones = `
+            <div style="background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; padding: 14px; margin: 15px 0;">
+              🥗 <strong>PLAN DE REGENERACIÓN FÍSICA PARA VETERANOS</strong><br>
+              A tus ${player.edad} años, te ofrecen un protocolo biológico para cuidar las articulaciones.<br>
+              <small style="color: #94a3b8;">(Riesgo: 70% éxito +1 / 30% bajón físico -1)</small>
+            </div>
+            <div class="lista-opciones">
+              <button class="btn-opcion" onclick="ejecutarRegeneracion()">Someterte al plan regenerativo</button>
+              <button class="btn-opcion" onclick="ejecutarDecision({})">Confiar en tus rutinas de siempre</button>
+            </div>
+          `;
+        }
       }
 
       container.innerHTML = `
         <h3>💼 Despacho y Decisiones de Futuro</h3>
-        <p><strong>Situación:</strong> ${player.nombre} (#${player.dorsal}) | <strong>Edad:</strong> ${player.edad} años | <strong>Posición:</strong> ${player.posicion} | <strong>Club actual:</strong> <strong>${player.club}</strong> | <strong>Media:</strong> ${player.media}</p>
+        <p><strong>Situación:</strong> ${player.nombre} (#${player.dorsal}) | <strong>Edad:</strong> ${player.edad} años | <strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)}) | <strong>Club actual:</strong> <strong>${player.club}</strong> | <strong>Media:</strong> ${player.media}</p>
         <div style="background: rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.9rem;">
           🏷️ <strong>Valoración de Mercado:</strong> €${player.valorMercado}M | 💵 <strong>Sueldo:</strong> €${player.sueldoAnual}M/año | 🏆 <strong>Valor Récord:</strong> €${player.valorMercadoRecord}M
         </div>
-        <p>Tu agente te presenta las opciones antes de disputar la siguiente etapa:</p>
+        <p>Tu agente te presenta las opciones antes de saltar a disputar la siguiente etapa:</p>
         <hr>
         ${htmlPeticionPosicion}
         ${htmlOpcionRetiroFutbol}
@@ -2107,6 +2537,7 @@
         const acepta = (randomInt(1, 100) <= 45);
         if (acepta) {
           player.posicion = nuevaPos;
+          actualizarPrimeSiProcede();
           alert(`El míster accede a probarte de ${nuevaPos} en los entrenamientos.`);
         } else {
           aplicarDeltaMedia(-1);
@@ -2134,6 +2565,7 @@
       if (opts.mediaDelta) aplicarDeltaMedia(opts.mediaDelta);
       player.edad += (player.modoJuego === 22) ? 1 : 2;
       player.numeroFicha += 1;
+      actualizarPrimeSiProcede();
       calcularValorMercado();
 
       if (player.edad >= 40) {
@@ -2143,14 +2575,15 @@
       }
     }
 
-    function ejecutarPresionJoven() {
-      const delta = (randomInt(1, 100) <= 75) ? pickRandom([1, 2]) : -1;
-      ejecutarDecision({mediaDelta: delta});
-    }
-
     function ejecutarDieta() {
-      const delta = (randomInt(1, 100) <= 70) ? 1 : -1;
-      ejecutarDecision({mediaDelta: delta});
+      const exito = (randomInt(1, 100) <= 70);
+      if (exito) {
+        player.tieneDietaEstricta = true;
+        player.desgasteFisicoAcumulado = Math.max(0, player.desgasteFisicoAcumulado - 2);
+        ejecutarDecision({mediaDelta: 1});
+      } else {
+        ejecutarDecision({mediaDelta: -1});
+      }
     }
 
     function ejecutarMentor() {
@@ -2160,6 +2593,7 @@
 
     function ejecutarRegeneracion() {
       const delta = (randomInt(1, 100) <= 70) ? 1 : -1;
+      player.desgasteFisicoAcumulado = Math.max(0, player.desgasteFisicoAcumulado - 2);
       ejecutarDecision({mediaDelta: delta});
     }
 
@@ -2167,7 +2601,7 @@
       const totTitulos = player.titulosClub + player.titulosSeleccion;
       const texto = `⚽ HISTORIAL DE CARRERA: ${player.nombre} (#${player.dorsal})
 🌍 Nacionalidad: ${player.nacionalidad}
-🏃 Posición: ${player.posicion} (${player.pieHabil})
+🏃 Posición Prime: ${player.posicionPrime} (${obtenerSiglasPosicion(player.posicionPrime)}) · Media Prime: ${player.mediaPrime}
 📊 Media de retirada: ${player.media} | Edad de retirada: ${player.edad} años
 🏷️ Valor Récord Histórico: €${player.valorMercadoRecord}M
 👕 Partidos de club: ${player.partidosTotales} (⚽ ${player.golesTotales}G | 🅰️ ${player.asistenciasTotales}A)
@@ -2188,7 +2622,7 @@
     function renderFin() {
       const totTitulos = player.titulosClub + player.titulosSeleccion;
       const esAtacante = (player.posicion.includes("Delantero") || player.posicion.includes("Extremo") || player.posicion.includes("Mediapunta"));
-      const esDefensa = (player.posicion.includes("Defensa") || player.posicion.includes("Lateral") || player.posicion === "Pivote Defensivo");
+      const esDefensa = (player.posicion.includes("Defensa") || player.posicion.includes("Lateral") || player.posicion === "Pivote Defensivo" || player.posicion.includes("Carrilero"));
       const esPortero = (player.posicion === "Portero");
 
       let veredicto = "";
@@ -2208,10 +2642,14 @@
       }
 
       const motivoFinal = player.motivoRetirada || `Retiro definitivo tras completar exitosamente tu trayectoria profesional a los ${player.edad} años.`;
+      const cartaUltimateTeamHtml = generarCartaUltimateTeam();
 
       container.innerHTML = `
         <h1>🏆 Fin de la Carrera Profesional: ${player.nombre}</h1>
         <p>A los <strong>${player.edad} años</strong>, cuelgas las botas definitivamente tras disputar <strong>${player.numeroFicha} etapas</strong> en la élite:</p>
+
+        <h3 style="text-align: center; margin-top: 20px;">🃏 Carta Ultimate Team · Momento Prime</h3>
+        ${cartaUltimateTeamHtml}
 
         <div style="background: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; padding: 12px 16px; border-radius: 6px; margin: 15px 0;">
           📌 <strong>Circunstancia del retiro:</strong> ${motivoFinal}
@@ -2220,10 +2658,10 @@
         <div style="background: #1e293b; padding: 20px; border-radius: 8px; margin: 20px 0; line-height: 1.8;">
           <p>• <strong>Nombre:</strong> ${player.nombre} (#${player.dorsal})</p>
           <p>• <strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
-          <p>• <strong>Posición final:</strong> ${player.posicion} | <strong>Pierna:</strong> ${player.pieHabil}</p>
+          <p>• <strong>Posición Prime:</strong> ${player.posicionPrime} (${obtenerSiglasPosicion(player.posicionPrime)}) | <strong>Pierna:</strong> ${player.pieHabil}</p>
+          <p>• <strong>Media máxima (Prime):</strong> <span style="color: #facc15; font-weight: bold;">${player.mediaPrime} / 99</span> (en ${player.clubPrime} a los ${player.edadPrime} años)</p>
           <p>• <strong>Media final de retirada:</strong> ${player.media} / 99</p>
-          <p>• <strong>Edad de despedida:</strong> ${player.edad} años</p>
-          <p>• <strong>Valor de Mercado Récord en tu Prime:</strong> <span style="color: #facc15; font-weight: bold;">€${player.valorMercadoRecord}M</span></p>
+          <p>• <strong>Valor de Mercado Récord:</strong> <span style="color: #facc15; font-weight: bold;">€${player.valorMercadoRecord}M</span></p>
           <p>• <strong>Partidos oficiales en clubes:</strong> ${player.partidosTotales}</p>
           <p>• <strong>Producción ofensiva de club:</strong> ⚽ ${player.golesTotales} goles | 🅰️ ${player.asistenciasTotales} asistencias</p>
           ${esPortero ? `<p>• <strong>Muro bajo palos:</strong> 🧤 ${player.porteriasCeroTotales} porterías a cero | 🧱 ${player.paradasTotales} paradas totales</p>` : ''}
