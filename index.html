@@ -116,7 +116,7 @@
     }
 
     .fut-card {
-      width: 290px;
+      width: 300px;
       background: linear-gradient(160deg, #f3e08f 0%, #d4af37 45%, #aa8218 100%);
       color: #2b2105;
       border-radius: 22px 22px 45px 45px;
@@ -148,9 +148,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 85px;
+      width: 92px;
       border-right: 1px solid rgba(43, 33, 5, 0.2);
-      padding-right: 10px;
+      padding-right: 8px;
     }
 
     .fut-rating {
@@ -164,29 +164,52 @@
       font-size: 1.25rem;
       font-weight: 800;
       margin-top: 2px;
-      padding-bottom: 6px;
+      padding-bottom: 5px;
       border-bottom: 1px solid rgba(43, 33, 5, 0.25);
       width: 100%;
       text-align: center;
     }
 
-    .fut-nation {
-      font-size: 0.78rem;
-      font-weight: 800;
+    .fut-flag {
+      font-size: 1.65rem;
+      line-height: 1.1;
       margin-top: 6px;
-      text-align: center;
-      line-height: 1.2;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
     }
 
-    .fut-club-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      margin-top: 4px;
-      background: rgba(43, 33, 5, 0.12);
-      padding: 2px 6px;
-      border-radius: 4px;
+    .fut-league-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      margin-top: 5px;
+      padding: 2px 5px;
+      border-top: 1px solid rgba(43, 33, 5, 0.2);
+      border-bottom: 1px solid rgba(43, 33, 5, 0.2);
+      width: 100%;
       text-align: center;
-      line-height: 1.2;
+    }
+
+    .fut-club-crest {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .fut-club-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .fut-club-name {
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-top: 2px;
     }
 
     .fut-right-avatar {
@@ -198,10 +221,10 @@
       padding-left: 10px;
     }
 
-    .fut-silhouette {
-      font-size: 4.5rem;
-      line-height: 1;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    .fut-silhouette-svg {
+      width: 115px;
+      height: 115px;
+      filter: drop-shadow(0 5px 8px rgba(0,0,0,0.35));
     }
 
     .fut-prime-tag {
@@ -212,12 +235,12 @@
       color: #facc15;
       padding: 2px 8px;
       border-radius: 10px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     .fut-name {
       text-align: center;
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 900;
       letter-spacing: 1px;
       border-bottom: 2px solid rgba(43, 33, 5, 0.25);
@@ -356,16 +379,6 @@
       color: #f8fafc;
     }
 
-    .cartel-mercado {
-      background: linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(180, 83, 9, 0.3) 100%);
-      border-left: 5px solid #f59e0b;
-      color: #fef08a;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 14px 0;
-      line-height: 1.5;
-    }
-
     .cartel-retiro {
       background: linear-gradient(135deg, rgba(220, 38, 38, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%);
       border-left: 5px solid #ef4444;
@@ -376,50 +389,10 @@
       line-height: 1.5;
     }
 
-    .cartel-clinica {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border-left: 5px solid #06b6d4;
-      color: #cffafe;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 15px 0;
-      line-height: 1.5;
-    }
-
-    .cartel-drama {
-      background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border-left: 5px solid #ec4899;
-      color: #fbcfe8;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 15px 0;
-      line-height: 1.5;
-    }
-
-    .cartel-tactica {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border-left: 5px solid #10b981;
-      color: #a7f3d0;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 15px 0;
-      line-height: 1.5;
-    }
-
     .cartel-forzado {
       background: linear-gradient(135deg, rgba(185, 28, 28, 0.3) 0%, rgba(15, 23, 42, 0.9) 100%);
       border-left: 5px solid #dc2626;
       color: #fca5a5;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 15px 0;
-      line-height: 1.5;
-    }
-
-    .cartel-mister {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border-left: 5px solid #d97706;
-      color: #fde68a;
       border-radius: 8px;
       padding: 14px 16px;
       margin: 15px 0;
@@ -579,14 +552,6 @@
       margin: 12px 0;
     }
 
-    .resurreccion-box {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-      border: 2px solid #818cf8;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 15px 0;
-    }
-
     .premios-box {
       background: linear-gradient(135deg, #451a03 0%, #78350f 100%);
       border: 2px solid #f59e0b;
@@ -600,6 +565,14 @@
   <div id="game-container"></div>
 
   <script>
+    const banderasPaises = {
+      "España": "🇪🇸", "Francia": "🇫🇷", "Alemania": "🇩🇪", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Italia": "🇮🇹", "Argentina": "🇦🇷", "Brasil": "🇧🇷",
+      "Portugal": "🇵🇹", "Países Bajos": "🇳🇱", "Uruguay": "🇺🇾", "Croacia": "🇭🇷", "Bélgica": "🇧🇪", "Colombia": "🇨🇴",
+      "Marruecos": "🇲🇦", "Senegal": "🇸🇳", "México": "🇲🇽", "Estados Unidos": "🇺🇸", "Japón": "🇯🇵", "Chile": "🇨🇱", "Ecuador": "🇪🇨", "Polonia": "🇵🇱", "Turquía": "🇹🇷",
+      "Nigeria": "🇳🇬", "Costa de Marfil": "🇨🇮", "Camerún": "🇨🇲", "Egipto": "🇪🇬", "Ghana": "🇬🇭", "Grecia": "🇬🇷", "Noruega": "🇳🇴", "Corea del Sur": "🇰🇷", "Australia": "🇦🇺", "Paraguay": "🇵🇾", "Perú": "🇵🇪",
+      "Islandia": "🇮🇸", "Bolivia": "🇧🇴", "Venezuela": "🇻🇪", "Costa Rica": "🇨🇷", "Jamaica": "🇯🇲", "Honduras": "🇭🇳", "Panamá": "🇵🇦", "Argelia": "🇩🇿", "Mali": "🇲🇱", "Irán": "🇮🇷", "Catar": "🇶🇦", "Nueva Zelanda": "🇳🇿"
+    };
+
     const tier1 = ["España", "Francia", "Alemania", "Inglaterra", "Italia", "Argentina", "Brasil"];
     const tier2 = ["Portugal", "Países Bajos", "Uruguay", "Croacia", "Bélgica", "Colombia"];
     const tier3 = ["Marruecos", "Senegal", "México", "Estados Unidos", "Japón", "Chile", "Ecuador", "Polonia", "Turquía"];
@@ -623,53 +596,53 @@
       const asia = ["Japón", "Corea del Sur", "Australia", "Irán", "Catar"];
       const concacaf = ["México", "Estados Unidos", "Costa Rica", "Jamaica", "Honduras", "Panamá"];
 
-      if (europa.includes(pais)) return "Eurocopa";
-      if (sudamerica.includes(pais)) return "Copa América";
+      if (europa.includes(pais)) return "UEFA Euro";
+      if (sudamerica.includes(pais)) return "CONMEBOL Copa América";
       if (africa.includes(pais)) return "Copa Africana de Naciones";
-      if (asia.includes(pais)) return "Copa Asiática";
+      if (asia.includes(pais)) return "Copa Asiática de la AFC";
       if (concacaf.includes(pais)) return "Copa Oro de la Concacaf";
       return "Copa de las Naciones de la OFC";
     }
 
+    // Nombres oficiales en su idioma original
     function obtenerTitulosRealesClub(club) {
       const c = club.toLowerCase();
       if (c.includes("madrid") || c.includes("barcelona") || c.includes("athletic") || c.includes("sociedad") || c.includes("valencia") || c.includes("betis") || c.includes("villarreal") || c.includes("girona") || c.includes("celta") || c.includes("sevilla")) {
-        return { liga: "LaLiga EA Sports", copa: "Copa del Rey", supercopa: "Supercopa de España" };
+        return { liga: "La Liga", copa: "Copa del Rey", supercopa: "Supercopa de España", iconoLiga: "🇪🇸" };
       }
       if (c.includes("manchester") || c.includes("liverpool") || c.includes("arsenal") || c.includes("chelsea") || c.includes("tottenham") || c.includes("aston villa") || c.includes("newcastle") || c.includes("west ham") || c.includes("brighton") || c.includes("everton") || c.includes("wolverhampton")) {
-        return { liga: "Premier League", copa: "FA Cup", supercopa: "Community Shield" };
+        return { liga: "Premier League", copa: "FA Cup", supercopa: "FA Community Shield", iconoLiga: "🦁" };
       }
       if (c.includes("milan") || c.includes("inter") || c.includes("juventus") || c.includes("atalanta") || c.includes("roma") || c.includes("napoli") || c.includes("fiorentina") || c.includes("lazio")) {
-        return { liga: "Serie A (Scudetto)", copa: "Coppa Italia", supercopa: "Supercoppa Italiana" };
+        return { liga: "Serie A", copa: "Coppa Italia", supercopa: "Supercoppa Italiana", iconoLiga: "🇮🇹" };
       }
       if (c.includes("bayern") || c.includes("dortmund") || c.includes("leverkusen") || c.includes("frankfurt") || c.includes("stuttgart") || c.includes("leipzig")) {
-        return { liga: "Bundesliga", copa: "DFB-Pokal", supercopa: "DFL-Supercup" };
+        return { liga: "Bundesliga", copa: "DFB-Pokal", supercopa: "DFL-Supercup", iconoLiga: "🇩🇪" };
       }
       if (c.includes("paris") || c.includes("lyon") || c.includes("mónaco") || c.includes("lille")) {
-        return { liga: "Ligue 1", copa: "Coupe de France", supercopa: "Trophée des Champions" };
+        return { liga: "Ligue 1", copa: "Coupe de France", supercopa: "Trophée des Champions", iconoLiga: "🇫🇷" };
       }
       if (c.includes("benfica") || c.includes("sporting") || c.includes("porto")) {
-        return { liga: "Liga Portugal", copa: "Taça de Portugal", supercopa: "Supertaça Cândido de Oliveira" };
+        return { liga: "Primeira Liga", copa: "Taça de Portugal", supercopa: "Supertaça Cândido de Oliveira", iconoLiga: "🇵🇹" };
       }
       if (c.includes("ajax") || c.includes("psv") || c.includes("feyenoord")) {
-        return { liga: "Eredivisie", copa: "KNVB Beker", supercopa: "Johan Cruyff Shield" };
+        return { liga: "Eredivisie", copa: "KNVB Beker", supercopa: "Johan Cruijff Schaal", iconoLiga: "🇳🇱" };
       }
       if (c.includes("river") || c.includes("boca")) {
-        return { liga: "Liga Profesional Argentina", copa: "Copa Argentina", supercopa: "Supercopa Argentina" };
+        return { liga: "Liga Profesional de Fútbol", copa: "Copa Argentina", supercopa: "Supercopa Argentina", iconoLiga: "🇦🇷" };
       }
       if (c.includes("santos") || c.includes("flamengo")) {
-        return { liga: "Brasileirão", copa: "Copa do Brasil", supercopa: "Supercopa do Brasil" };
+        return { liga: "Campeonato Brasileiro Série A", copa: "Copa do Brasil", supercopa: "Supercopa Rei", iconoLiga: "🇧🇷" };
       }
       if (c.includes("al-hilal") || c.includes("al-nassr")) {
-        return { liga: "Saudi Pro League", copa: "Copa del Rey de Campeones", supercopa: "Supercopa Saudí" };
+        return { liga: "Roshn Saudi League", copa: "King's Cup", supercopa: "Saudi Super Cup", iconoLiga: "🇸🇦" };
       }
       if (c.includes("miami") || c.includes("galaxy")) {
-        return { liga: "MLS Cup", copa: "US Open Cup", supercopa: "Supporters' Shield" };
+        return { liga: "Major League Soccer", copa: "U.S. Open Cup", supercopa: "Supporters' Shield", iconoLiga: "🇺🇸" };
       }
-      return { liga: "J1 League", copa: "Copa del Emperador", supercopa: "Supercopa de Japón" };
+      return { liga: "J1 League", copa: "Emperor's Cup", supercopa: "Japanese Super Cup", iconoLiga: "🇯🇵" };
     }
 
-    // Catálogo ampliado de posiciones
     const listaPosiciones = [
       "Delantero Centro", "Segundo Delantero", "Extremo Izquierdo", "Extremo Derecho",
       "Mediapunta", "Centrocampista", "Pivote Defensivo",
@@ -731,8 +704,8 @@
     const clubesExoticos = ["Al-Hilal", "Al-Nassr", "Inter Miami", "LA Galaxy", "Vissel Kobe"];
 
     let player = {
-      nombre: "Álex Navarro",
-      dorsal: 10,
+      nombre: "Ángel Di María",
+      dorsal: 11,
       nacionalidad: "",
       posicion: "",
       pieHabil: "",
@@ -945,18 +918,18 @@
 
       if (ganoTorneo) {
         faseAlcanzada = "🏆 CAMPEÓN ABSOLUTO";
-        partidosTorneo = nombreTorneo.includes("Mundial") ? 7 : 6;
+        partidosTorneo = nombreTorneo.includes("World Cup") ? 7 : 6;
       } else {
         const poderGlobal = player.media + (6 - tInfo.tier) * 3 + randomInt(-8, 12);
         if (poderGlobal >= 102) {
           faseAlcanzada = "🥈 Subcampeón (Eliminados en la Gran Final)";
-          partidosTorneo = nombreTorneo.includes("Mundial") ? 7 : 6;
+          partidosTorneo = nombreTorneo.includes("World Cup") ? 7 : 6;
         } else if (poderGlobal >= 95) {
           faseAlcanzada = "🥉 Semifinalistas (Caída honrosa a un paso de la final)";
-          partidosTorneo = nombreTorneo.includes("Mundial") ? 6 : 5;
+          partidosTorneo = nombreTorneo.includes("World Cup") ? 6 : 5;
         } else if (poderGlobal >= 88) {
           faseAlcanzada = "📊 Cuartos de Final";
-          partidosTorneo = nombreTorneo.includes("Mundial") ? 5 : 4;
+          partidosTorneo = nombreTorneo.includes("World Cup") ? 5 : 4;
         } else if (poderGlobal >= 81) {
           faseAlcanzada = "⚔️ Octavos de Final";
           partidosTorneo = 4;
@@ -1039,13 +1012,22 @@
       `;
     }
 
+    // Extraer apellido completo (soporta apellidos compuestos como "Di María", "De Bruyne", "Van Dijk")
+    function obtenerApellidoCompleto(nombreCompleto) {
+      const partes = nombreCompleto.trim().split(/\s+/);
+      if (partes.length <= 1) return nombreCompleto.toUpperCase();
+      return partes.slice(1).join(" ").toUpperCase();
+    }
+
     // Generador de Carta FIFA Ultimate Team en tu Prime
     function generarCartaUltimateTeam() {
       const ovr = player.mediaPrime;
       const pos = player.posicionPrime || player.posicion;
       const siglasPos = obtenerSiglasPosicion(pos);
       const club = player.clubPrime || player.club;
-      const apellido = player.nombre.split(" ").pop().toUpperCase();
+      const infoLigaClub = obtenerTitulosRealesClub(club);
+      const bandera = banderasPaises[player.nacionalidad] || "🏳️";
+      const apellidoCompleto = obtenerApellidoCompleto(player.nombre);
       const esIcono = ovr >= 90;
 
       const clamp = (val) => Math.min(99, Math.max(35, Math.round(val)));
@@ -1108,7 +1090,7 @@
         s4 = { lbl: "REG", val: clamp(ovr + randomInt(-2, 3)) };
         s5 = { lbl: "DEF", val: clamp(ovr + randomInt(-2, 3)) };
         s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(-2, 3)) };
-      } else { // Defensa Central
+      } else {
         s1 = { lbl: "RIT", val: clamp(ovr - randomInt(8, 16)) };
         s2 = { lbl: "TIR", val: clamp(ovr - randomInt(28, 38)) };
         s3 = { lbl: "PAS", val: clamp(ovr - randomInt(12, 20)) };
@@ -1117,7 +1099,25 @@
         s6 = { lbl: "FÍS", val: clamp(ovr + randomInt(1, 5)) };
       }
 
-      const iconoAvatar = pos === "Portero" ? "🧤" : "⚽";
+      // Silueta SVG limpia de futbolista profesional
+      const siluetaFutbolistaSVG = `
+        <svg class="fut-silhouette-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="silGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b2d0b;stop-opacity:0.95" />
+              <stop offset="100%" style="stop-color:#1a1303;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <!-- Cabeza -->
+          <circle cx="60" cy="34" r="18" fill="url(#silGrad)" />
+          <!-- Cuello -->
+          <rect x="52" y="50" width="16" height="12" fill="url(#silGrad)" />
+          <!-- Hombros y camiseta -->
+          <path d="M22,112 C22,82 36,64 52,62 L68,62 C84,64 98,82 98,112 Z" fill="url(#silGrad)" />
+          <!-- Cuello de camiseta -->
+          <path d="M48,62 Q60,74 72,62" fill="none" stroke="#f3e08f" stroke-width="2.5" />
+        </svg>
+      `;
 
       return `
         <div class="fut-card-wrapper">
@@ -1126,15 +1126,22 @@
               <div class="fut-left-col">
                 <div class="fut-rating">${ovr}</div>
                 <div class="fut-pos">${siglasPos}</div>
-                <div class="fut-nation">${player.nacionalidad}</div>
-                <div class="fut-club-badge">${club}</div>
+                <div class="fut-flag" title="${player.nacionalidad}">${bandera}</div>
+                <div class="fut-league-badge" title="${infoLigaClub.liga}">
+                  <span>${infoLigaClub.iconoLiga}</span>
+                  <span>${infoLigaClub.liga}</span>
+                </div>
+                <div class="fut-club-crest">
+                  <span class="fut-club-icon">🛡️</span>
+                  <span class="fut-club-name">${club}</span>
+                </div>
               </div>
               <div class="fut-right-avatar">
-                <div class="fut-silhouette">${iconoAvatar}</div>
+                ${siluetaFutbolistaSVG}
                 <div class="fut-prime-tag">PRIME · ${player.edadPrime} AÑOS</div>
               </div>
             </div>
-            <div class="fut-name">${apellido}</div>
+            <div class="fut-name">${apellidoCompleto}</div>
             <div class="fut-stats-grid">
               <div class="fut-stat-row"><span class="fut-stat-val">${s1.val}</span><span class="fut-stat-lbl">${s1.lbl}</span></div>
               <div class="fut-stat-row"><span class="fut-stat-val">${s4.val}</span><span class="fut-stat-lbl">${s4.lbl}</span></div>
@@ -1155,7 +1162,7 @@
       container.innerHTML = `
         <h1>⚽ FICHAS: CARRERA DE FÚTBOL</h1>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">De Promesa Juvenil a Leyenda del Deporte Rey</p>
-        <p>Vive una trayectoria completa con posiciones especializadas, nombres oficiales de cada trofeo, desgaste acumulado realista y tu propia carta Ultimate Team en tu Prime al retirarte.</p>
+        <p>Vive una trayectoria realista con los nombres oficiales de cada competición en su idioma original, desgaste invisible acumulado, crónicas internacionales detalladas y tu propia carta Ultimate Team Prime al retirarte.</p>
         <hr>
         <h3>Selecciona el Modo de Juego:</h3>
         <div class="lista-opciones">
@@ -1185,7 +1192,7 @@
         <div class="lista-opciones">
           ${opciones.map(p => `
             <button class="btn-opcion" onclick="elegirNacionalidad('${p}')">
-              Nacer en <strong>${p}</strong>
+              ${banderasPaises[p] || ''} Nacer en <strong>${p}</strong>
             </button>
           `).join('')}
         </div>
@@ -1201,7 +1208,7 @@
       const opciones = pickDistinct(listaPosiciones, 3);
       container.innerHTML = `
         <h3>🏃 Paso 2: Posición en el Campo</h3>
-        <p><strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
+        <p><strong>Nacionalidad:</strong> ${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad}</p>
         <p>¿Cuál es tu rol natural sobre el terreno de juego?</p>
         <div class="lista-opciones">
           ${opciones.map(pos => `<button class="btn-opcion" onclick="elegirPosicion('${pos}')">Jugar de <strong>${pos}</strong> (${obtenerSiglasPosicion(pos)})</button>`).join('')}
@@ -1217,7 +1224,7 @@
     function renderPie() {
       container.innerHTML = `
         <h3>👟 Paso 3: Perfil y Pierna Hábil</h3>
-        <p><strong>Nacionalidad:</strong> ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)})</p>
+        <p><strong>Nacionalidad:</strong> ${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)})</p>
         <div class="lista-opciones">
           <button class="btn-opcion" onclick="elegirPie('Diestro')">Pierna derecha (Diestro)</button>
           <button class="btn-opcion" onclick="elegirPie('Zurdo')">Pierna izquierda (Zurdo)</button>
@@ -1235,8 +1242,8 @@
       const defDorsal = randomInt(1, 99);
       container.innerHTML = `
         <h3>✍️ Paso 4: Identidad y Dorsal</h3>
-        <p><strong>Nacionalidad:</strong> ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion} | <strong>Pierna:</strong> ${player.pieHabil}</p>
-        <label>Nombre de futbolista:</label>
+        <p><strong>Nacionalidad:</strong> ${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad} | <strong>Posición:</strong> ${player.posicion} | <strong>Pierna:</strong> ${player.pieHabil}</p>
+        <label>Nombre completo de futbolista (ej. Ángel Di María):</label>
         <input type="text" id="inputNombre" value="Álex Navarro">
         <label>Dorsal predilecto:</label>
         <input type="text" id="inputDorsal" value="${defDorsal}">
@@ -1282,7 +1289,7 @@
         <h3>📋 Ficha Inicial Oficial: Inicio de Carrera</h3>
         <div style="background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; margin: 15px 0; line-height: 1.8;">
           <p><strong>Nombre:</strong> ${player.nombre} (#${player.dorsal})</p>
-          <p><strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
+          <p><strong>Nacionalidad:</strong> ${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad}</p>
           <p><strong>Posición:</strong> ${player.posicion} (${obtenerSiglasPosicion(player.posicion)}) | <strong>Pierna:</strong> ${player.pieHabil}</p>
           <p><strong>Club inicial:</strong> ${player.club}</p>
           <p><strong>Edad inicial:</strong> 17 años</p>
@@ -1440,7 +1447,7 @@
           if (randomInt(1, 100) <= 55) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 65) {
-            nuevosTitulos.push("Supercopa de la UEFA");
+            nuevosTitulos.push("UEFA Super Cup");
           }
         }
 
@@ -1535,7 +1542,7 @@
           if (randomInt(1, 100) <= 40) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 55) {
-            nuevosTitulos.push("Supercopa de la UEFA");
+            nuevosTitulos.push("UEFA Super Cup");
           }
         }
 
@@ -1619,7 +1626,7 @@
           if (randomInt(1, 100) <= 30) nuevosTitulos.push(nombresTrofeosClub.copa);
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 50) {
-            nuevosTitulos.push("Supercopa de la UEFA");
+            nuevosTitulos.push("UEFA Super Cup");
           }
         }
 
@@ -1703,7 +1710,7 @@
           }
 
           if ((ganoUclEstaTemp || ganoUelEstaTemp) && randomInt(1, 100) <= 45) {
-            nuevosTitulos.push("Supercopa de la UEFA");
+            nuevosTitulos.push("UEFA Super Cup");
           }
         }
       }
@@ -1998,9 +2005,9 @@
           if (ganoMundial) {
             player.titulosSeleccion += 1;
             player.mundialesGanados += 1;
-            player.listaTitulos.push(`🌍 Copa Mundial de la FIFA (${player.nacionalidad})`);
+            player.listaTitulos.push(`🌍 FIFA World Cup (${player.nacionalidad})`);
           }
-          htmlCronicaTorneo = generarCronicaTorneoSeleccion("Copa Mundial de la FIFA", ganoMundial, esAtacante, esMedio, esDefensa, esPortero);
+          htmlCronicaTorneo = generarCronicaTorneoSeleccion("FIFA World Cup", ganoMundial, esAtacante, esMedio, esDefensa, esPortero);
         } else {
           const partSel = Math.round(randomInt(4, 8) * factorEscala) || 2;
           const golSel = esAtacante ? randomInt(1, 3) : (esMedio ? randomInt(0, 1) : 0);
@@ -2056,7 +2063,7 @@
       if (cumpleRendimientoBalon && randomInt(1, 100) <= 60) {
         ganoBalonOro = true;
         player.balonesDeOro += 1;
-        player.listaPremiosIndiv.push(`🟡 Balón de Oro (Edad: ${player.edad} años - ${player.posicion})`);
+        player.listaPremiosIndiv.push(`🟡 Ballon d'Or (Edad: ${player.edad} años - ${player.posicion})`);
       }
 
       const reqBotaOro = (player.modoJuego === 22) ? 23 : 42;
@@ -2065,11 +2072,11 @@
       if (esAtacante && goles >= reqBotaOro && randomInt(1, 100) <= 45) {
         ganoBotaOro = true;
         player.botasDeOro += 1;
-        player.listaPremiosIndiv.push(`👟 Bota de Oro Europea (Edad: ${player.edad} años - ${goles} goles)`);
+        player.listaPremiosIndiv.push(`👟 European Golden Shoe (Edad: ${player.edad} años - ${goles} goles)`);
       } else if (player.posicion === "Portero" && porteriasCero >= reqGuanteOro && randomInt(1, 100) <= 50) {
         ganoGuanteOro = true;
         player.guantesDeOro += 1;
-        player.listaPremiosIndiv.push(`🧤 Guante de Oro Mundial (Edad: ${player.edad} años)`);
+        player.listaPremiosIndiv.push(`🧤 Yashin Trophy (Edad: ${player.edad} años)`);
       }
 
       if (!ganoBalonOro && (player.media >= 85) && randomInt(1, 100) <= 60) {
@@ -2081,10 +2088,10 @@
         htmlPremios = `
           <div class="premios-box">
             <div style="color: #facc15; font-weight: bold; margin-bottom: 6px;">GALA INTERNACIONAL: PREMIOS Y DISTINCIONES</div>
-            ${ganoBalonOro ? `<p style="margin: 4px 0; color: #fef08a;">🟡 <strong>¡¡BALÓN DE ORO!!</strong> Declarado oficialmente el mejor futbolista del planeta jugando de ${player.posicion}.</p>` : ''}
-            ${ganoBotaOro ? `<p style="margin: 4px 0;">👟 <strong>¡BOTA DE ORO CONTINENTAL!</strong> Máximo artillero de toda Europa.</p>` : ''}
-            ${ganoGuanteOro ? `<p style="margin: 4px 0;">🧤 <strong>¡GUANTE DE ORO!</strong> Mejor guardameta del mundo.</p>` : ''}
-            ${ganoOnceIdeal ? `<p style="margin: 4px 0; opacity: 0.9;">⭐ Elegido en el <strong>Once Ideal Mundial FIFPRO</strong>.</p>` : ''}
+            ${ganoBalonOro ? `<p style="margin: 4px 0; color: #fef08a;">🟡 <strong>¡¡BALLON D'OR!!</strong> Declarado oficialmente el mejor futbolista del planeta jugando de ${player.posicion}.</p>` : ''}
+            ${ganoBotaOro ? `<p style="margin: 4px 0;">👟 <strong>¡EUROPEAN GOLDEN SHOE!</strong> Máximo artillero de toda Europa.</p>` : ''}
+            ${ganoGuanteOro ? `<p style="margin: 4px 0;">🧤 <strong>¡YASHIN TROPHY!</strong> Mejor guardameta del mundo.</p>` : ''}
+            ${ganoOnceIdeal ? `<p style="margin: 4px 0; opacity: 0.9;">⭐ Elegido en el <strong>FIFPRO World 11</strong>.</p>` : ''}
           </div>
         `;
       }
@@ -2127,7 +2134,7 @@
         ${htmlTitulos}
 
         <hr>
-        <h3>🌍 Selección Nacional (${player.nacionalidad})</h3>
+        <h3>🌍 Selección Nacional (${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad})</h3>
         ${htmlSeleccion}
 
         <hr>
@@ -2246,7 +2253,7 @@
         htmlOfertaTitan = `
           <div style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%); border-left: 5px solid #38bdf8; padding: 14px; margin: 15px 0;">
             👑 <strong>¡UN TITÁN DE EUROPA PRESENTA OFERTA FORMAL!</strong><br>
-            El <strong>${titan}</strong> ha seguido tus hazañas y considera que tu media de <strong>${player.media}</strong> te hace apto para luchar por la Champions League.
+            El <strong>${titan}</strong> ha seguido tus hazañas y considera que tu media de <strong>${player.media}</strong> te hace apto para luchar por la UEFA Champions League.
           </div>
           <div class="oferta-card">
             <div class="oferta-header">🏛️ Oferta de Traspaso: ${titan}</div>
@@ -2265,7 +2272,7 @@
       const todasLasGuerras = [
         { titulo: "🇮🇹 ¡GUERRA EN LA SERIE A ITALIANA!", clubA: "AC Milan", clubB: "Juventus", descA: "La mística de San Siro", descB: "Luchar por todos los títulos" },
         { titulo: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ¡DUELO POR EL CONTROL DE LA PREMIER LEAGUE!", clubA: "Manchester City", clubB: "Arsenal FC", descA: "Fútbol total y plantilla galáctica", descB: "Liderar a los Gunners a la gloria" },
-        { titulo: "🇪🇸 ¡TERREMOTO EN ESPAÑA: EL CLÁSICO A TUS PIES!", clubA: "Real Madrid", clubB: "FC Barcelona", descA: "El rey de Europa y asalto al Balón de Oro", descB: "El estilo legendario y liderar el proyecto" },
+        { titulo: "🇪🇸 ¡TERREMOTO EN ESPAÑA: EL CLÁSICO A TUS PIES!", clubA: "Real Madrid", clubB: "FC Barcelona", descA: "El rey de Europa y asalto al Ballon d'Or", descB: "El estilo legendario y liderar el proyecto" },
         { titulo: "⚔️ ¡PULSO DE COLOSOS EUROPEOS!", clubA: "Paris Saint-Germain", clubB: "Bayern Múnich", descA: "Proyecto estelar y reinado en París", descB: "La implacable máquina competitiva bávara" },
         { titulo: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ¡BATALLA HISTÓRICA EN EL FÚTBOL INGLÉS!", clubA: "Liverpool FC", clubB: "Manchester United", descA: "Vibrar con la pasión de Anfield Road", descB: "Resucitar la grandeza del Teatro de los Sueños" },
         { titulo: "🇩🇪 ¡DER KLASSIKER POR TU FICHAJE!", clubA: "Borussia Dortmund", clubB: "Bayern Múnich", descA: "El Muro Amarillo y pasión desenfrenada", descB: "Hegemonía y títulos garantizados" },
@@ -2380,7 +2387,7 @@
           <div class="oferta-card">
             <div class="oferta-header">🏛️ Oferta de ${detA.club}</div>
             <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${detA.duracion} temporadas<br>
+              • <strong>Duración:</strong> ${detA.duracion} temporada(s)<br>
               • <strong>Sueldo:</strong> €${detA.sueldo}M/año | <strong>Prima:</strong> €${detA.prima}M<br>
               • <strong>Cláusula:</strong> €${detA.clausula}M | <strong>Rol:</strong> ${detA.rol}
             </div>
@@ -2390,7 +2397,7 @@
           <div class="oferta-card">
             <div class="oferta-header">🏛️ Oferta de ${detB.club}</div>
             <div class="oferta-detalles">
-              • <strong>Duración:</strong> ${detB.duracion} temporadas<br>
+              • <strong>Duración:</strong> ${detB.duracion} temporada(s)<br>
               • <strong>Sueldo:</strong> €${detB.sueldo}M/año | <strong>Prima:</strong> €${detB.prima}M<br>
               • <strong>Cláusula:</strong> €${detB.clausula}M | <strong>Rol:</strong> ${detB.rol}
             </div>
@@ -2409,7 +2416,7 @@
             <div class="oferta-card">
               <div class="oferta-header">🏛️ Contrato ofrecido por ${detInt.club}</div>
               <div class="oferta-detalles">
-                • <strong>Duración:</strong> ${detInt.duracion} temporadas<br>
+                • <strong>Duración:</strong> ${detInt.duracion} temporada(s)<br>
                 • <strong>Sueldo:</strong> €${detInt.sueldo}M/año | <strong>Prima:</strong> €${detInt.prima}M<br>
                 • <strong>Cláusula:</strong> €${detInt.clausula}M | <strong>Rol:</strong> ${detInt.rol}
               </div>
@@ -2607,7 +2614,7 @@
 👕 Partidos de club: ${player.partidosTotales} (⚽ ${player.golesTotales}G | 🅰️ ${player.asistenciasTotales}A)
 🔵 Internacional: ${player.partidosSeleccion} partidos (${player.golesSeleccion}G | 🅰️ ${player.asistenciasSeleccion}A)
 🏆 Títulos Colectivos: ${totTitulos} (Club: ${player.titulosClub} | Selección: ${player.titulosSeleccion} [${player.mundialesGanados} Mundiales, ${player.continentalesGanados} Copas Continentales])
-🟡 Balones de Oro: ${player.balonesDeOro} | 👟 Botas de Oro: ${player.botasDeOro}
+🟡 Ballon d'Or: ${player.balonesDeOro} | 👟 European Golden Shoe: ${player.botasDeOro}
 🎖️ Estatus: ${veredictoLimpio}
 🛑 Motivo de Retirada: ${player.motivoRetirada || 'Retiro natural al concluir tu ciclo profesional'}
 🎮 Modo jugado: ${player.modoJuego === 22 ? '22 Fichas (Anual)' : '11 Fichas (Bianual)'} en Fichas: Carrera de Fútbol`;
@@ -2629,7 +2636,7 @@
       let veredictoTexto = "";
       if (player.balonesDeOro >= 2) {
         veredictoTexto = "EL MAYOR DE TODOS LOS TIEMPOS (G.O.A.T.)";
-        veredicto = "🐐 <strong>EL MAYOR DE TODOS LOS TIEMPOS (G.O.A.T.):</strong> Múltiples Balones de Oro te colocan en el Olimpo absoluto del fútbol junto a los más grandes de la historia.";
+        veredicto = "🐐 <strong>EL MAYOR DE TODOS LOS TIEMPOS (G.O.A.T.):</strong> Múltiples Ballon d'Or te colocan en el Olimpo absoluto del fútbol junto a los más grandes de la historia.";
       } else if (player.balonesDeOro === 1 || player.botasDeOro >= 2 || player.guantesDeOro >= 1 || player.pichichisMundial >= 1) {
         veredictoTexto = "ESTRELLA GENERACIONAL";
         veredicto = "👑 <strong>ESTRELLA GENERACIONAL:</strong> Alcanzaste la cima del planeta y fuiste el líder absoluto de tu época dorada.";
@@ -2657,7 +2664,7 @@
 
         <div style="background: #1e293b; padding: 20px; border-radius: 8px; margin: 20px 0; line-height: 1.8;">
           <p>• <strong>Nombre:</strong> ${player.nombre} (#${player.dorsal})</p>
-          <p>• <strong>Nacionalidad:</strong> ${player.nacionalidad}</p>
+          <p>• <strong>Nacionalidad:</strong> ${banderasPaises[player.nacionalidad] || ''} ${player.nacionalidad}</p>
           <p>• <strong>Posición Prime:</strong> ${player.posicionPrime} (${obtenerSiglasPosicion(player.posicionPrime)}) | <strong>Pierna:</strong> ${player.pieHabil}</p>
           <p>• <strong>Media máxima (Prime):</strong> <span style="color: #facc15; font-weight: bold;">${player.mediaPrime} / 99</span> (en ${player.clubPrime} a los ${player.edadPrime} años)</p>
           <p>• <strong>Media final de retirada:</strong> ${player.media} / 99</p>
@@ -2668,9 +2675,9 @@
           ${esDefensa ? `<p>• <strong>Rendimiento defensivo:</strong> 🛡️ ${player.recuperacionesTotales} recuperaciones/entradas | 🧤 ${player.porteriasCeroTotales} porterías a cero</p>` : ''}
           ${(!esPortero && !esDefensa) ? `<p>• <strong>Creación y desborde:</strong> 🔑 ${player.pasesClaveTotales} pases clave | ⚡ ${player.regatesTotales} regates | 🎯 ${player.pasesCompletadosTotales} pases completados</p>` : ''}
           <p>• <strong>Internacional con ${player.nacionalidad}:</strong> ${player.partidosSeleccion} partidos (${player.golesSeleccion} goles, ${player.asistenciasSeleccion} asistencias)${player.retiradoSeleccion ? ' <em>(Retirado de selección a los 30+ años)</em>' : ''}</p>
-          <p>• <strong>Total de Títulos Colectivos:</strong> ${totTitulos} (Club: ${player.titulosClub} | Selección: ${player.titulosSeleccion} [${player.mundialesGanados} Copas del Mundo, ${player.continentalesGanados} Torneos Continentales])</p>
-          <p>• <strong>Distinciones individuales:</strong> 🟡 ${player.balonesDeOro} Balones de Oro | 👟 ${player.botasDeOro} Botas de Oro | 🧤 ${player.guantesDeOro} Guantes de Oro | ⭐ ${player.vecesOnceIdeal} Once Ideal FIFPRO</p>
-          ${esAtacante ? `<p>• <strong>Trofeos de Máximo Goleador:</strong> ⚽ ${player.pichichisLiga} Pichichis de Liga | ⚽ ${player.pichichisChampions} Goleador de Champions | ⚽ ${player.pichichisMundial} Botas de Oro en Mundiales</p>` : ''}
+          <p>• <strong>Total de Títulos Colectivos:</strong> ${totTitulos} (Club: ${player.titulosClub} | Selección: ${player.titulosSeleccion} [${player.mundialesGanados} FIFA World Cup, ${player.continentalesGanados} Torneos Continentales])</p>
+          <p>• <strong>Distinciones individuales:</strong> 🟡 ${player.balonesDeOro} Ballon d'Or | 👟 ${player.botasDeOro} European Golden Shoe | 🧤 ${player.guantesDeOro} Yashin Trophy | ⭐ ${player.vecesOnceIdeal} FIFPRO World 11</p>
+          ${esAtacante ? `<p>• <strong>Trofeos de Máximo Goleador:</strong> ⚽ ${player.pichichisLiga} Ligas | ⚽ ${player.pichichisChampions} UEFA Champions League | ⚽ ${player.pichichisMundial} FIFA World Cup</p>` : ''}
         </div>
 
         <h3>🏅 Vitrina de Títulos Colectivos:</h3>
